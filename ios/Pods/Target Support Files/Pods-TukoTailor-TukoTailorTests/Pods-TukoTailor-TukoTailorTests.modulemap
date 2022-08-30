@@ -1,0 +1,6 @@
+module Pods_TukoTailor_TukoTailorTests {
+  umbrella header "Pods-TukoTailor-TukoTailorTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
