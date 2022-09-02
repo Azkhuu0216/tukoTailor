@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "149692741948",
+    "project_id": "tukotailor-d603c",
+    "storage_bucket": "tukotailor-d603c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149692741948:android:da514669c3c5169d1ec639",
+        "android_client_info": {
+          "package_name": "com.mgl.tukotailor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149692741948-nccvfg8es2iggeo2mpcii3fh69fduvb2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCenvIZKV2NR8yPdLpiBQ6Z0GcA8IejfdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149692741948-nccvfg8es2iggeo2mpcii3fh69fduvb2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "149692741948-33n1plf1rna2eajg0qgqt8a7gu8oks11.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mgl.tukotailor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

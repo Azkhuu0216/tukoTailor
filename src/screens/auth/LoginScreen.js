@@ -15,9 +15,8 @@ import FormButton from "../../components/FormButton";
 import { AuthContext } from "../../provider/AuthProvider.ios";
 import * as Animatable from "react-native-animatable";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import * as CONSTANT from "../../styles/local";
 import * as Constant from "../../styles/globalStyles";
-
+import CONSTANT from "../../styles/local";
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -146,7 +145,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "500",
     color: Constant.blueColor,
-    fontFamily: "SourceSansPro-Regular",
+    // fontFamily: "SourceSansPro-Regular",
   },
   login_logo: {
     height: 300,
@@ -182,6 +181,6 @@ const styles = StyleSheet.create({
     color: Constant.whiteColor,
     fontSize: 18,
     fontWeight: "500",
-    fontFamily: "SourceSansPro-Regular",
+    // fontFamily: "SourceSansPro-Regular",
   },
 });

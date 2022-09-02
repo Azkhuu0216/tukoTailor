@@ -9,67 +9,64 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator, StackView } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import AntIcon from "react-native-vector-icons/AntDesign";
+import Feather from "react-native-vector-icons/Feather";
 import firestore from "@react-native-firebase/firestore";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import * as CONSTANT from "../styles/local";
+import CONSTANT from "../styles/local";
 import { AuthContext } from "../provider/AuthProvider.ios";
-import Categories from "./order/Categories";
 import Profile from "./profile/Profile";
 import Contact from "./contact/Contact";
-import OrderHistory from "./order/OrderHistory";
 import settings from "./settings/settings";
-import OrderAdd from "./order/OrderAdd";
 import ProfileDetail from "./contact/ProfileDetail";
+import * as Constant from "../styles/globalStyles";
+import { AddCategories, Categories, OrderAdd, OrderHistory } from "./order";
+import Settings from "./settings/settings";
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 
 const TabStack = ({ navigation }) => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name={CONSTANT.AppStackCategories}
+        // name={CONSTANT.AppStackCategories}
+        name="Захиалга" // Нэрийг сольсон.
         component={Categories}
         options={{
           tabBarIcon: (props) => (
-            <AntIcon name="barschart" size={18} color={Constant.primaryColor} />
+            <Feather name="home" size={24} color={Constant.primaryColor} />
           ),
         }}
       />
       <Tab.Screen
-        name={CONSTANT.AppStackProfile}
-        component={Profile}
-        options={{
-          tabBarIcon: (props) => (
-            <AntIcon name="profile" size={18} color={Constant.primaryColor} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name={CONSTANT.AppStackCart}
-        component={Contact}
-        options={{
-          tabBarIcon: (props) => (
-            <AntIcon
-              name="shoppingcart"
-              size={18}
-              color={Constant.primaryColor}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name={CONSTANT.AppStackHistory}
+        // name={CONSTANT.AppStackProfile}
+        name="Хайлт"
         component={OrderHistory}
         options={{
           tabBarIcon: (props) => (
-            <MaterialCommunityIcons
-              name="history"
-              size={18}
-              color={Constant.primaryColor}
-            />
+            <AntIcon name="search1" size={24} color={Constant.primaryColor} />
+          ),
+          tabBarLabel: "Хайлт",
+        }}
+      />
+      <Tab.Screen
+        // name={CONSTANT.AppStackCart}
+        name="Холбоо"
+        component={Contact}
+        options={{
+          tabBarIcon: (props) => (
+            <Feather name="users" size={24} color={Constant.primaryColor} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        // name={CONSTANT.AppStackHistory}
+        name="Пропайл"
+        component={Profile}
+        options={{
+          tabBarIcon: (props) => (
+            <Feather name="user" size={24} color={Constant.primaryColor} />
           ),
         }}
       />
@@ -143,7 +140,7 @@ const AppStack = () => {
         />
         <Stack.Screen
           name="settings"
-          component={settings}
+          component={Settings}
           options={{
             headerShown: false,
           }}

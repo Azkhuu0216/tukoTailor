@@ -4,7 +4,7 @@ import auth from "@react-native-firebase/auth";
 // import { GoogleSignin } from "@react-native-community/google-signin";
 import { LoginManager, AccessToken } from "react-native-fbsdk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as CONSTANT from "../styles/local";
+import CONSTANT from "../styles/local";
 import firestore from "@react-native-firebase/firestore";
 
 export const AuthContext = createContext();

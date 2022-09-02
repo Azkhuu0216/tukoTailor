@@ -14,7 +14,7 @@ import * as CONSTANT from "../../styles/local";
 import MainHeader from "../../components/MainHeader";
 import * as Constant from "../../styles/globalStyles";
 
-const forgetPassword = ({ navigation }) => {
+const ForgetPassword = ({ navigation }) => {
   const [email, setEmail] = useState();
   const { resetPassword } = useContext(AuthContext);
 
@@ -52,7 +52,7 @@ const forgetPassword = ({ navigation }) => {
   );
 };
 
-export default forgetPassword;
+export default ForgetPassword;
 
 const styles = StyleSheet.create({
   container: {
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     color: Constant.whiteColor,
     fontSize: 18,
     fontWeight: "500",
-    fontFamily: "SourceSansPro-Regular",
+    // fontFamily: "SourceSansPro-Regular",
   },
   textPrivate: {
     flexDirection: "row",

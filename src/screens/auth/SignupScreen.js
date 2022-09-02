@@ -14,7 +14,7 @@ import {
 import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
 import { AuthContext } from "../../provider/AuthProvider.ios";
-import * as CONSTANT from "../../styles/local";
+import CONSTANT from "../../styles/local";
 import * as Constant from "../../styles/globalStyles";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import { windowHeight, windowWidth } from "../../utils/Dimentions";
@@ -50,8 +50,7 @@ const SignupScreen = ({ navigation }) => {
       address != "" &&
       email != "" &&
       password != "" &&
-      confirmPassword != "" &&
-      gender != ""
+      confirmPassword != ""
     ) {
       setSpinner(true);
 
@@ -385,7 +384,7 @@ const styles = StyleSheet.create({
     color: Constant.whiteColor,
     fontSize: 18,
     fontWeight: "500",
-    fontFamily: "SourceSansPro-Regular",
+    // fontFamily: "SourceSansPro-Regular",
   },
   textPrivate: {
     flexDirection: "row",

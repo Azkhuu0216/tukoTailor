@@ -18,7 +18,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { AuthContext } from "../../provider/AuthProvider.ios";
 import styles from "../../styles/styles";
 
-import * as CONSTANT from "../../styles/local";
+import CONSTANT from "../../styles/local";
 const window = Dimensions.get("window");
 
 const OrderHistory = ({ navigation }) => {

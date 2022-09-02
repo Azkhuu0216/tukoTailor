@@ -17,7 +17,7 @@ import * as Constant from "../../styles/globalStyles";
 import firestore from "@react-native-firebase/firestore";
 import { AuthContext } from "../../provider/AuthProvider.ios";
 import MainHeader from "../../components/MainHeader";
-import * as CONSTANT from "../../styles/local";
+import CONSTANT from "../../styles/local";
 import LinearGradient from "react-native-linear-gradient";
 import Header from "../../components/Header";
 import Tab from "../../components/Tab";
@@ -380,7 +380,7 @@ const Categories = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
           data={newMainCategoryfemaleArray}
           renderItem={renderItem}
-          keyExtractor={(item, index) => console.log(item, "item------")}
+          keyExtractor={(item, index) => item}
         />
       </View>
     );
@@ -412,7 +412,6 @@ const Categories = ({ navigation }) => {
   };
 
   const handleSearch = (text) => {
-    console.log(text);
     const formattedQuery = text.toLowerCase();
     const newData = mainCategorymaleArray.filter((item) => {
       return item.name.toLowerCase().includes(formattedQuery);
@@ -425,7 +424,7 @@ const Categories = ({ navigation }) => {
   };
 
   const getDate = () => {
-    console.log("currentDate", currentDate);
+    // console.log("currentDate", currentDate);
     var now = currentDate;
     var endOfWeek = new Date(
       now.getFullYear(),

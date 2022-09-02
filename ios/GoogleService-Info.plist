@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>76356547303-jnc18tljlr0lve675ta27kkl684iblcr.apps.googleusercontent.com</string>
+	<string>149692741948-33n1plf1rna2eajg0qgqt8a7gu8oks11.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.76356547303-jnc18tljlr0lve675ta27kkl684iblcr</string>
+	<string>com.googleusercontent.apps.149692741948-33n1plf1rna2eajg0qgqt8a7gu8oks11</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAFJ3WhCeBiwJ65NvoL0BOrlFHele6XL0w</string>
+	<string>AIzaSyC7okGcnxN-M6gCD5DKByO0esuSBhtrg5I</string>
 	<key>GCM_SENDER_ID</key>
-	<string>76356547303</string>
+	<string>149692741948</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.mgl.tukotailor</string>
 	<key>PROJECT_ID</key>
-	<string>tukotailor-78af0</string>
+	<string>tukotailor-d603c</string>
 	<key>STORAGE_BUCKET</key>
-	<string>tukotailor-78af0.appspot.com</string>
+	<string>tukotailor-d603c.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:76356547303:ios:ba93b532fdf99f5c242842</string>
+	<string>1:149692741948:ios:7ae94658e7437cca1ec639</string>
 </dict>
 </plist>

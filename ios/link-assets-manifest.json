@@ -2,6 +2,54 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/fonts/AntDesign.ttf",
+      "sha1": "4e77868439280fb434d4697c7b911271406c81f3"
+    },
+    {
+      "path": "assets/fonts/Entypo.ttf",
+      "sha1": "47870a67dd50871765f799caa97da87219ee47c5"
+    },
+    {
+      "path": "assets/fonts/Erxes-Icon.ttf",
+      "sha1": "bb0e7f4c97dbf34561a716ad42fd30d5a4b5828e"
+    },
+    {
+      "path": "assets/fonts/EvilIcons.ttf",
+      "sha1": "91d377ea3cf47490b256c2ed081704a7dabdae0c"
+    },
+    {
+      "path": "assets/fonts/Feather.ttf",
+      "sha1": "526e03ea68a61c4a67a70b01d7b345eab349767d"
+    },
+    {
+      "path": "assets/fonts/FontAwesome.ttf",
+      "sha1": "13b1eab65a983c7a73bc7997c479d66943f7c6cb"
+    },
+    {
+      "path": "assets/fonts/FontAwesome5_Brands.ttf",
+      "sha1": "66c86edfd13e63e0e981ce853335c28bc2d20cec"
+    },
+    {
+      "path": "assets/fonts/FontAwesome5_Regular.ttf",
+      "sha1": "00f569f7d8ac2497a43b25dc4d3b32213bcea31b"
+    },
+    {
+      "path": "assets/fonts/FontAwesome5_Solid.ttf",
+      "sha1": "ff8f37dfad105796bd924d0db0d37a4ff252618c"
+    },
+    {
+      "path": "assets/fonts/Fontisto.ttf",
+      "sha1": "c090a3ec96a3f1bb9b615c2f3f204ce0dcdcdbc3"
+    },
+    {
+      "path": "assets/fonts/Foundation.ttf",
+      "sha1": "4b2bce6c792493a4a5716b6fec2dbefe89492c3f"
+    },
+    {
+      "path": "assets/fonts/Ionicons.ttf",
+      "sha1": "b5281fbfa43129abc3e412dd938cfcf0b77de999"
+    },
+    {
       "path": "assets/fonts/Kufam-SemiBoldItalic.ttf",
       "sha1": "4ab44c401f1c97542054889a8871efce5acc22eb"
     },
@@ -26,12 +74,32 @@
       "sha1": "7c3fedd86d61b1c575eded690b922c77f9c09a4a"
     },
     {
+      "path": "assets/fonts/MaterialCommunityIcons.ttf",
+      "sha1": "80a431d6d49861d655009e9491409282d2559591"
+    },
+    {
+      "path": "assets/fonts/MaterialIcons.ttf",
+      "sha1": "1943803d652750c8ec60415f1e57401c70e72d25"
+    },
+    {
+      "path": "assets/fonts/Octicons.ttf",
+      "sha1": "28875874413503bcc0810ea2a44dc1b8312c665a"
+    },
+    {
       "path": "assets/fonts/Roboto-Black.ttf",
       "sha1": "ee52f7cf8e54f3ee2afbc474a352d5c19514d9c1"
     },
     {
+      "path": "assets/fonts/Roboto-Regular copy.ttf",
+      "sha1": "096c9245b6a192d1403a82848e104a65f578a8ec"
+    },
+    {
       "path": "assets/fonts/Roboto-Regular.ttf",
       "sha1": "096c9245b6a192d1403a82848e104a65f578a8ec"
+    },
+    {
+      "path": "assets/fonts/SimpleLineIcons.ttf",
+      "sha1": "9ffb81a5a11112e292f2cc323e98486bad597599"
     },
     {
       "path": "assets/fonts/SourceSansPro-Black.ttf",
@@ -40,6 +108,14 @@
     {
       "path": "assets/fonts/SourceSansPro-Regular.ttf",
       "sha1": "fa4e303960cd8bf37a2171c4bc6186684f2d4178"
+    },
+    {
+      "path": "assets/fonts/Team-Icon.ttf",
+      "sha1": "c7e7379abfb90c3b4558840c5db6ec58cd47a204"
+    },
+    {
+      "path": "assets/fonts/Zocial.ttf",
+      "sha1": "0bda59c7bcd3d3927de047e091875a4428bfd1ab"
     }
   ]
 }

@@ -20,7 +20,7 @@ import storage from "@react-native-firebase/storage";
 import firestore from "@react-native-firebase/firestore";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
-import * as CONSTANT from "../../styles/local";
+import CONSTANT from "../../styles/local";
 import images from "../../../assets/images";
 import styles from "../../styles/styles";
 

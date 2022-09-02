@@ -1,5 +1,4 @@
-import Firebase from "firebase";
-
+import firebase from "@react-native-firebase/app";
 const firebaseConfig = {
   api_key: "AIzaSyD7Cc632K8Dvqk7fQ5umSJMWpwWmB6eDME",
   databaseURL:
@@ -7,5 +6,12 @@ const firebaseConfig = {
   projectId: "tukoapp-803ea",
   appId: "1:76356547303:ios:ba93b532fdf99f5c242842",
 };
-// https://github.com/firebase/firebase-ios-sdk
-export default Firebase.initializeApp(firebaseConfig);
+let app;
+if (firebase.apps.length === 0) {
+  console.log("0------");
+  app = firebase.initializeApp(firebaseConfig);
+} else {
+  app = firebase.app();
+  console.log("1------");
+}
+export default app;

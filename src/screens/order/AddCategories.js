@@ -21,7 +21,7 @@ import * as Constant from "../../styles/globalStyles";
 import { windowHeight, windowWidth } from "../utils/Dimentions";
 import firestore from "@react-native-firebase/firestore";
 import { AuthContext } from "../../provider/AuthProvider.ios";
-import * as CONSTANT from "../../styles/local";
+import CONSTANT from "../../styles/local";
 import images from "../../../assets/images";
 import { setNavigation } from "../../utils/utiils";
 

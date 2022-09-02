@@ -17,7 +17,7 @@ import {
 import * as Constant from "../../styles/globalStyles";
 import MainHeader from "../../components/MainHeader";
 import MultiSelect from "react-native-multiple-select";
-import * as CONSTANT from "../../styles/local";
+import CONSTANT from "../../styles/local";
 import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
 import { windowHeight, windowWidth } from "../../utils/Dimentions";
@@ -36,7 +36,7 @@ import Entypo from "react-native-vector-icons/Entypo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNRestart from "react-native-restart";
 
-const settings = ({ navigation }) => {
+const Settings = ({ navigation }) => {
   const { user, logout } = useContext(AuthContext);
   const [currency, setcurrency] = useState([]);
   const [showcurrency, setShowcurrency] = useState("");
@@ -2570,7 +2570,7 @@ const settings = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-export default settings;
+export default Settings;
 
 const styles = StyleSheet.create({
   container: {
@@ -2593,7 +2593,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontSize: 17,
     color: "#062347",
-    fontFamily: "SourceSansPro-Regular",
+    // fontFamily: "SourceSansPro-Regular",
     textAlignVertical: "top",
   },
   MultiSelectArea: {

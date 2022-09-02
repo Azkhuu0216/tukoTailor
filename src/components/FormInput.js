@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 17,
     color: "#062347",
-    fontFamily: "SourceSansPro-Regular",
+    // fontFamily: "SourceSansPro-Regular",
     width: "90%",
   },
   inputField: {

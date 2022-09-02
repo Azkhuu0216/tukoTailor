@@ -3,6 +3,7 @@ import { StripeProvider } from "@stripe/stripe-react-native";
 import React, { useEffect } from "react";
 import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import { Providers } from "./src/provider/Providers";
+import CONSTANT from "./src/styles/local";
 
 const App = () => {
   useEffect(() => {
