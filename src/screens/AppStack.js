@@ -20,9 +20,9 @@ import Contact from "./contact/Contact";
 import settings from "./settings/settings";
 import ProfileDetail from "./contact/ProfileDetail";
 import * as Constant from "../styles/globalStyles";
-import { AddCategories, Categories, OrderAdd, OrderHistory } from "./order";
+import { AddCategories, Categories, OrderHistory } from "./order";
 import Settings from "./settings/settings";
-
+import OrderAddScreen from "./order/OrderAddScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -147,7 +147,7 @@ const AppStack = () => {
         />
         <Stack.Screen
           name="OrderAdd"
-          component={OrderAdd}
+          component={OrderAddScreen}
           options={{
             headerShown: true,
           }}

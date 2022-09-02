@@ -6,6 +6,8 @@ import { Providers } from "./src/provider/Providers";
 import CONSTANT from "./src/styles/local";
 LogBox.ignoreLogs([
   "Require cycle: node_modules/react-native-popup-dialog/dist/type.js",
+  "[storage/unknown] The server has terminated the upload session NativeFirebaseError: [storage/unknown] The server has terminated the upload session",
+  `new NativeEventEmitter()`,
 ]);
 
 const App = () => {

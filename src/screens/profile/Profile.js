@@ -11,6 +11,7 @@ import {
   ImageBackground,
   Dimensions,
   TextInput,
+  ScrollView,
 } from "react-native";
 import { AuthContext } from "../../provider/AuthProvider.ios";
 import * as Constant from "../../styles/globalStyles";
@@ -22,7 +23,6 @@ import Feather from "react-native-vector-icons/Feather";
 import CONSTANT from "../../styles/local";
 import images from "../../../assets/images";
 import styles from "../../styles/styles";
-import { ScrollView } from "react-native-virtualized-view";
 
 const { height, width } = Dimensions.get("window");
 

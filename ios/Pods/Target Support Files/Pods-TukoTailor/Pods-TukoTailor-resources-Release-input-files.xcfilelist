@@ -1,5 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-TukoTailor/Pods-TukoTailor-resources.sh
-${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle
 ${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf
 ${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf
