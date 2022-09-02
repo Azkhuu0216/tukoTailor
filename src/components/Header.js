@@ -40,8 +40,7 @@ const Header = () => {
             querySnapshot.forEach((documentSnapshot) => {
               if (documentSnapshot.id == user.uid) {
                 setfirst_name(documentSnapshot.data().first_name); // nemsen
-                console.log(documentSnapshot.data().profile_image);
-                // setFinalImage(documentSnapshot.data().profile_image); // nemsen
+                setFinalImage(documentSnapshot.data().profile_image); // nemsen
                 if (documentSnapshot.data().role == "admin") {
                   setShowAdminSide(true);
                 } else {

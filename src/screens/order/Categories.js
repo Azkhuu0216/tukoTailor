@@ -57,7 +57,7 @@ const Categories = ({ navigation }) => {
   const [lastDate, setLastDate] = useState("");
 
   const _onRefresh = () => {
-    console.log("_onRefresh");
+    // console.log("_onRefresh");
     setRefreshing(true);
     getcurrencyData();
     setTimeout(() => {
