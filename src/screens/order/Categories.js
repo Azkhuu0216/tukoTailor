@@ -298,7 +298,7 @@ const Categories = ({ navigation }) => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("OrderSee", { value: item, ok: true })
+          navigation.navigate("AddCategories", { value: item, ok: true })
         }
       >
         <View

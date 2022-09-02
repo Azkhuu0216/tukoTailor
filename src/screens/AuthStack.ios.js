@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import LoginScreen from "./auth/LoginScreen";
-import forgetPassword from "./auth/ForgetPassword";
 import SignupScreen from "./auth/SignupScreen";
+import LoginScreen from "./auth/LoginScreen";
+import ForgetPassword from "./auth/forgetPassword";
 
 const Stack = createStackNavigator();
 
@@ -39,7 +39,7 @@ const AuthStack = () => {
       />
       <Stack.Screen
         name="forgetPassword"
-        component={forgetPassword}
+        component={ForgetPassword}
         options={{ header: () => null }}
       />
       <Stack.Screen

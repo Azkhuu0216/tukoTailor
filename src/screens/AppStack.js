@@ -20,9 +20,15 @@ import Contact from "./contact/Contact";
 import settings from "./settings/settings";
 import ProfileDetail from "./contact/ProfileDetail";
 import * as Constant from "../styles/globalStyles";
-import { AddCategories, Categories, OrderHistory } from "./order";
+import {
+  AddCategories,
+  Categories,
+  OrderAdd,
+  OrderAddScreen,
+  OrderHistory,
+} from "./order";
 import Settings from "./settings/settings";
-import OrderAddScreen from "./order/OrderAddScreen";
+import Notification from "./Notification";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -147,7 +153,7 @@ const AppStack = () => {
         />
         <Stack.Screen
           name="OrderAdd"
-          component={OrderAddScreen}
+          component={OrderAdd}
           options={{
             headerShown: true,
           }}
@@ -165,6 +171,13 @@ const AppStack = () => {
           component={ProfileDetail}
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Notification"
+          component={Notification}
+          options={{
+            headerShown: true,
           }}
         />
       </Stack.Navigator>

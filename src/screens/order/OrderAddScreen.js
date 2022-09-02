@@ -5,20 +5,20 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  ScrollView,
   Dimensions,
   KeyboardAvoidingView,
-  ScrollView,
 } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { setNavigation } from "../../utils/utiils";
 import * as Constant from "../../styles/globalStyles";
 // import DatePicker from "react-native-neat-date-picker";
 import Feather from "react-native-vector-icons/Feather";
-import { Checkbox } from "react-native-ui-lib";
+// import { Checkbox } from "react-native-ui-lib";
+// import { Checkbox } from "react-native-ui-lib";
 
 const { height, width } = Dimensions.get("window");
-
-const OrderAddScreen = ({ navigation }) => {
+const OrderAdd = ({ navigation }) => {
   useLayoutEffect(() => {
     setNavigation(navigation, "Захиалга оруулах хуудас", true);
   }, []);
@@ -328,7 +328,7 @@ const OrderAddScreen = ({ navigation }) => {
               }
             ></TextInput>
           </View>
-          {label === "НӨАТ-гүй дүн" ? (
+          {/* {label === "НӨАТ-гүй дүн" ? (
             <Checkbox
               color={Constant.primaryColor}
               iconColor={Constant.whiteColor}
@@ -348,7 +348,7 @@ const OrderAddScreen = ({ navigation }) => {
               size={24}
               style={{ marginVertical: 10 }}
             />
-          )}
+          )} */}
         </View>
       </View>
     );
@@ -381,7 +381,7 @@ const OrderAddScreen = ({ navigation }) => {
             }
           ></TextInput>
         </View>
-        {label === "Урьдчилгаа" ? (
+        {/* {label === "Урьдчилгаа" ? (
           <>
             <Checkbox
               color={Constant.primaryColor}
@@ -447,7 +447,7 @@ const OrderAddScreen = ({ navigation }) => {
               style={{ marginVertical: 10 }}
             />
           </>
-        )}
+        )} */}
       </View>
     );
   };
@@ -555,7 +555,9 @@ const OrderAddScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-export default OrderAddScreen;
+
+export default OrderAdd;
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Constant.primaryColor,

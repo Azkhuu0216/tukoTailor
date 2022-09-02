@@ -695,7 +695,7 @@ const OrderHistory = ({ navigation }) => {
   };
   const Order = (item) => {
     return (
-      <>
+      <View>
         <View
           style={{
             flexDirection: "row",
@@ -733,7 +733,7 @@ const OrderHistory = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.Divider}></View>
-      </>
+      </View>
     );
   };
   const { width, height } = Dimensions.get("window");
@@ -769,7 +769,7 @@ const OrderHistory = ({ navigation }) => {
             showsHorizontalScrollIndicator={false}
             data={orderData}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item, index) => index}
           />
           {/* {order()} */}
         </ScrollView>

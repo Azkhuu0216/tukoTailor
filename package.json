@@ -40,7 +40,7 @@
     "react-native-multiple-select": "^0.5.11",
     "react-native-popup-dialog": "^0.18.3",
     "react-native-push-notification": "^8.1.1",
-    "react-native-reanimated": "^2.9.1",
+    "react-native-reanimated": "^2.10.0",
     "react-native-restart": "^0.0.24",
     "react-native-safe-area-context": "^3.1.7",
     "react-native-screens": "^2.10.1",
