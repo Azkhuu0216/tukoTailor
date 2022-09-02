@@ -753,6 +753,15 @@ PODS:
     - RNFBApp
   - RNGestureHandler (2.6.0):
     - React-Core
+  - RNImageCropPicker (0.36.0):
+    - React-Core
+    - React-RCTImage
+    - RNImageCropPicker/QBImagePickerController (= 0.36.0)
+    - TOCropViewController
+  - RNImageCropPicker/QBImagePickerController (0.36.0):
+    - React-Core
+    - React-RCTImage
+    - TOCropViewController
   - RNReanimated (1.13.4):
     - React-Core
   - RNScreens (2.18.1):
@@ -781,6 +790,7 @@ PODS:
     - StripeUICore (= 22.7.0)
   - StripeUICore (22.7.0):
     - StripeCore (= 22.7.0)
+  - TOCropViewController (2.6.1)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -855,6 +865,7 @@ DEPENDENCIES:
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -905,6 +916,7 @@ SPEC REPOS:
     - StripeCore
     - StripeFinancialConnections
     - StripeUICore
+    - TOCropViewController
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -998,6 +1010,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/storage"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNImageCropPicker:
+    :path: "../node_modules/react-native-image-crop-picker"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -1091,6 +1105,7 @@ SPEC CHECKSUMS:
   RNFBMessaging: 7fe81aa437aeb45d190de289817596abf5a7cce5
   RNFBStorage: 5c8ab29c96618f768786492b3081e69cdb4f2659
   RNGestureHandler: 920eb17f5b1e15dae6e5ed1904045f8f90e0b11e
+  RNImageCropPicker: e641bf83ac47324994cac139bde74635ec52c17c
   RNReanimated: c1b56d030d1616239861534d9adb531f8cffab68
   RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
@@ -1101,6 +1116,7 @@ SPEC CHECKSUMS:
   StripeCore: 42478ef61de37f1b85a4e1ac9d61bcf776bd2e2f
   StripeFinancialConnections: e4d7ae81c67b4c32ed46a22f1841abb319bb8e24
   StripeUICore: a8748e6c865f0b0e1e6bb767667f3b132977b033
+  TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: c2b1f2494060865ac1f27e49639e72371b1205fa
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

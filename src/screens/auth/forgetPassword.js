@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
-  ScrollView,
 } from "react-native";
 import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
@@ -13,6 +12,7 @@ import { AuthContext } from "../../provider/AuthProvider.ios";
 import * as CONSTANT from "../../styles/local";
 import MainHeader from "../../components/MainHeader";
 import * as Constant from "../../styles/globalStyles";
+import { ScrollView } from "react-native-virtualized-view";
 
 const ForgetPassword = ({ navigation }) => {
   const [email, setEmail] = useState();

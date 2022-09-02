@@ -9,7 +9,6 @@ import {
   Image,
   Dimensions,
   TextInput,
-  ScrollView,
 } from "react-native";
 import * as Constant from "../../styles/globalStyles";
 import firestore from "@react-native-firebase/firestore";
@@ -19,6 +18,7 @@ import { AuthContext } from "../../provider/AuthProvider.ios";
 import styles from "../../styles/styles";
 
 import CONSTANT from "../../styles/local";
+import { ScrollView } from "react-native-virtualized-view";
 const window = Dimensions.get("window");
 
 const OrderHistory = ({ navigation }) => {

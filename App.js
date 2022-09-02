@@ -1,9 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import React, { useEffect } from "react";
-import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
+import { LogBox, SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import { Providers } from "./src/provider/Providers";
 import CONSTANT from "./src/styles/local";
+LogBox.ignoreLogs([
+  "Require cycle: node_modules/react-native-popup-dialog/dist/type.js",
+]);
 
 const App = () => {
   useEffect(() => {

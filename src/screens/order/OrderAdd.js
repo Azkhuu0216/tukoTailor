@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   View,
   TextInput,
-  ScrollView,
   Dimensions,
   KeyboardAvoidingView,
 } from "react-native";
@@ -15,6 +14,7 @@ import * as Constant from "../../styles/globalStyles";
 // import DatePicker from "react-native-neat-date-picker";
 import Feather from "react-native-vector-icons/Feather";
 import { Checkbox } from "react-native-ui-lib";
+import { ScrollView } from "react-native-virtualized-view";
 
 const { height, width } = Dimensions.get("window");
 const OrderAdd = ({ navigation }) => {

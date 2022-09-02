@@ -1,5 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-TukoTailor-TukoTailorTests/Pods-TukoTailor-TukoTailorTests-resources.sh
 ${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle
 ${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf
 ${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf
 ${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf
@@ -22,4 +23,5 @@ ${PODS_CONFIGURATION_BUILD_DIR}/Stripe/Stripe3DS2.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/StripeCore/StripeCore.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/StripeFinancialConnections/StripeFinancialConnections.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/StripeUICore/StripeUICore.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/TOCropViewController/TOCropViewControllerBundle.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/gRPCCertificates-Cpp.bundle

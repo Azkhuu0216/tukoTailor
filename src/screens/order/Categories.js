@@ -4,7 +4,6 @@ import {
   View,
   Image,
   TouchableOpacity,
-  ScrollView,
   FlatList,
   RefreshControl,
   Dimensions,
@@ -21,6 +20,7 @@ import CONSTANT from "../../styles/local";
 import LinearGradient from "react-native-linear-gradient";
 import Header from "../../components/Header";
 import Tab from "../../components/Tab";
+import { ScrollView } from "react-native-virtualized-view";
 
 const Categories = ({ navigation }) => {
   const { user, logout } = useContext(AuthContext);

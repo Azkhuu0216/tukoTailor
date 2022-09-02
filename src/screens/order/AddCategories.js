@@ -10,7 +10,6 @@ import {
   StyleSheet,
   StatusBar,
   Text,
-  ScrollView,
   TouchableOpacity,
   Image,
   Alert,
@@ -24,6 +23,7 @@ import { AuthContext } from "../../provider/AuthProvider.ios";
 import CONSTANT from "../../styles/local";
 import images from "../../../assets/images";
 import { setNavigation } from "../../utils/utiils";
+import { ScrollView } from "react-native-virtualized-view";
 
 const { width } = Dimensions.get("window");
 

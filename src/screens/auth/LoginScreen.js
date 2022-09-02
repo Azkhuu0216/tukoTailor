@@ -7,7 +7,6 @@ import {
   StatusBar,
   StyleSheet,
   Platform,
-  ScrollView,
   SafeAreaView,
 } from "react-native";
 import FormInput from "../../components/FormInput";
@@ -17,6 +16,7 @@ import * as Animatable from "react-native-animatable";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import * as Constant from "../../styles/globalStyles";
 import CONSTANT from "../../styles/local";
+import { ScrollView } from "react-native-virtualized-view";
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();

@@ -89,8 +89,8 @@ export const AuthProvider = ({ children }) => {
           last_name,
           phone_number,
           address,
-          gender,
-          imageUrl
+          imageUrl,
+          position
         ) => {
           try {
             await auth()
@@ -105,7 +105,7 @@ export const AuthProvider = ({ children }) => {
                     last_name: last_name,
                     phone_number: phone_number,
                     address: address,
-                    gender: gender,
+                    position: position,
                     profile_image: imageUrl,
                     role: "user",
                   })

@@ -6,7 +6,6 @@ import {
   Alert,
   TouchableOpacity,
   Platform,
-  ScrollView,
   Image,
   KeyboardAvoidingView,
   ImageBackground,
@@ -15,7 +14,7 @@ import {
 } from "react-native";
 import { AuthContext } from "../../provider/AuthProvider.ios";
 import * as Constant from "../../styles/globalStyles";
-// import ImagePicker from "react-native-image-crop-picker";
+import ImagePicker from "react-native-image-crop-picker";
 import storage from "@react-native-firebase/storage";
 import firestore from "@react-native-firebase/firestore";
 import AntIcon from "react-native-vector-icons/AntDesign";
@@ -23,6 +22,7 @@ import Feather from "react-native-vector-icons/Feather";
 import CONSTANT from "../../styles/local";
 import images from "../../../assets/images";
 import styles from "../../styles/styles";
+import { ScrollView } from "react-native-virtualized-view";
 
 const { height, width } = Dimensions.get("window");
 
@@ -223,7 +223,6 @@ const Profile = () => {
       </>
     );
   };
-  console.log(finalImage, "final");
   return (
     <View style={styles.to_bg_image}>
       <ImageBackground
@@ -237,7 +236,11 @@ const Profile = () => {
               <Text style={css.Name}>{first_name}</Text>
               <Text style={styles.Text}>Албан тушаал: CEO</Text>
             </View>
-            <TouchableOpacity activeOpacity={0.9} style={css.Profile}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={css.Profile}
+              onPress={() => choosePictureFromGallery()}
+            >
               {image == null ? (
                 <Image
                   style={css.logoStyle}

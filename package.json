@@ -21,8 +21,8 @@
     "@react-navigation/bottom-tabs": "^5.9.2",
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "^5.9.4",
+    "@react-navigation/native-stack": "^6.2.2",
     "@react-navigation/stack": "^5.9.0",
-"@react-navigation/native-stack": "^6.2.2",
     "@stripe/stripe-react-native": "^0.18.1",
     "firebase": "^8.4.1",
     "firebase-admin": "^9.6.0",
@@ -34,6 +34,7 @@
     "react-native-awesome-alerts": "^2.0.0",
     "react-native-fbsdk": "^3.0.0",
     "react-native-gesture-handler": "^2.6.0",
+    "react-native-image-crop-picker": "0.36.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-loading-spinner-overlay": "^3.0.1",
     "react-native-localization": "^2.3.1",
@@ -45,7 +46,8 @@
     "react-native-safe-area-context": "^3.1.7",
     "react-native-screens": "^2.10.1",
     "react-native-ui-lib": "^6.20.3",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native-vector-icons": "^9.2.0",
+    "react-native-virtualized-view": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

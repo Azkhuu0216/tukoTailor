@@ -9,7 +9,6 @@ import {
   SafeAreaView,
   Alert,
   KeyboardAvoidingView,
-  ScrollView,
 } from "react-native";
 import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
@@ -18,10 +17,11 @@ import CONSTANT from "../../styles/local";
 import * as Constant from "../../styles/globalStyles";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import { windowHeight, windowWidth } from "../../utils/Dimentions";
-// import ImagePicker from "react-native-image-crop-picker";
+import ImagePicker from "react-native-image-crop-picker";
 import Spinner from "react-native-loading-spinner-overlay";
 import storage from "@react-native-firebase/storage";
 import images from "../../../assets/images";
+import { ScrollView } from "react-native-virtualized-view";
 
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
@@ -42,6 +42,7 @@ const SignupScreen = ({ navigation }) => {
   const { register } = useContext(AuthContext);
   const [transferred, setTransferred] = useState(0);
   const [spinner, setSpinner] = useState(false);
+
   const signupData = async () => {
     if (
       first_name != "" &&
@@ -56,6 +57,7 @@ const SignupScreen = ({ navigation }) => {
 
       if (emailValid == true) {
         if (password === confirmPassword) {
+          const imageUrl = await uploadImage();
           register(
             email,
             password,
@@ -63,7 +65,7 @@ const SignupScreen = ({ navigation }) => {
             last_name,
             phone_number,
             address,
-            image,
+            imageUrl,
             position
           );
           setEmail("");
@@ -81,7 +83,16 @@ const SignupScreen = ({ navigation }) => {
       Alert.alert(CONSTANT.Oops, CONSTANT.profileAddcompletedata);
     }
   };
-
+  const choosePictureFromGallery = async () => {
+    ImagePicker.openPicker({
+      width: 1200,
+      height: 1200,
+      cropping: true,
+    }).then((image) => {
+      const imageUri = Platform.OS === "ios" ? image.sourceURL : image.path;
+      setImage(imageUri);
+    });
+  };
   const validate = (userEmail) => {
     console.log(userEmail);
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -104,17 +115,6 @@ const SignupScreen = ({ navigation }) => {
     setfemale(true);
     setmale(false);
     setGender("female");
-  };
-
-  const choosePictureFromGallery = async () => {
-    ImagePicker.openPicker({
-      width: 1200,
-      height: 1200,
-      cropping: true,
-    }).then((image) => {
-      const imageUri = Platform.OS === "ios" ? image.sourceURL : image.path;
-      setImage(imageUri);
-    });
   };
 
   const uploadImage = async () => {
@@ -194,7 +194,7 @@ const SignupScreen = ({ navigation }) => {
                 />
               )}
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => choosePictureFromGallery()}
                 style={[
                   styles.checkBoxSelectorStyle,
                   {
@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
     color: Constant.whiteColor,
     fontSize: 18,
     fontWeight: "500",
-    // fontFamily: "SourceSansPro-Regular",
+    fontFamily: "SourceSansPro-Regular",
   },
   textPrivate: {
     flexDirection: "row",

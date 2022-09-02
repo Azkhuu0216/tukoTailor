@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  ScrollView,
   TouchableOpacity,
   Image,
   Alert,
@@ -35,6 +34,7 @@ import Dialog, {
 import Entypo from "react-native-vector-icons/Entypo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNRestart from "react-native-restart";
+import { ScrollView } from "react-native-virtualized-view";
 
 const Settings = ({ navigation }) => {
   const { user, logout } = useContext(AuthContext);
