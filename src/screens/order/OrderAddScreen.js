@@ -83,70 +83,8 @@ const OrderAdd = ({ navigation }) => {
           marginBottom: 10,
         }}
       >
-        <View
-          style={{
-            height: 44,
-            width: width / 2 - 30,
-            backgroundColor: Constant.orderBackground,
-            justifyContent: "center",
-            padding: 5,
-          }}
-        >
+        <View>
           <Text style={{ fontSize: 12 }}>{label}</Text>
-          <TextInput
-            value={
-              label === "Нэр"
-                ? data.firstname
-                : label === "Биеийн өндөр"
-                ? data.height
-                : label === "Биеийн жин"
-                ? data.weight
-                : label === "Цээжний тойрог"
-                ? data.tseej
-                : label === "Өгзөгний тойрог"
-                ? data.ugzug
-                : label === "Энгэрийн тойрог"
-                ? data.engerTo
-                : label === "Энгэрийн өргөн"
-                ? data.engerUr
-                : label === "Энгэрийн өндөр"
-                ? data.engerUn
-                : label === "Арын өргөн"
-                ? data.arUr
-                : label === "Хөхний өндөр"
-                ? data.huhUn
-                : label === "Арын өндөр"
-                ? data.arUn
-                : data.buselhii
-            }
-            onChangeText={(t) =>
-              label === "Нэр"
-                ? setData({ ...data, firstname: t })
-                : label === "Биеийн өндөр"
-                ? setData({ ...data, height: t })
-                : label === "Биеийн жин"
-                ? setData({ ...data, weight: t })
-                : label === "Цээжний тойрог"
-                ? setData({ ...data, tseej: t })
-                : label === "Өгзөгний тойрог"
-                ? setData({ ...data, ugzug: t })
-                : label === "Энгэрийн тойрог"
-                ? setData({ ...data, engerTo: t })
-                : label === "Энгэрийн өргөн"
-                ? setData({ ...data, engerUr: t })
-                : label === "Энгэрийн өндөр"
-                ? setData({ ...data, engerUn: t })
-                : label === "Арын өргөн"
-                ? setData({ ...data, arUr: t })
-                : label === "Хөхний өндөр"
-                ? setData({ ...data, huhUn: t })
-                : label === "Арын өндөр"
-                ? setData({ ...data, arUn: t })
-                : setData({ ...data, buselhii: t })
-            }
-          ></TextInput>
-        </View>
-        {label1 === undefined ? null : (
           <View
             style={{
               height: 44,
@@ -156,51 +94,121 @@ const OrderAdd = ({ navigation }) => {
               padding: 5,
             }}
           >
-            <Text style={{ fontSize: 12 }}>{label1}</Text>
             <TextInput
               value={
-                label1 === "Утас"
-                  ? data.phone
-                  : label1 === "Хөхний хоорондын зай"
-                  ? data.huh
-                  : label1 === "Мөрний өргөн"
-                  ? data.mur
-                  : label1 === "Мөр хоорондын зай"
-                  ? data.mur1
-                  : label1 === "Ханцуйн урт"
-                  ? data.hantsui
-                  : label1 === "Бугалагны тойрог"
-                  ? data.bugalag
-                  : label1 === "Бугуйн тойрог"
-                  ? data.bugui
-                  : label1 === "Энгэрийн хүзүүний тойрог"
-                  ? data.engerH
-                  : label1 === "Захны өндөр"
-                  ? data.zah
-                  : data.ed
+                label === "Нэр"
+                  ? data.firstname
+                  : label === "Биеийн өндөр"
+                  ? data.height
+                  : label === "Биеийн жин"
+                  ? data.weight
+                  : label === "Цээжний тойрог"
+                  ? data.tseej
+                  : label === "Өгзөгний тойрог"
+                  ? data.ugzug
+                  : label === "Энгэрийн тойрог"
+                  ? data.engerTo
+                  : label === "Энгэрийн өргөн"
+                  ? data.engerUr
+                  : label === "Энгэрийн өндөр"
+                  ? data.engerUn
+                  : label === "Арын өргөн"
+                  ? data.arUr
+                  : label === "Хөхний өндөр"
+                  ? data.huhUn
+                  : label === "Арын өндөр"
+                  ? data.arUn
+                  : data.buselhii
               }
               onChangeText={(t) =>
-                label1 === "Утас"
-                  ? setData({ ...data, phone: t })
-                  : label1 === "Хөхний хоорондын зай"
-                  ? setData({ ...data, huh: t })
-                  : label1 === "Мөрний өргөн"
-                  ? setData({ ...data, mur: t })
-                  : label1 === "Мөр хоорондын зай"
-                  ? setData({ ...data, mur1: t })
-                  : label1 === "Ханцуйн урт"
-                  ? setData({ ...data, hantsui: t })
-                  : label1 === "Бугалагны тойрог"
-                  ? setData({ ...data, bugalag: t })
-                  : label1 == "Бугуйн тойрог"
-                  ? setData({ ...data, bugui: t })
-                  : label1 == "Энгэрийн хүзүүний тойрог"
-                  ? setData({ ...data, engerH: t })
-                  : label1 == "Захны өндөр"
-                  ? setData({ ...data, zah: t })
-                  : setData({ ...data, ed: t })
+                label === "Нэр"
+                  ? setData({ ...data, firstname: t })
+                  : label === "Биеийн өндөр"
+                  ? setData({ ...data, height: t })
+                  : label === "Биеийн жин"
+                  ? setData({ ...data, weight: t })
+                  : label === "Цээжний тойрог"
+                  ? setData({ ...data, tseej: t })
+                  : label === "Өгзөгний тойрог"
+                  ? setData({ ...data, ugzug: t })
+                  : label === "Энгэрийн тойрог"
+                  ? setData({ ...data, engerTo: t })
+                  : label === "Энгэрийн өргөн"
+                  ? setData({ ...data, engerUr: t })
+                  : label === "Энгэрийн өндөр"
+                  ? setData({ ...data, engerUn: t })
+                  : label === "Арын өргөн"
+                  ? setData({ ...data, arUr: t })
+                  : label === "Хөхний өндөр"
+                  ? setData({ ...data, huhUn: t })
+                  : label === "Арын өндөр"
+                  ? setData({ ...data, arUn: t })
+                  : setData({ ...data, buselhii: t })
               }
+              style={{ height: 40 }}
             ></TextInput>
+          </View>
+        </View>
+
+        {label1 === undefined ? null : (
+          <View>
+            <Text style={{ fontSize: 12 }}>{label1}</Text>
+
+            <View
+              style={{
+                height: 40,
+                width: width / 2 - 30,
+                backgroundColor: Constant.orderBackground,
+                justifyContent: "center",
+                padding: 5,
+              }}
+            >
+              <TextInput
+                value={
+                  label1 === "Утас"
+                    ? data.phone
+                    : label1 === "Хөхний хоорондын зай"
+                    ? data.huh
+                    : label1 === "Мөрний өргөн"
+                    ? data.mur
+                    : label1 === "Мөр хоорондын зай"
+                    ? data.mur1
+                    : label1 === "Ханцуйн урт"
+                    ? data.hantsui
+                    : label1 === "Бугалагны тойрог"
+                    ? data.bugalag
+                    : label1 === "Бугуйн тойрог"
+                    ? data.bugui
+                    : label1 === "Энгэрийн хүзүүний тойрог"
+                    ? data.engerH
+                    : label1 === "Захны өндөр"
+                    ? data.zah
+                    : data.ed
+                }
+                onChangeText={(t) =>
+                  label1 === "Утас"
+                    ? setData({ ...data, phone: t })
+                    : label1 === "Хөхний хоорондын зай"
+                    ? setData({ ...data, huh: t })
+                    : label1 === "Мөрний өргөн"
+                    ? setData({ ...data, mur: t })
+                    : label1 === "Мөр хоорондын зай"
+                    ? setData({ ...data, mur1: t })
+                    : label1 === "Ханцуйн урт"
+                    ? setData({ ...data, hantsui: t })
+                    : label1 === "Бугалагны тойрог"
+                    ? setData({ ...data, bugalag: t })
+                    : label1 == "Бугуйн тойрог"
+                    ? setData({ ...data, bugui: t })
+                    : label1 == "Энгэрийн хүзүүний тойрог"
+                    ? setData({ ...data, engerH: t })
+                    : label1 == "Захны өндөр"
+                    ? setData({ ...data, zah: t })
+                    : setData({ ...data, ed: t })
+                }
+                style={{ height: 40 }}
+              ></TextInput>
+            </View>
           </View>
         )}
       </View>
@@ -247,52 +255,56 @@ const OrderAdd = ({ navigation }) => {
           marginBottom: 10,
         }}
       >
-        <View
-          style={{
-            height: 44,
-            width: width / 2 + 40,
-            backgroundColor: Constant.orderBackground,
-            justifyContent: "center",
-            padding: 5,
-          }}
-        >
+        <View>
           <Text style={{ fontSize: 12 }}>{label}</Text>
-          <TextInput
-            value={
-              label === "Үндсэн материал"
-                ? data.undsen
-                : label === "Эмжээр"
-                ? data.emjeer
-                : label === "Хавчаар"
-                ? data.havchaar
-                : label === "Товч шилбэ"
-                ? data.towch
-                : label === "Бүс"
-                ? data.bus
-                : label === "Хатгамал"
-                ? data.hatgamal
-                : label === "Чимэглэл"
-                ? data.chimeglel
-                : data.busad
-            }
-            onChangeText={(t) =>
-              label === "Үндсэн материал"
-                ? setData({ ...data, undsen: t })
-                : label === "Эмжээр"
-                ? setData({ ...data, emjeer: t })
-                : label === "Хавчаар"
-                ? setData({ ...data, havchaar: t })
-                : label === "Товч шилбэ"
-                ? setData({ ...data, towch: t })
-                : label === "Бүс"
-                ? setData({ ...data, bus: t })
-                : label === "Хатгамал"
-                ? setData({ ...data, hatgamal: t })
-                : label === "Чимэглэл"
-                ? setData({ ...data, chimeglel: t })
-                : setData({ ...data, busad: t })
-            }
-          ></TextInput>
+
+          <View
+            style={{
+              height: 44,
+              width: width / 2 + 40,
+              backgroundColor: Constant.orderBackground,
+              justifyContent: "center",
+              padding: 5,
+            }}
+          >
+            <TextInput
+              value={
+                label === "Үндсэн материал"
+                  ? data.undsen
+                  : label === "Эмжээр"
+                  ? data.emjeer
+                  : label === "Хавчаар"
+                  ? data.havchaar
+                  : label === "Товч шилбэ"
+                  ? data.towch
+                  : label === "Бүс"
+                  ? data.bus
+                  : label === "Хатгамал"
+                  ? data.hatgamal
+                  : label === "Чимэглэл"
+                  ? data.chimeglel
+                  : data.busad
+              }
+              onChangeText={(t) =>
+                label === "Үндсэн материал"
+                  ? setData({ ...data, undsen: t })
+                  : label === "Эмжээр"
+                  ? setData({ ...data, emjeer: t })
+                  : label === "Хавчаар"
+                  ? setData({ ...data, havchaar: t })
+                  : label === "Товч шилбэ"
+                  ? setData({ ...data, towch: t })
+                  : label === "Бүс"
+                  ? setData({ ...data, bus: t })
+                  : label === "Хатгамал"
+                  ? setData({ ...data, hatgamal: t })
+                  : label === "Чимэглэл"
+                  ? setData({ ...data, chimeglel: t })
+                  : setData({ ...data, busad: t })
+              }
+              style={{ height: 40 }}
+            ></TextInput>
+          </View>
         </View>
       </View>
     );
@@ -306,29 +318,31 @@ const OrderAdd = ({ navigation }) => {
           marginBottom: 10,
         }}
       >
-        <View
-          style={{
-            height: 44,
-            width: width / 2 - 60,
-            backgroundColor: Constant.orderBackground,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: 5,
-          }}
-        >
-          <View>
-            <Text style={{ fontSize: 12 }}>{label}</Text>
-            <TextInput
-              value={label === "НӨАТ-гүй дүн" ? data.Nonote : data.note}
-              onChangeText={(t) =>
-                label === "НӨАТ-гүй дүн"
-                  ? setData({ ...data, Nonote: t })
-                  : setData({ ...data, note: t })
-              }
-            ></TextInput>
-          </View>
-          {/* {label === "НӨАТ-гүй дүн" ? (
+        <View>
+          <Text style={{ fontSize: 12 }}>{label}</Text>
+
+          <View
+            style={{
+              height: 44,
+              width: width / 2 - 60,
+              backgroundColor: Constant.orderBackground,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: 5,
+            }}
+          >
+            <View>
+              <TextInput
+                value={label === "НӨАТ-гүй дүн" ? data.Nonote : data.note}
+                onChangeText={(t) =>
+                  label === "НӨАТ-гүй дүн"
+                    ? setData({ ...data, Nonote: t })
+                    : setData({ ...data, note: t })
+                }
+              ></TextInput>
+            </View>
+            {/* {label === "НӨАТ-гүй дүн" ? (
             <Checkbox
               color={Constant.primaryColor}
               iconColor={Constant.whiteColor}
@@ -349,6 +363,7 @@ const OrderAdd = ({ navigation }) => {
               style={{ marginVertical: 10 }}
             />
           )} */}
+          </View>
         </View>
       </View>
     );
@@ -362,24 +377,27 @@ const OrderAdd = ({ navigation }) => {
           marginBottom: 10,
         }}
       >
-        <View
-          style={{
-            height: 44,
-            width: width / 2 - 60,
-            backgroundColor: Constant.orderBackground,
-            flexDirection: "row",
-            padding: 5,
-          }}
-        >
+        <View>
           <Text style={{ fontSize: 12 }}>{label}</Text>
-          <TextInput
-            value={label === "Урьдчилгаа" ? data.uridchilgaa : data.belen}
-            onChangeText={(t) =>
-              label === "Урьдчилгаа"
-                ? setData({ ...data, uridchilgaa: t })
-                : setData({ ...data, belen: t })
-            }
-          ></TextInput>
+
+          <View
+            style={{
+              height: 44,
+              width: width / 2 - 60,
+              backgroundColor: Constant.orderBackground,
+              flexDirection: "row",
+              padding: 5,
+            }}
+          >
+            <TextInput
+              value={label === "Урьдчилгаа" ? data.uridchilgaa : data.belen}
+              onChangeText={(t) =>
+                label === "Урьдчилгаа"
+                  ? setData({ ...data, uridchilgaa: t })
+                  : setData({ ...data, belen: t })
+              }
+            ></TextInput>
+          </View>
         </View>
         {/* {label === "Урьдчилгаа" ? (
           <>
