@@ -30,6 +30,7 @@ import {
 import Settings from "./settings/settings";
 import Notification from "./Notification";
 import ChatScreen from "./chat/ChatScreen";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -73,7 +74,11 @@ const TabStack = ({ navigation }) => {
         component={ChatScreen}
         options={{
           tabBarIcon: (props) => (
-            <Feather name="users" size={24} color={Constant.primaryColor} />
+            <FontAwesome
+              name="wechat"
+              size={24}
+              color={Constant.primaryColor}
+            />
           ),
         }}
       />
