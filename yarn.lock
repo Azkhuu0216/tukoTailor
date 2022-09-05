@@ -1816,6 +1816,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-10.8.1.tgz#b2dccd03b982b67d077cc8397b5fa6869c788ca4"
   integrity sha512-qxnmIuPGPqiCujYqtLEdcSp/07H9zJ8yMOcrZ1v/ELcBqRldiKOK1YebZkAnwNcvcRqJXKwyeTamp6PAaVaZpg==
 
+"@react-native-firebase/database@10.3.1":
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/database/-/database-10.3.1.tgz#e976f848b6834e46cf4dc2e2dd9776ef756f88a8"
+  integrity sha512-ORJ+ByLKz6SMSWYLZxrDTPyW3ekjfrR6CK+3TkwXyTjtjgWsy3xNcBodC9k3DsGcg3daM3OjZPGihLOtxbRvzA==
+
 "@react-native-firebase/firestore@^10.3.1":
   version "10.8.1"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-10.8.1.tgz#0a48d68eb717e7841411bd1d48b734c794b0a9cf"

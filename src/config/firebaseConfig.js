@@ -30,15 +30,9 @@ const firebaseConfig = {
   messagingSenderId: "149692741948",
   appId: "1:149692741948:web:3f34cb89aae25cb91ec639",
   measurementId: "G-CKCN678X7G",
+  // databaseURL:
+  //   "https://console.firebase.google.com/u/0/project/tukotailor-d603c/firestore/data/~2F",
 };
 
 // Initialize Firebase
-let app;
-if (firebase.apps.length === 0) {
-  console.log("0------");
-  app = firebase.initializeApp(firebaseConfig);
-} else {
-  app = firebase.app();
-  console.log("1------");
-}
-export default app;
+export default firebase.initializeApp(firebaseConfig);

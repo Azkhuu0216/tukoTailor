@@ -63,7 +63,7 @@ const ChatScreen = ({ route }) => {
   const getData = async () => {
     const currentUid = user.uid;
     const guestUid = route.params.id;
-
+    console.log(route.params.id);
     setCurrentUid(currentUid);
     setGuestUid(guestUid);
 

@@ -17,6 +17,7 @@ import * as Animatable from "react-native-animatable";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import * as Constant from "../../styles/globalStyles";
 import CONSTANT from "../../styles/local";
+import images from "../../../assets/images";
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -33,7 +34,7 @@ const LoginScreen = ({ navigation }) => {
         <View style={styles.login_logo}>
           <Animatable.Image
             style={styles.login_logoicon}
-            source={require("../../../assets/images/tailoron.png")}
+            source={images.tuko}
             animation="fadeInUp"
             delay={900}
           ></Animatable.Image>
@@ -153,8 +154,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   login_logoicon: {
-    width: 160,
-    height: 50,
+    width: 90,
+    height: 90,
   },
   login_SocialMedia: {
     width: "80%",
