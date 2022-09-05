@@ -8,6 +8,8 @@ LogBox.ignoreLogs([
   "Require cycle: node_modules/react-native-popup-dialog/dist/type.js",
   "[storage/unknown] The server has terminated the upload session NativeFirebaseError: [storage/unknown] The server has terminated the upload session",
   `new NativeEventEmitter()`,
+  "Possible Unhandled Promise Rejection (id: 0):",
+  `setBackgroundColor`,
 ]);
 
 const App = () => {

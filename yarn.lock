@@ -7450,6 +7450,11 @@ react-native-screens@^2.10.1:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.18.1.tgz#47b9991c6f762d00d0ed3233e5283d523e859885"
   integrity sha512-r5WZLpmx2hHjC1RgMdPq5YpSU9tEhBpUaZ5M1SUtNIONyiLqQVxabhRCINdebIk4depJiIl7yw2Q85zJyeX6fw==
 
+react-native-sendgrid@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-sendgrid/-/react-native-sendgrid-1.0.2.tgz#ac171ff6a0f230484a5917231e9f72e59b760402"
+  integrity sha512-pFlyFsXwuVOyg2QwL44Yz61w/XI/hPb94RjVOved+FCU+tFm32OCts9mooVln/T1yruBP2BXVpDhr+WyxhjJLw==
+
 react-native-slider@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-native-slider/-/react-native-slider-0.11.0.tgz#b68a0bc43c8422b24cd57947cc5ac2bcdb58fadc"

@@ -38,16 +38,10 @@ const AddCategories = ({ navigation, route }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [image, setImage] = useState("");
   const [variables, setVariables] = useState({
-    avatar:
-      Platform.OS === "ios"
-        ? "file:///Users/amex/Library/Developer/CoreSimulator/Devices/1DC2B519-55F6-4F01-8B6D-3F26A9E2F9A7/data/Containers/Data/Application/6D38D9D2-71CE-442E-A268-BB1F289770EE/tmp/DB493A65-058D-4612-9918-E7A4B1ECEEEC.jpg"
-        : "file:///data/user/0/com.mgl.tukotailor/cache/rn_image_picker_lib_temp_70f94396-15c7-4e92-8162-2cc954faacf5.jpg",
+    avatar: undefined,
   });
   const [data, setData] = useState({
-    avatar:
-      Platform.OS === "ios"
-        ? "file:///Users/amex/Library/Developer/CoreSimulator/Devices/1DC2B519-55F6-4F01-8B6D-3F26A9E2F9A7/data/Containers/Data/Application/6D38D9D2-71CE-442E-A268-BB1F289770EE/tmp/DB493A65-058D-4612-9918-E7A4B1ECEEEC.jpg"
-        : "file:///data/user/0/com.mgl.tukotailor/cache/rn_image_picker_lib_temp_70f94396-15c7-4e92-8162-2cc954faacf5.jpg",
+    avatar: undefined,
   });
   console.log(variables.avatar, "-----avatar");
   const [mainCategorymaleArray, setMainCategorymaleArray] = useState([]);
@@ -331,16 +325,24 @@ const AddCategories = ({ navigation, route }) => {
             <Text style={{ marginVertical: 10 }}>Загварын зураг</Text>
             <TouchableOpacity onPress={() => openGallery()}>
               <Image
-                source={{ uri: variables.avatar }}
-                style={{ height: 230, width: 220 }}
+                source={
+                  variables.avatar === undefined
+                    ? images.clothes
+                    : { uri: variables.avatar }
+                }
+                style={{ height: 250, width: 140 }}
               />
             </TouchableOpacity>
             <Text style={{ marginVertical: 10 }}>Материалын зураг</Text>
 
             <TouchableOpacity onPress={() => openGallery()}>
               <Image
-                source={{ uri: data.avatar }}
-                style={{ height: 180, width: 180 }}
+                source={
+                  variables.avatar === undefined
+                    ? images.clothes
+                    : { uri: data.avatar }
+                }
+                style={{ height: 210, width: 118 }}
               />
             </TouchableOpacity>
           </View>

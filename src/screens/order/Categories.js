@@ -478,61 +478,7 @@ const Categories = ({ navigation }) => {
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ flex: 1, backgroundColor: Constant.whiteColor }}>
               <Header />
-              {/* <ImageBackground
-                resizeMode="cover"
-                style={{ height: 260, width: "100%" }}
-                source={require("../assets/images/HomwBackground.png")}
-              >
-                <View style={styles.to_category_header}>
-                  <View style={{ width: "90%" }}>
-                    <Text style={styles.to_heaeding1_font}>
-                      {CONSTANT.categoriesmainSelectcategory} {"&\n"}
-                      {CONSTANT.categoriesmainBeyourowntailor}
-                    </Text>
-                  </View>
-                </View>
-
-                <View style={{ padding: 10 }}>
-                  <View style={styles.inputView}>
-                    <TextInput
-                      style={styles.input}
-                      placeholder={CONSTANT.categoriesmainSearch}
-                      placeholderTextColor={"#727372"}
-                      keyboardType="email-address"
-                      textContentType="email_address"
-                      autoCompleteType="email"
-                      returnKeyType="next"
-                      onChangeText={handleSearch}
-                    />
-                    <Icon
-                      style={{ paddingHorizontal: 10 }}
-                      name="search"
-                      type="font-awesome"
-                      color={"#727372"}
-                      size={20}
-                    />
-                  </View>
-                </View>
-              </ImageBackground> */}
               <View style={{ padding: 10, marginTop: 10 }}>
-                {/* <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "flex-end",
-                    justifyContent: "center",
-                    marginBottom: 5,
-                  }}
-                >
-                  <Text style={styles.to_heaeding2_font}>
-                    {CONSTANT.categoriesmainWhatyoulikecustomize}
-                  </Text>
-                  <Image
-                    resizeMode={"contain"}
-                    style={{ height: 30, width: 30, marginRight: 15 }}
-                    source={require("../assets/images/Arrow.png")}
-                  />
-                </View> */}
-
                 <Tab type={type} setType={setType} />
                 {type ? <MyOrder /> : <AllOrder />}
               </View>
@@ -740,7 +686,7 @@ const Categories = ({ navigation }) => {
                     <TouchableOpacity
                       activeOpacity={0.6}
                       onPress={() =>
-                        navigation.navigate("ordersList", {
+                        navigation.navigate("OrderList", {
                           selectedOrderType: "Pending",
                         })
                       }
@@ -785,7 +731,7 @@ const Categories = ({ navigation }) => {
                     <TouchableOpacity
                       activeOpacity={0.6}
                       onPress={() =>
-                        navigation.navigate("ordersList", {
+                        navigation.navigate("OrderList", {
                           selectedOrderType: "Processing",
                         })
                       }
@@ -839,7 +785,7 @@ const Categories = ({ navigation }) => {
                     <TouchableOpacity
                       activeOpacity={0.6}
                       onPress={() =>
-                        navigation.navigate("ordersList", {
+                        navigation.navigate("OrderList", {
                           selectedOrderType: "Completed",
                         })
                       }
@@ -884,7 +830,7 @@ const Categories = ({ navigation }) => {
                     <TouchableOpacity
                       activeOpacity={0.6}
                       onPress={() =>
-                        navigation.navigate("ordersList", {
+                        navigation.navigate("OrderList", {
                           selectedOrderType: "Cancelled",
                         })
                       }
@@ -1019,7 +965,7 @@ const Categories = ({ navigation }) => {
 
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("ordersList", {
+                  navigation.navigate("OrderList", {
                     selectedOrderType: "Pending",
                   })
                 }

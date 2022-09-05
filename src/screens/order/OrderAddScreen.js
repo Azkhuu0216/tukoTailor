@@ -317,6 +317,7 @@ const OrderAdd = ({ navigation }) => {
                       ? setData({ ...data, Nonote: t })
                       : setData({ ...data, note: t })
                   }
+                  style={{ height: 40 }}
                 ></TextInput>
               </View>
             </View>
@@ -379,7 +380,7 @@ const OrderAdd = ({ navigation }) => {
                   ? setData({ ...data, uridchilgaa: t })
                   : setData({ ...data, belen: t })
               }
-              style={{ flex: 1 }}
+              style={{ height: 40 }}
             ></TextInput>
           </View>
         </View>
@@ -513,6 +514,7 @@ const OrderAdd = ({ navigation }) => {
                 <TextInput
                   value={data.oydol}
                   onChangeText={(t) => setData({ ...data, oydol: t })}
+                  style={{ height: 40 }}
                 />
               </View>
             </View>

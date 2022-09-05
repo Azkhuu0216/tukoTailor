@@ -31,6 +31,7 @@ import Settings from "./settings/settings";
 import Notification from "./Notification";
 import ChatScreen from "./chat/ChatScreen";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import OrderList from "./order/OrderList";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -194,6 +195,13 @@ const AppStack = () => {
           component={Notification}
           options={{
             headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="OrderList"
+          component={OrderList}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Navigator>
