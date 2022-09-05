@@ -8,21 +8,20 @@ import {
   ScrollView,
   Dimensions,
   KeyboardAvoidingView,
+  CheckBox,
 } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { setNavigation } from "../../utils/utiils";
 import * as Constant from "../../styles/globalStyles";
-// import DatePicker from "react-native-neat-date-picker";
 import Feather from "react-native-vector-icons/Feather";
-// import { Checkbox } from "react-native-ui-lib";
-// import { Checkbox } from "react-native-ui-lib";
-
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 const { height, width } = Dimensions.get("window");
 const OrderAdd = ({ navigation }) => {
   useLayoutEffect(() => {
     setNavigation(navigation, "Захиалга оруулах хуудас", true);
   }, []);
   const [data, setData] = useState({
+    oydol: "",
     firstname: "",
     phone: "",
     height: "",
@@ -62,17 +61,9 @@ const OrderAdd = ({ navigation }) => {
     notes: "",
     urid: "",
     ready: "",
+    mur2: "",
   });
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [check, setCheck] = useState(false);
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-  const handleConfirm = (date) => {
-    setData({ ...data, date: date.dateString });
-    hideDatePicker();
-  };
 
   const info = (label, label1) => {
     return (
@@ -84,64 +75,57 @@ const OrderAdd = ({ navigation }) => {
         }}
       >
         <View>
-          <Text style={{ fontSize: 12 }}>{label}</Text>
-          <View
-            style={{
-              height: 44,
-              width: width / 2 - 30,
-              backgroundColor: Constant.orderBackground,
-              justifyContent: "center",
-              padding: 5,
-            }}
-          >
+          <Text style={{ fontSize: 12, marginBottom: 10 }}>{label}</Text>
+
+          <View style={styles.infoBack}>
             <TextInput
               value={
                 label === "Нэр"
                   ? data.firstname
-                  : label === "Биеийн өндөр"
+                  : label === "Бh"
                   ? data.height
-                  : label === "Биеийн жин"
+                  : label === "БЖ"
                   ? data.weight
-                  : label === "Цээжний тойрог"
+                  : label === "ЦТ"
                   ? data.tseej
-                  : label === "Өгзөгний тойрог"
+                  : label === "ӨТ"
                   ? data.ugzug
-                  : label === "Энгэрийн тойрог"
+                  : label === "ЭТ"
                   ? data.engerTo
-                  : label === "Энгэрийн өргөн"
+                  : label === "ЭӨ"
                   ? data.engerUr
-                  : label === "Энгэрийн өндөр"
+                  : label === "Эh"
                   ? data.engerUn
-                  : label === "Арын өргөн"
+                  : label === "АӨ"
                   ? data.arUr
-                  : label === "Хөхний өндөр"
+                  : label === "Хh"
                   ? data.huhUn
-                  : label === "Арын өндөр"
+                  : label === "Аh"
                   ? data.arUn
                   : data.buselhii
               }
               onChangeText={(t) =>
                 label === "Нэр"
                   ? setData({ ...data, firstname: t })
-                  : label === "Биеийн өндөр"
+                  : label === "Бh"
                   ? setData({ ...data, height: t })
-                  : label === "Биеийн жин"
+                  : label === "БЖ"
                   ? setData({ ...data, weight: t })
-                  : label === "Цээжний тойрог"
+                  : label === "ЦТ"
                   ? setData({ ...data, tseej: t })
-                  : label === "Өгзөгний тойрог"
+                  : label === "ӨТ"
                   ? setData({ ...data, ugzug: t })
-                  : label === "Энгэрийн тойрог"
+                  : label === "ЭТ"
                   ? setData({ ...data, engerTo: t })
-                  : label === "Энгэрийн өргөн"
+                  : label === "ЭӨ"
                   ? setData({ ...data, engerUr: t })
-                  : label === "Энгэрийн өндөр"
+                  : label === "Эh"
                   ? setData({ ...data, engerUn: t })
-                  : label === "Арын өргөн"
+                  : label === "АӨ"
                   ? setData({ ...data, arUr: t })
-                  : label === "Хөхний өндөр"
+                  : label === "Хh"
                   ? setData({ ...data, huhUn: t })
-                  : label === "Арын өндөр"
+                  : label === "Аh"
                   ? setData({ ...data, arUn: t })
                   : setData({ ...data, buselhii: t })
               }
@@ -152,57 +136,49 @@ const OrderAdd = ({ navigation }) => {
 
         {label1 === undefined ? null : (
           <View>
-            <Text style={{ fontSize: 12 }}>{label1}</Text>
+            <Text style={{ fontSize: 12, marginBottom: 10 }}>{label1}</Text>
 
-            <View
-              style={{
-                height: 40,
-                width: width / 2 - 30,
-                backgroundColor: Constant.orderBackground,
-                justifyContent: "center",
-                padding: 5,
-              }}
-            >
+            <View style={styles.infoBack}>
               <TextInput
                 value={
                   label1 === "Утас"
                     ? data.phone
-                    : label1 === "Хөхний хоорондын зай"
+                    : label1 === "ХХЗ"
                     ? data.huh
-                    : label1 === "Мөрний өргөн"
+                    : label1 === "МӨ"
                     ? data.mur
-                    : label1 === "Мөр хоорондын зай"
+                    : label1 === "МХЗ"
                     ? data.mur1
-                    : label1 === "Ханцуйн урт"
+                    : label1 === "ХУ"
                     ? data.hantsui
-                    : label1 === "Бугалагны тойрог"
+                    : label1 === "БуглТ"
                     ? data.bugalag
-                    : label1 === "Бугуйн тойрог"
+                    : label1 === "БугТ"
                     ? data.bugui
-                    : label1 === "Энгэрийн хүзүүний тойрог"
+                    : label1 === "ЭХТ"
                     ? data.engerH
-                    : label1 === "Захны өндөр"
+                    : label1 === "Зh"
                     ? data.zah
                     : data.ed
                 }
                 onChangeText={(t) =>
                   label1 === "Утас"
                     ? setData({ ...data, phone: t })
-                    : label1 === "Хөхний хоорондын зай"
+                    : label1 === "ХХЗ"
                     ? setData({ ...data, huh: t })
-                    : label1 === "Мөрний өргөн"
+                    : label1 === "МӨ"
                     ? setData({ ...data, mur: t })
-                    : label1 === "Мөр хоорондын зай"
+                    : label1 === "МХЗ"
                     ? setData({ ...data, mur1: t })
-                    : label1 === "Ханцуйн урт"
+                    : label1 === "ХУ"
                     ? setData({ ...data, hantsui: t })
-                    : label1 === "Бугалагны тойрог"
+                    : label1 === "БуглТ"
                     ? setData({ ...data, bugalag: t })
-                    : label1 == "Бугуйн тойрог"
+                    : label1 == "БугТ"
                     ? setData({ ...data, bugui: t })
-                    : label1 == "Энгэрийн хүзүүний тойрог"
+                    : label1 == "ЭХТ"
                     ? setData({ ...data, engerH: t })
-                    : label1 == "Захны өндөр"
+                    : label1 == "Зh"
                     ? setData({ ...data, zah: t })
                     : setData({ ...data, ed: t })
                 }
@@ -256,7 +232,7 @@ const OrderAdd = ({ navigation }) => {
         }}
       >
         <View>
-          <Text style={{ fontSize: 12 }}>{label}</Text>
+          <Text style={{ fontSize: 12, marginBottom: 10 }}>{label}</Text>
 
           <View
             style={{
@@ -283,6 +259,8 @@ const OrderAdd = ({ navigation }) => {
                   ? data.hatgamal
                   : label === "Чимэглэл"
                   ? data.chimeglel
+                  : label === "Мөр"
+                  ? data.mur2
                   : data.busad
               }
               onChangeText={(t) =>
@@ -300,6 +278,8 @@ const OrderAdd = ({ navigation }) => {
                   ? setData({ ...data, hatgamal: t })
                   : label === "Чимэглэл"
                   ? setData({ ...data, chimeglel: t })
+                  : label === "Мөр"
+                  ? setData({ ...data, mur2: t })
                   : setData({ ...data, busad: t })
               }
               style={{ height: 40 }}
@@ -319,50 +299,52 @@ const OrderAdd = ({ navigation }) => {
         }}
       >
         <View>
-          <Text style={{ fontSize: 12 }}>{label}</Text>
-
-          <View
-            style={{
-              height: 44,
-              width: width / 2 - 60,
-              backgroundColor: Constant.orderBackground,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: 5,
-            }}
-          >
-            <View>
-              <TextInput
-                value={label === "НӨАТ-гүй дүн" ? data.Nonote : data.note}
-                onChangeText={(t) =>
-                  label === "НӨАТ-гүй дүн"
-                    ? setData({ ...data, Nonote: t })
-                    : setData({ ...data, note: t })
-                }
-              ></TextInput>
+          <Text style={{ fontSize: 12, marginBottom: 10 }}>{label}</Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View
+              style={{
+                height: 44,
+                width: width / 2 - 60,
+                backgroundColor: Constant.orderBackground,
+                padding: 5,
+              }}
+            >
+              <View style={{ flex: 1 }}>
+                <TextInput
+                  value={label === "НӨАТ-гүй дүн" ? data.Nonote : data.note}
+                  onChangeText={(t) =>
+                    label === "НӨАТ-гүй дүн"
+                      ? setData({ ...data, Nonote: t })
+                      : setData({ ...data, note: t })
+                  }
+                ></TextInput>
+              </View>
             </View>
-            {/* {label === "НӨАТ-гүй дүн" ? (
-            <Checkbox
-              color={Constant.primaryColor}
-              iconColor={Constant.whiteColor}
-              value={data.notes === "1" ? check : null}
-              onValueChange={() => noNoteCheck()}
-              borderRadius={5}
-              size={24}
-              style={{ marginVertical: 10 }}
-            />
-          ) : (
-            <Checkbox
-              color={Constant.primaryColor}
-              iconColor={Constant.whiteColor}
-              value={data.notes === "2" ? check : null}
-              onValueChange={() => noteCheck()}
-              borderRadius={5}
-              size={24}
-              style={{ marginVertical: 10 }}
-            />
-          )} */}
+            {label === "НӨАТ-гүй дүн" ? (
+              <TouchableOpacity onPress={() => noNoteCheck()}>
+                <MaterialCommunityIcons
+                  name={
+                    data.notes === "1"
+                      ? "checkbox-outline"
+                      : "checkbox-blank-outline"
+                  }
+                  size={30}
+                  color={Constant.primaryColor}
+                />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => noteCheck()}>
+                <MaterialCommunityIcons
+                  name={
+                    data.notes === "2"
+                      ? "checkbox-outline"
+                      : "checkbox-blank-outline"
+                  }
+                  size={30}
+                  color={Constant.primaryColor}
+                />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>
@@ -375,10 +357,11 @@ const OrderAdd = ({ navigation }) => {
           flexDirection: "row",
           justifyContent: "space-between",
           marginBottom: 10,
+          alignItems: "flex-end",
         }}
       >
         <View>
-          <Text style={{ fontSize: 12 }}>{label}</Text>
+          <Text style={{ fontSize: 12, marginBottom: 10 }}>{label}</Text>
 
           <View
             style={{
@@ -396,76 +379,118 @@ const OrderAdd = ({ navigation }) => {
                   ? setData({ ...data, uridchilgaa: t })
                   : setData({ ...data, belen: t })
               }
+              style={{ flex: 1 }}
             ></TextInput>
           </View>
         </View>
-        {/* {label === "Урьдчилгаа" ? (
+        {label === "Урьдчилгаа" ? (
           <>
-            <Checkbox
-              color={Constant.primaryColor}
-              iconColor={Constant.whiteColor}
-              value={data.urid === "1" ? check : null}
-              label="Данс"
-              onValueChange={() => dans()}
-              borderRadius={5}
-              size={24}
-              style={{ marginVertical: 10 }}
-            />
-            <Checkbox
-              color={Constant.primaryColor}
-              iconColor={Constant.whiteColor}
-              label="Пос"
-              value={data.urid === "2" ? check : null}
-              onValueChange={() => pos()}
-              borderRadius={5}
-              size={24}
-              style={{ marginVertical: 10 }}
-            />
-            <Checkbox
-              color={Constant.primaryColor}
-              iconColor={Constant.whiteColor}
-              label="Бэлэн"
-              value={data.urid === "3" ? check : null}
-              onValueChange={() => belen()}
-              borderRadius={5}
-              size={24}
-              style={{ marginVertical: 10 }}
-            />
+            <TouchableOpacity onPress={() => dans()}>
+              <MaterialCommunityIcons
+                name={
+                  data.urid === "1"
+                    ? "checkbox-outline"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={Constant.primaryColor}
+              />
+              <Text>Данс</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => pos()}>
+              <MaterialCommunityIcons
+                name={
+                  data.urid === "2"
+                    ? "checkbox-outline"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={Constant.primaryColor}
+              />
+              <Text>Пос</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => belen()}>
+              <MaterialCommunityIcons
+                name={
+                  data.urid === "3"
+                    ? "checkbox-outline"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={Constant.primaryColor}
+              />
+              <Text>Бэлэн</Text>
+            </TouchableOpacity>
           </>
         ) : (
           <>
-            <Checkbox
-              color={Constant.primaryColor}
-              iconColor={Constant.whiteColor}
-              value={data.ready === "1" ? check : null}
-              label="Данс"
-              onValueChange={() => dans1()}
-              borderRadius={5}
-              size={24}
-              style={{ marginVertical: 10 }}
-            />
-            <Checkbox
-              color={Constant.primaryColor}
-              iconColor={Constant.whiteColor}
-              label="Пос"
-              value={data.ready === "2" ? check : null}
-              onValueChange={() => pos1()}
-              borderRadius={5}
-              size={24}
-              style={{ marginVertical: 10 }}
-            />
-            <Checkbox
-              color={Constant.primaryColor}
-              iconColor={Constant.whiteColor}
-              label="Бэлэн"
-              value={data.ready === "3" ? check : null}
-              onValueChange={() => belen1()}
-              borderRadius={5}
-              size={24}
-              style={{ marginVertical: 10 }}
-            />
+            <TouchableOpacity onPress={() => dans1()}>
+              <MaterialCommunityIcons
+                name={
+                  data.ready === "1"
+                    ? "checkbox-outline"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={Constant.primaryColor}
+              />
+              <Text>Данс</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => pos1()}>
+              <MaterialCommunityIcons
+                name={
+                  data.ready === "2"
+                    ? "checkbox-outline"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={Constant.primaryColor}
+              />
+              <Text>Пос</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => belen1()}>
+              <MaterialCommunityIcons
+                name={
+                  data.ready === "3"
+                    ? "checkbox-outline"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={Constant.primaryColor}
+              />
+              <Text>Бэлэн</Text>
+            </TouchableOpacity>
           </>
-        )} */}
+        )}
+      </View>
+    );
+  };
+
+  const date = (label) => {
+    return (
+      <View>
+        <Text>{label}</Text>
+        <View
+          style={{
+            height: 44,
+            width: (width - 50) / 3,
+            backgroundColor: Constant.orderBackground,
+            justifyContent: "center",
+            padding: 5,
+            marginVertical: 10,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {}}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Text>{data.date}</Text>
+            <Feather name="calendar" size={20} />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -475,61 +500,48 @@ const OrderAdd = ({ navigation }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <ScrollView
-          style={{ marginHorizontal: 20, marginTop: 20 }}
+          style={{ marginHorizontal: 20, marginTop: 20, marginBottom: 30 }}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={{ marginBottom: 10, color: Constant.gray90Color }}>
-            Үндсэн мэдээлэл
-          </Text>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text style={styles.title}>Үндсэн мэдээлэл</Text>
+            <View>
+              <Text style={{ marginBottom: 10 }}>Оёдолчны нэр</Text>
+              <View style={styles.infoBack}>
+                <TextInput
+                  value={data.oydol}
+                  onChangeText={(t) => setData({ ...data, oydol: t })}
+                />
+              </View>
+            </View>
+          </View>
           {info("Нэр", "Утас")}
           <View
             style={{
-              height: 44,
-              width: width / 2 - 30,
-              backgroundColor: Constant.orderBackground,
-              justifyContent: "center",
-              padding: 5,
-              marginVertical: 20,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: width - 40,
             }}
           >
-            <TouchableOpacity
-              onPress={() => {
-                setDatePickerVisibility(!isDatePickerVisible);
-              }}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text>{data.date}</Text>
-              <Feather name="calendar" size={20} />
-            </TouchableOpacity>
-
-            {/* <DatePicker
-              isVisible={isDatePickerVisible}
-              mode={"single"}
-              onCancel={hideDatePicker}
-              onConfirm={handleConfirm}
-            /> */}
+            {date("Өгсөн")}
+            {date("Премирка")}
+            {date("Авах")}
           </View>
 
-          <Text style={{ marginBottom: 10, color: Constant.gray90Color }}>
-            Биеийн хэмжээ
-          </Text>
-          {info("Биеийн өндөр", "Хөхний хоорондын зай")}
-          {info("Биеийн жин", "Мөрний өргөн")}
-          {info("Цээжний тойрог", "Мөр хоорондын зай")}
-          {info("Өгзөгний тойрог", "Ханцуйн урт")}
-          {info("Энгэрийн тойрог", "Бугалагны тойрог")}
-          {info("Энгэрийн өргөн", "Бугуйн тойрог")}
-          {info("Энгэрийн өндөр", "Энгэрийн хүзүүний тойрог")}
-          {info("Арын өргөн", "Захны өндөр")}
-          {info("Арын өндөр", "Эдлэлийн урт")}
-          {info("Хөхний өндөр", "Бүсэлхийн тойрог")}
-          <Text style={{ marginBottom: 10, color: Constant.gray90Color }}>
-            Бусад
-          </Text>
+          <Text style={styles.title}>Биеийн хэмжээ</Text>
+          {info("Бh", "ХХЗ")}
+          {info("БЖ", "МӨ")}
+          {info("ЦТ", "МХЗ")}
+          {info("ӨТ", "ХУ")}
+          {info("ЭТ", "БуглТ")}
+          {info("ЭӨ", "БугТ")}
+          {info("Эh", "ЭХТ")}
+          {info("АӨ", "Зh")}
+          {info("Аh", "ЭУ")}
+          {info("Хh", "БТ")}
+          <Text style={styles.title}>Бусад</Text>
           {other("Үндсэн материал")}
           {other("Эмжээр")}
           {other("Хавчаар")}
@@ -537,10 +549,9 @@ const OrderAdd = ({ navigation }) => {
           {other("Бүс")}
           {other("Хатгамал")}
           {other("Чимэглэл")}
+          {other("Мөр")}
           {other("Бусад")}
-          <Text style={{ marginBottom: 10, color: Constant.gray90Color }}>
-            Төлбөрийн мэдээлэл
-          </Text>
+          <Text style={styles.title}>Төлбөрийн мэдээлэл</Text>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
@@ -548,7 +559,7 @@ const OrderAdd = ({ navigation }) => {
             {payment("НӨАТ-тэй дүн")}
           </View>
           {tulult("Урьдчилгаа")}
-          {tulult("Бэлэн")}
+          {tulult("Үлдэгдэл")}
           <TouchableOpacity
             style={{
               alignItems: "center",
@@ -580,5 +591,18 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Constant.primaryColor,
     flex: 1,
+  },
+  infoBack: {
+    height: 40,
+    width: width / 2 - 30,
+    backgroundColor: Constant.orderBackground,
+    justifyContent: "center",
+    padding: 5,
+  },
+  title: {
+    marginBottom: 10,
+    color: Constant.gray90Color,
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });

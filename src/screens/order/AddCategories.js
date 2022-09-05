@@ -15,6 +15,7 @@ import {
   Alert,
   Dimensions,
   SafeAreaView,
+  Platform,
 } from "react-native";
 import * as Constant from "../../styles/globalStyles";
 import { windowHeight, windowWidth } from "../utils/Dimentions";
@@ -24,6 +25,8 @@ import CONSTANT from "../../styles/local";
 import images from "../../../assets/images";
 import { setNavigation } from "../../utils/utiils";
 import { ScrollView } from "react-native-virtualized-view";
+import ImgToBase64 from "react-native-image-base64";
+import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 
 const { width } = Dimensions.get("window");
 
@@ -31,7 +34,22 @@ const AddCategories = ({ navigation, route }) => {
   const value = route.params?.value;
   console.log(value.firstname, "value");
   const { user, logout } = useContext(AuthContext);
-
+  const [loader, setLoader] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+  const [image, setImage] = useState("");
+  const [variables, setVariables] = useState({
+    avatar:
+      Platform.OS === "ios"
+        ? "file:///Users/amex/Library/Developer/CoreSimulator/Devices/1DC2B519-55F6-4F01-8B6D-3F26A9E2F9A7/data/Containers/Data/Application/6D38D9D2-71CE-442E-A268-BB1F289770EE/tmp/DB493A65-058D-4612-9918-E7A4B1ECEEEC.jpg"
+        : "file:///data/user/0/com.mgl.tukotailor/cache/rn_image_picker_lib_temp_70f94396-15c7-4e92-8162-2cc954faacf5.jpg",
+  });
+  const [data, setData] = useState({
+    avatar:
+      Platform.OS === "ios"
+        ? "file:///Users/amex/Library/Developer/CoreSimulator/Devices/1DC2B519-55F6-4F01-8B6D-3F26A9E2F9A7/data/Containers/Data/Application/6D38D9D2-71CE-442E-A268-BB1F289770EE/tmp/DB493A65-058D-4612-9918-E7A4B1ECEEEC.jpg"
+        : "file:///data/user/0/com.mgl.tukotailor/cache/rn_image_picker_lib_temp_70f94396-15c7-4e92-8162-2cc954faacf5.jpg",
+  });
+  console.log(variables.avatar, "-----avatar");
   const [mainCategorymaleArray, setMainCategorymaleArray] = useState([]);
   const [mainCategoryfemaleArray, setMainCategoryfemaleArray] = useState([]);
   const [subCategorymaleArray, setSubCategorymaleArray] = useState([]);
@@ -124,6 +142,7 @@ const AddCategories = ({ navigation, route }) => {
       bus: value.bus,
       hatgamal: value.hatgamal,
       chimeglel: value.chimeglel,
+      mur2: value.mur2,
       busad: value.busad,
       apparel_steps: [],
     });
@@ -152,7 +171,7 @@ const AddCategories = ({ navigation, route }) => {
     return (
       <View style={styles.View}>
         <Text>{label}: </Text>
-        <View style={styles.background}>
+        <View style={styles.backgroundName}>
           <Text>{label === "Нэр" ? value.firstname : value.phone}</Text>
         </View>
       </View>
@@ -168,12 +187,12 @@ const AddCategories = ({ navigation, route }) => {
             <Text>{value.date}</Text>
           </View>
         </View>
-        {/* <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: "center" }}>
           <Text style={{ color: Constant.gray90Color }}>примерка</Text>
           <View style={styles.background1}>
             <Text>{value.date}</Text>
           </View>
-        </View> */}
+        </View>
         <View style={{ alignItems: "center" }}>
           <Text style={{ color: Constant.gray90Color }}>авах</Text>
           <View style={styles.background1}>
@@ -191,37 +210,37 @@ const AddCategories = ({ navigation, route }) => {
         </View>
         <View style={styles.background2}>
           <Text>
-            {label === "биеийн жин"
+            {label === "БЖ"
               ? value.weight
-              : label === "цээжний тойрог"
+              : label === "ЦТ"
               ? value.tseej
-              : label === "бүсэлхийн тойрог"
+              : label === "БТ"
               ? value.buselhii
-              : label === "өгзөгний тойрог"
+              : label === "ӨТ"
               ? value.ugzug
-              : label === "энгэрийн өргөн"
+              : label === "ЭӨ"
               ? value.engerUr
-              : label === "арын өргөн"
+              : label === "АӨ"
               ? value.arUr
-              : label === "арын өндөр"
+              : label === "Аh"
               ? value.arUn
-              : label === "хөхний өндөр"
+              : label === "Хh"
               ? value.huhUn
-              : label === "хөх хоорондын зай"
+              : label === "ХXЗ"
               ? value.huh
-              : label === "мөрний өргөн"
+              : label === "МӨ"
               ? value.mur
-              : label === "мөр хоорондын зай"
+              : label === "МХЗ"
               ? value.mur1
-              : label === "ханцуйн урт"
+              : label === "ХУ"
               ? value.hantsui
-              : label === "бугалагны тойрог"
+              : label === "БуглТ"
               ? value.bugalag
-              : label === "бугуйн тойрог"
+              : label === "БугТ"
               ? value.bugui
-              : label === "хүзүүний тойрог"
+              : label === "ХТ"
               ? value.engerH
-              : label === "захны өндөр"
+              : label === "Захh"
               ? value.zah
               : value.ed}
           </Text>
@@ -251,16 +270,46 @@ const AddCategories = ({ navigation, route }) => {
               ? value.hatgamal
               : label === "чимэглэл"
               ? value.chimeglel
+              : label === "мөр"
+              ? value.mur2
               : value.busad}
           </Text>
         </View>
       </View>
     );
   };
+  const openGallery = () => {
+    launchImageLibrary({ maxWidth: 600, maxHeight: 600 }, (response) => {
+      if (response.didCancel) {
+        navigation.goBack();
+      } else if (response.error) {
+        console.log("ImagePicker Error: ", response.error);
+      } else {
+        setImageUrl(response.assets[0]);
+        const avatar = response.assets[0].uri;
+        temp = { ...variables, avatar };
+        setVariables(temp);
+      }
+    });
+  };
+  const handleUpload = () => {
+    launchImageLibrary({ maxWidth: 600, maxHeight: 600 }, (response) => {
+      if (response.didCancel) {
+        navigation.goBack();
+      } else if (response.error) {
+        console.log("ImagePicker Error: ", response.error);
+      } else {
+        setImage(response.assets[0]);
+        const avatar = response.assets[0].uri;
+        variable = { ...data, avatar };
+        setData(variable);
+      }
+    });
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Constant.whiteColor }}>
       <ScrollView
-        style={{ marginHorizontal: 20, marginTop: 20 }}
+        style={{ marginHorizontal: 20, marginTop: 20, marginBottom: 30 }}
         showsVerticalScrollIndicator={false}
       >
         {name("Нэр")}
@@ -271,33 +320,49 @@ const AddCategories = ({ navigation, route }) => {
             style={{
               marginBottom: 10,
               color: Constant.gray90Color,
-              width: width / 2 - 40,
+              width: width / 3,
             }}
           >
             Биеийн хэмжээ
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
-          <Image source={images.clothes} />
           <View>
-            {bodySize("биеийн жин")}
-            {bodySize("цээжний тойрог")}
-            {bodySize("бүсэлхийн тойрог")}
-            {bodySize("өгзөгний тойрог")}
-            {bodySize("энгэрийн өргөн")}
-            {bodySize("энгэрийн өндөр")}
-            {bodySize("арын өргөн")}
-            {bodySize("арын өндөр")}
-            {bodySize("хөхний өндөр")}
-            {bodySize("хөх хоорондын зай")}
-            {bodySize("мөрний өргөн")}
-            {bodySize("мөр хоорондын зай")}
-            {bodySize("ханцуйн урт")}
-            {bodySize("бугалагны тойрог")}
-            {bodySize("бугуйн тойрог")}
-            {bodySize("хүзүүний тойрог")}
-            {bodySize("захны өндөр")}
-            {bodySize("эдлэлийн урт")}
+            <Text style={{ marginVertical: 10 }}>Загварын зураг</Text>
+            <TouchableOpacity onPress={() => openGallery()}>
+              <Image
+                source={{ uri: variables.avatar }}
+                style={{ height: 230, width: 220 }}
+              />
+            </TouchableOpacity>
+            <Text style={{ marginVertical: 10 }}>Материалын зураг</Text>
+
+            <TouchableOpacity onPress={() => openGallery()}>
+              <Image
+                source={{ uri: data.avatar }}
+                style={{ height: 180, width: 180 }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View>
+            {bodySize("БЖ")}
+            {bodySize("ЦТ")}
+            {bodySize("БТ")}
+            {bodySize("ӨТ")}
+            {bodySize("ЭӨ")}
+            {bodySize("Эh")}
+            {bodySize("АӨ")}
+            {bodySize("Аh")}
+            {bodySize("Хh")}
+            {bodySize("ХXЗ")}
+            {bodySize("МӨ")}
+            {bodySize("МХЗ")}
+            {bodySize("ХУ")}
+            {bodySize("БуглТ")}
+            {bodySize("БугТ")}
+            {bodySize("ХТ")}
+            {bodySize("Захh")}
+            {bodySize("ЭУ")}
           </View>
         </View>
         <View style={{ alignItems: "center", width: width - 40 }}>
@@ -318,6 +383,7 @@ const AddCategories = ({ navigation, route }) => {
         {explain("бүс")}
         {explain("хатгамал")}
         {explain("чимэглэл")}
+        {explain("мөр")}
         {explain("бусад")}
 
         {route.params?.ok === true ? null : (
@@ -362,6 +428,13 @@ const styles = StyleSheet.create({
   },
   background: {
     height: 30,
+    width: 45,
+    backgroundColor: Constant.orderBackground,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  backgroundName: {
+    height: 30,
     width: width / 3,
     backgroundColor: Constant.orderBackground,
     alignItems: "center",
@@ -369,21 +442,21 @@ const styles = StyleSheet.create({
   },
   background1: {
     height: 30,
-    width: width / 3,
+    width: width / 3 - 40,
     backgroundColor: Constant.orderBackground,
     alignItems: "center",
     justifyContent: "center",
   },
   background2: {
     height: 30,
-    width: 45,
+    width: 95,
     backgroundColor: Constant.orderBackground,
     alignItems: "center",
     justifyContent: "center",
   },
   View2: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginBottom: 3,
     width: width / 2 - 20,
     marginLeft: 20,

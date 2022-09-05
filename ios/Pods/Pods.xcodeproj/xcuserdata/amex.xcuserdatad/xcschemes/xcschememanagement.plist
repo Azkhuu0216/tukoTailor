@@ -499,6 +499,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>react-native-image-base64.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>react-native-image-picker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>react-native-restart.xcscheme</key>
 		<dict>
 			<key>isShown</key>

@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   Alert,
   KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
@@ -21,7 +22,6 @@ import ImagePicker from "react-native-image-crop-picker";
 import Spinner from "react-native-loading-spinner-overlay";
 import storage from "@react-native-firebase/storage";
 import images from "../../../assets/images";
-import { ScrollView } from "react-native-virtualized-view";
 
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState();

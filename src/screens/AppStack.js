@@ -29,6 +29,7 @@ import {
 } from "./order";
 import Settings from "./settings/settings";
 import Notification from "./Notification";
+import ChatScreen from "./chat/ChatScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -60,6 +61,16 @@ const TabStack = ({ navigation }) => {
         // name={CONSTANT.AppStackCart}
         name="Холбоо"
         component={Contact}
+        options={{
+          tabBarIcon: (props) => (
+            <Feather name="users" size={24} color={Constant.primaryColor} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        // name={CONSTANT.AppStackCart}
+        name="Чат"
+        component={ChatScreen}
         options={{
           tabBarIcon: (props) => (
             <Feather name="users" size={24} color={Constant.primaryColor} />
