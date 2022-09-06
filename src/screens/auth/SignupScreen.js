@@ -49,6 +49,7 @@ const SignupScreen = ({ navigation }) => {
       last_name != "" &&
       phone_number != "" &&
       address != "" &&
+      position != "" &&
       email != "" &&
       password != "" &&
       confirmPassword != ""
@@ -103,18 +104,6 @@ const SignupScreen = ({ navigation }) => {
       setEmailValid(true);
       setEmail(userEmail);
     }
-  };
-
-  const getmaleGenderData = () => {
-    setfemale(false);
-    setmale(true);
-    setGender("male");
-  };
-
-  const getfemaleGenderData = () => {
-    setfemale(true);
-    setmale(false);
-    setGender("female");
   };
 
   const uploadImage = async () => {

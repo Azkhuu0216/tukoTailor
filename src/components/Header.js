@@ -17,16 +17,15 @@ import firestore from "@react-native-firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 
 const { height, width } = Dimensions.get("window");
-const Header = () => {
+const Header = ({ name, position1 }) => {
   const navigation = useNavigation();
-
   const [image, setImage] = useState(null); // nemsen
   const [finalImage, setFinalImage] = useState(null); // nemsen
   const [first_name, setfirst_name] = useState(""); // nemsen
+  const [position, setPosition] = useState(""); // nemsen
   const [showuserside, setShowuserside] = useState(false);
   const [showAdminSide, setShowAdminSide] = useState(false);
   const { user, logout } = useContext(AuthContext);
-
   useEffect(() => {
     getAddedUserAccess();
   }, []);
@@ -40,6 +39,7 @@ const Header = () => {
             querySnapshot.forEach((documentSnapshot) => {
               if (documentSnapshot.id == user.uid) {
                 setfirst_name(documentSnapshot.data().first_name); // nemsen
+                setPosition(documentSnapshot.data().position); // nemsen
                 setFinalImage(documentSnapshot.data().profile_image); // nemsen
                 if (documentSnapshot.data().role == "admin") {
                   setShowAdminSide(true);
@@ -54,7 +54,8 @@ const Header = () => {
       console.log(err);
     }
   };
-
+  const pos = position1 === undefined ? position : position1;
+  const fullname = name === undefined ? first_name : name;
   return (
     <ImageBackground
       resizeMode="cover"
@@ -127,9 +128,9 @@ const Header = () => {
                 color: Constant.whiteColor,
               }}
             >
-              {first_name}
+              {fullname}
             </Text>
-            <Text style={styles.Text}>Албан тушаал: CEO</Text>
+            <Text style={styles.Text}>Албан тушаал:{pos}</Text>
           </View>
           <View
             style={{

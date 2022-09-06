@@ -40,6 +40,8 @@ const Profile = () => {
   const [uploading, setUploading] = useState(false);
   const [image, setImage] = useState(null);
   const [finalImage, setFinalImage] = useState(null);
+  const [position, setPosition] = useState(null);
+
   const [spinner, setSpinner] = useState(false);
   const [transferred, setTransferred] = useState(0);
 
@@ -63,6 +65,7 @@ const Profile = () => {
               setBirthDay(documentSnapshot.data().birthDay);
               setHomePhone(documentSnapshot.data().homePhone);
               setDate(documentSnapshot.data().date);
+              setPosition(documentSnapshot.data().position);
               setFinalImage(documentSnapshot.data().profile_image);
             }
           });
@@ -77,6 +80,7 @@ const Profile = () => {
       height: 1200,
       cropping: true,
     }).then((image) => {
+      console.log(image.path, "--------image");
       const imageUri = Platform.OS === "ios" ? image.sourceURL : image.path;
       setImage(imageUri);
     });
@@ -90,7 +94,6 @@ const Profile = () => {
     ) {
       setSpinner(true);
       const imageUrl = await uploadImage();
-
       firestore()
         .collection("users")
         .doc(user.uid)
@@ -156,7 +159,7 @@ const Profile = () => {
       setUploading(false);
       return url;
     } catch (e) {
-      console.log(e);
+      console.log(e, "error");
       return null;
     }
   };
@@ -234,7 +237,7 @@ const Profile = () => {
           <View style={css.View}>
             <View style={css.View2}>
               <Text style={css.Name}>{first_name}</Text>
-              <Text style={styles.Text}>Албан тушаал: CEO</Text>
+              <Text style={styles.Text}>Албан тушаал: {position}</Text>
             </View>
             <TouchableOpacity
               activeOpacity={0.9}
