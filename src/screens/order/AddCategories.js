@@ -73,7 +73,7 @@ const AddCategories = ({ navigation, route }) => {
               querySnapshot.forEach((documentSnapshot) => {
                 console.log(
                   documentSnapshot.data().selected_apparels,
-                  "Dataa shidej bgn----"
+                  "irj bga data----"
                 );
                 if (documentSnapshot.id == user.uid) {
                   setMainCategorymaleArray(
@@ -138,6 +138,8 @@ const AddCategories = ({ navigation, route }) => {
       chimeglel: value.chimeglel,
       mur2: value.mur2,
       busad: value.busad,
+      imageUrl: variables.avatar,
+      imageUrl1: data.avatar,
       apparel_steps: [],
     });
 
@@ -335,21 +337,25 @@ const AddCategories = ({ navigation, route }) => {
               <TouchableOpacity onPress={() => openGallery()}>
                 <Image
                   source={
-                    variables.avatar === undefined
-                      ? images.clothes
-                      : { uri: variables.avatar }
+                    value.imageUrl === undefined
+                      ? variables.avatar === undefined
+                        ? images.clothes
+                        : { uri: variables.avatar }
+                      : { uri: value.imageUrl }
                   }
                   style={{ height: 250, width: 140 }}
                 />
               </TouchableOpacity>
               <Text style={{ marginVertical: 10 }}>Материалын зураг</Text>
 
-              <TouchableOpacity onPress={() => openGallery()}>
+              <TouchableOpacity onPress={() => handleUpload()}>
                 <Image
                   source={
-                    variables.avatar === undefined
-                      ? images.clothes
-                      : { uri: data.avatar }
+                    value.imageUrl1 === undefined
+                      ? data.avatar === undefined
+                        ? images.clothes
+                        : { uri: data.avatar }
+                      : { uri: value.imageUrl1 }
                   }
                   style={{ height: 210, width: 118 }}
                 />

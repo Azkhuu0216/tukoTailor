@@ -23,6 +23,7 @@ import Feather from "react-native-vector-icons/Feather";
 import CONSTANT from "../../styles/local";
 import images from "../../../assets/images";
 import styles from "../../styles/styles";
+import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 
 const { height, width } = Dimensions.get("window");
 
@@ -82,6 +83,20 @@ const Profile = () => {
       console.log(image.path, "--------image");
       const imageUri = Platform.OS === "ios" ? image.sourceURL : image.path;
       setImage(imageUri);
+    });
+  };
+  const openGallery = () => {
+    launchImageLibrary({ maxWidth: 600, maxHeight: 600 }, (response) => {
+      if (response.didCancel) {
+        navigation.goBack();
+      } else if (response.error) {
+        console.log("ImagePicker Error: ", response.error);
+      } else {
+        setImageUrl(response.assets[0]);
+        const avatar = response.assets[0].uri;
+        temp = { ...variables, avatar };
+        setVariables(temp);
+      }
     });
   };
   const submitProfileData = async () => {
