@@ -42,7 +42,9 @@ const Profile = () => {
   const [image, setImage] = useState(null);
   const [finalImage, setFinalImage] = useState(null);
   const [position, setPosition] = useState(null);
-
+  const [variables, setVariables] = useState({
+    avatar: undefined,
+  });
   const [spinner, setSpinner] = useState(false);
   const [transferred, setTransferred] = useState(0);
 
@@ -88,17 +90,17 @@ const Profile = () => {
   const openGallery = () => {
     launchImageLibrary({ maxWidth: 600, maxHeight: 600 }, (response) => {
       if (response.didCancel) {
-        navigation.goBack();
       } else if (response.error) {
         console.log("ImagePicker Error: ", response.error);
       } else {
-        setImageUrl(response.assets[0]);
+        console.log(response.assets[0], "rsponse---");
         const avatar = response.assets[0].uri;
         temp = { ...variables, avatar };
         setVariables(temp);
       }
     });
   };
+  console.log(variables.avatar, "-------++++++++++");
   const submitProfileData = async () => {
     if (
       first_name != "" &&
@@ -107,7 +109,7 @@ const Profile = () => {
       address != ""
     ) {
       setSpinner(true);
-      const imageUrl = await uploadImage();
+      // const imageUrl = await uploadImage();
       firestore()
         .collection("users")
         .doc(user.uid)
@@ -122,7 +124,7 @@ const Profile = () => {
           birthDay: birthDay,
           homePhone: homePhone,
           date: date,
-          profile_image: imageUrl == null ? finalImage : imageUrl,
+          profile_image: variables.avatar,
         })
         .then((data) => {
           setSpinner(false);
@@ -257,19 +259,20 @@ const Profile = () => {
               <Text style={styles.Text}>Албан тушаал: {position}</Text>
             </View>
             <TouchableOpacity activeOpacity={0.9} style={css.Profile}>
-              {image == null ? (
-                <Image
-                  style={css.logoStyle}
-                  source={finalImage != null ? { uri: finalImage } : null}
-                />
-              ) : (
-                <Image
-                  style={css.logoStyle}
-                  source={image != null ? { uri: image } : null}
-                />
-              )}
+              <Image
+                style={css.logoStyle}
+                source={
+                  finalImage != null
+                    ? variables.avatar === undefined
+                      ? { uri: finalImage }
+                      : { uri: variables.avatar }
+                    : variables.avatar === undefined
+                    ? images.profile
+                    : { uri: variables.avatar }
+                }
+              />
               <TouchableOpacity
-                onPress={() => choosePictureFromGallery()}
+                onPress={() => openGallery()}
                 style={[
                   // styles.checkBoxSelectorStyle,
                   {

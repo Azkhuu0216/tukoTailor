@@ -43,7 +43,6 @@ const AddCategories = ({ navigation, route }) => {
   const [data, setData] = useState({
     avatar: undefined,
   });
-  console.log(variables.avatar, "-----avatar");
   const [mainCategorymaleArray, setMainCategorymaleArray] = useState([]);
   const [mainCategoryfemaleArray, setMainCategoryfemaleArray] = useState([]);
   const [subCategorymaleArray, setSubCategorymaleArray] = useState([]);
