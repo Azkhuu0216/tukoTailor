@@ -71,7 +71,7 @@ const Header = ({ name, position1 }) => {
      </View> */}
         <View //543-634 hurtel nemsen
           style={{
-            marginTop: height / 4 - 40,
+            marginTop: height / 5,
             flexDirection: "row",
             justifyContent: "space-between",
             // backgroundColor: "red",

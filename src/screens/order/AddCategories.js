@@ -164,7 +164,9 @@ const AddCategories = ({ navigation, route }) => {
   const name = (label) => {
     return (
       <View style={styles.View}>
-        <Text>{label}: </Text>
+        <View style={{ width: width / 6 }}>
+          <Text>{label}: </Text>
+        </View>
         <View style={styles.backgroundName}>
           <Text>{label === "Нэр" ? value.firstname : value.phone}</Text>
         </View>
@@ -173,27 +175,31 @@ const AddCategories = ({ navigation, route }) => {
   };
   const ognoo = () => {
     return (
-      <View style={styles.View1}>
-        <Text>Огноо:</Text>
-        <View style={{ alignItems: "center" }}>
-          <Text style={{ color: Constant.gray90Color }}>өгсөн</Text>
-          <View style={styles.background1}>
-            <Text>{value.date}</Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <View style={styles.View1}>
+          <View style={{ width: width / 6 }}>
+            <Text>Огноо:</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ color: Constant.gray90Color }}>өгсөн</Text>
+            <View style={styles.background1}>
+              <Text>{value.date}</Text>
+            </View>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ color: Constant.gray90Color }}>примерка</Text>
+            <View style={styles.background1}>
+              <Text>{value.date}</Text>
+            </View>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ color: Constant.gray90Color }}>авах</Text>
+            <View style={styles.background1}>
+              <Text>{value.date}</Text>
+            </View>
           </View>
         </View>
-        <View style={{ alignItems: "center" }}>
-          <Text style={{ color: Constant.gray90Color }}>примерка</Text>
-          <View style={styles.background1}>
-            <Text>{value.date}</Text>
-          </View>
-        </View>
-        <View style={{ alignItems: "center" }}>
-          <Text style={{ color: Constant.gray90Color }}>авах</Text>
-          <View style={styles.background1}>
-            <Text>{value.date}</Text>
-          </View>
-        </View>
-      </View>
+      </ScrollView>
     );
   };
   const bodySize = (label) => {
@@ -308,7 +314,9 @@ const AddCategories = ({ navigation, route }) => {
       >
         {name("Нэр")}
         {name("Утас")}
-        {ognoo()}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {ognoo()}
+        </ScrollView>
         <View style={{ alignItems: "flex-end", marginRight: 20 }}>
           <Text
             style={{
@@ -320,53 +328,55 @@ const AddCategories = ({ navigation, route }) => {
             Биеийн хэмжээ
           </Text>
         </View>
-        <View style={{ flexDirection: "row" }}>
-          <View>
-            <Text style={{ marginVertical: 10 }}>Загварын зураг</Text>
-            <TouchableOpacity onPress={() => openGallery()}>
-              <Image
-                source={
-                  variables.avatar === undefined
-                    ? images.clothes
-                    : { uri: variables.avatar }
-                }
-                style={{ height: 250, width: 140 }}
-              />
-            </TouchableOpacity>
-            <Text style={{ marginVertical: 10 }}>Материалын зураг</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={{ flexDirection: "row" }}>
+            <View>
+              <Text style={{ marginVertical: 10 }}>Загварын зураг</Text>
+              <TouchableOpacity onPress={() => openGallery()}>
+                <Image
+                  source={
+                    variables.avatar === undefined
+                      ? images.clothes
+                      : { uri: variables.avatar }
+                  }
+                  style={{ height: 250, width: 140 }}
+                />
+              </TouchableOpacity>
+              <Text style={{ marginVertical: 10 }}>Материалын зураг</Text>
 
-            <TouchableOpacity onPress={() => openGallery()}>
-              <Image
-                source={
-                  variables.avatar === undefined
-                    ? images.clothes
-                    : { uri: data.avatar }
-                }
-                style={{ height: 210, width: 118 }}
-              />
-            </TouchableOpacity>
+              <TouchableOpacity onPress={() => openGallery()}>
+                <Image
+                  source={
+                    variables.avatar === undefined
+                      ? images.clothes
+                      : { uri: data.avatar }
+                  }
+                  style={{ height: 210, width: 118 }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View>
+              {bodySize("БЖ")}
+              {bodySize("ЦТ")}
+              {bodySize("БТ")}
+              {bodySize("ӨТ")}
+              {bodySize("ЭӨ")}
+              {bodySize("Эh")}
+              {bodySize("АӨ")}
+              {bodySize("Аh")}
+              {bodySize("Хh")}
+              {bodySize("ХXЗ")}
+              {bodySize("МӨ")}
+              {bodySize("МХЗ")}
+              {bodySize("ХУ")}
+              {bodySize("БуглТ")}
+              {bodySize("БугТ")}
+              {bodySize("ХТ")}
+              {bodySize("Захh")}
+              {bodySize("ЭУ")}
+            </View>
           </View>
-          <View>
-            {bodySize("БЖ")}
-            {bodySize("ЦТ")}
-            {bodySize("БТ")}
-            {bodySize("ӨТ")}
-            {bodySize("ЭӨ")}
-            {bodySize("Эh")}
-            {bodySize("АӨ")}
-            {bodySize("Аh")}
-            {bodySize("Хh")}
-            {bodySize("ХXЗ")}
-            {bodySize("МӨ")}
-            {bodySize("МХЗ")}
-            {bodySize("ХУ")}
-            {bodySize("БуглТ")}
-            {bodySize("БугТ")}
-            {bodySize("ХТ")}
-            {bodySize("Захh")}
-            {bodySize("ЭУ")}
-          </View>
-        </View>
+        </ScrollView>
         <View style={{ alignItems: "center", width: width - 40 }}>
           <Text
             style={{
@@ -378,16 +388,17 @@ const AddCategories = ({ navigation, route }) => {
             Тайлбар
           </Text>
         </View>
-        {explain("үндсэн материал")}
-        {explain("эмжээр")}
-        {explain("хавчаар")}
-        {explain("товч шилбэ")}
-        {explain("бүс")}
-        {explain("хатгамал")}
-        {explain("чимэглэл")}
-        {explain("мөр")}
-        {explain("бусад")}
-
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {explain("үндсэн материал")}
+          {explain("эмжээр")}
+          {explain("хавчаар")}
+          {explain("товч шилбэ")}
+          {explain("бүс")}
+          {explain("хатгамал")}
+          {explain("чимэглэл")}
+          {explain("мөр")}
+          {explain("бусад")}
+        </ScrollView>
         {route.params?.ok === true ? null : (
           <TouchableOpacity
             style={{
@@ -437,17 +448,18 @@ const styles = StyleSheet.create({
   },
   backgroundName: {
     height: 30,
-    width: width / 3,
+    width: width / 2 - 20,
     backgroundColor: Constant.orderBackground,
     alignItems: "center",
     justifyContent: "center",
   },
   background1: {
     height: 30,
-    width: width / 3 - 40,
+    width: width / 3,
     backgroundColor: Constant.orderBackground,
     alignItems: "center",
     justifyContent: "center",
+    marginRight: 10,
   },
   background2: {
     height: 30,
@@ -469,14 +481,15 @@ const styles = StyleSheet.create({
   },
   background3: {
     height: 30,
-    width: (width - 40) / 3,
+    width: width / 3,
     backgroundColor: Constant.orderBackground,
     alignItems: "center",
     justifyContent: "center",
+    marginRight: 3,
   },
   background4: {
     height: 30,
-    width: width - (width - 40) / 3 - 24,
+    width: width - (width - 40) / 3,
     backgroundColor: Constant.orderBackground,
     alignItems: "center",
     justifyContent: "center",

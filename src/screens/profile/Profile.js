@@ -230,7 +230,7 @@ const Profile = () => {
     <View style={styles.to_bg_image}>
       <ImageBackground
         resizeMode="cover"
-        style={{ height: height / 4, width: width }}
+        style={{ height: height / 4 - 20, width: width }}
         source={images.Headbackground}
       >
         <View style={styles.to_category_header}>
@@ -371,6 +371,6 @@ const css = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     // backgroundColor: "red",
-    height: 50,
+    height: 40,
   },
 });

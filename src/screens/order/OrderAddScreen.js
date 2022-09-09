@@ -15,6 +15,9 @@ import { setNavigation } from "../../utils/utiils";
 import * as Constant from "../../styles/globalStyles";
 import Feather from "react-native-vector-icons/Feather";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import DateTimePicker from "react-native-modal-datetime-picker";
+import moment from "moment";
+
 const { height, width } = Dimensions.get("window");
 const OrderAdd = ({ navigation }) => {
   useLayoutEffect(() => {
@@ -58,13 +61,45 @@ const OrderAdd = ({ navigation }) => {
     belen: "",
     date: "DD/MM/YYYY",
     date1: "DD/MM/YYYY",
+    date2: "DD/MM/YYYY",
     notes: "",
     urid: "",
     ready: "",
     mur2: "",
   });
   const [check, setCheck] = useState(false);
+  const [datePicker, setDatePicker] = useState({
+    showGive: false,
+    showPremirka: false,
+    showTake: false,
+  });
 
+  const hideGive = () => {
+    setDatePicker({ ...datePicker, showGive: false });
+  };
+  const handleGive = (date) => {
+    const give = moment(date).format("DD/MM/YYYY");
+    setData({ ...data, date: give });
+    hideGive();
+  };
+  const hidePremirka = () => {
+    setDatePicker({ ...datePicker, showPremirka: false });
+  };
+  const handlePremirka = (date) => {
+    const premirka = moment(date).format("DD/MM/YYYY");
+    setData({ ...data, date: premirka });
+    setData({ ...data, date1: premirka });
+    hidePremirka();
+  };
+  const hideTake = () => {
+    setDatePicker({ ...datePicker, showTake: false });
+  };
+  const handleTake = (date) => {
+    const take = moment(date).format("DD/MM/YYYY");
+    setData({ ...data, date: take });
+    setData({ ...data, date2: take });
+    hideTake();
+  };
   const info = (label, label1) => {
     return (
       <View
@@ -474,21 +509,34 @@ const OrderAdd = ({ navigation }) => {
         <View
           style={{
             height: 44,
-            width: (width - 50) / 3,
+            width: width / 3,
             backgroundColor: Constant.orderBackground,
             justifyContent: "center",
             padding: 5,
             marginVertical: 10,
+            marginRight: 10,
           }}
         >
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={() => {
+              label === "Өгсөн"
+                ? setDatePicker({ ...datePicker, showGive: true })
+                : label === "Премирка"
+                ? setDatePicker({ ...datePicker, showPremirka: true })
+                : setDatePicker({ ...datePicker, showTake: true });
+            }}
             style={{
               flexDirection: "row",
               alignItems: "center",
             }}
           >
-            <Text>{data.date}</Text>
+            <Text>
+              {label === "Өгсөн"
+                ? data.date
+                : label === "Премирка"
+                ? data.date1
+                : data.date2}
+            </Text>
             <Feather name="calendar" size={20} />
           </TouchableOpacity>
         </View>
@@ -527,9 +575,29 @@ const OrderAdd = ({ navigation }) => {
               width: width - 40,
             }}
           >
-            {date("Өгсөн")}
-            {date("Премирка")}
-            {date("Авах")}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {date("Өгсөн")}
+              {date("Премирка")}
+              {date("Авах")}
+            </ScrollView>
+            <DateTimePicker
+              isVisible={datePicker.showGive}
+              mode="date"
+              onCancel={hideGive}
+              onConfirm={handleGive}
+            />
+            <DateTimePicker
+              isVisible={datePicker.showPremirka}
+              mode="date"
+              onCancel={hidePremirka}
+              onConfirm={handlePremirka}
+            />
+            <DateTimePicker
+              isVisible={datePicker.showTake}
+              mode="date"
+              onCancel={hideTake}
+              onConfirm={handleTake}
+            />
           </View>
 
           <Text style={styles.title}>Биеийн хэмжээ</Text>

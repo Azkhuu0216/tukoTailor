@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.10",
+    "@react-native-community/datetimepicker": "^6.3.2",
     "@react-native-community/push-notification-ios": "^1.10.1",
     "@react-native-firebase/app": "^10.3.0",
     "@react-native-firebase/auth": "^10.3.1",
@@ -41,6 +42,7 @@
     "react-native-linear-gradient": "^2.6.2",
     "react-native-loading-spinner-overlay": "^3.0.1",
     "react-native-localization": "^2.3.1",
+    "react-native-modal-datetime-picker": "^14.0.0",
     "react-native-multiple-select": "^0.5.11",
     "react-native-paper": "^4.12.4",
     "react-native-popup-dialog": "^0.18.3",

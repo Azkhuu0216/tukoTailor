@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   //category header
   to_category_header: {
-    height: 120,
+    height: height / 12,
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -256,6 +256,7 @@ const styles = StyleSheet.create({
   Divider: {
     borderBottomWidth: 2,
     borderBottomColor: Constant.GainsboroColor,
+    marginTop: 10,
   },
 });
 
