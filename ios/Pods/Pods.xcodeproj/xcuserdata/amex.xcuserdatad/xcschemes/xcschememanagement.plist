@@ -194,6 +194,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RNDateTimePicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>RNFBApp.xcscheme</key>
 		<dict>
 			<key>isShown</key>

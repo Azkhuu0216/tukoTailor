@@ -65,7 +65,6 @@ const Profile = () => {
               setBirthDay(documentSnapshot.data().birthDay);
               setHomePhone(documentSnapshot.data().homePhone);
               setDate(documentSnapshot.data().date);
-              setPosition(documentSnapshot.data().position);
               setFinalImage(documentSnapshot.data().profile_image);
             }
           });
@@ -159,7 +158,7 @@ const Profile = () => {
       setUploading(false);
       return url;
     } catch (e) {
-      console.log(e, "error");
+      console.log(e);
       return null;
     }
   };
@@ -230,7 +229,10 @@ const Profile = () => {
     <View style={styles.to_bg_image}>
       <ImageBackground
         resizeMode="cover"
-        style={{ height: height / 4 - 20, width: width }}
+        style={{
+          height: Platform.OS == "android" ? height / 4 : height / 4 - 30,
+          width: width,
+        }}
         source={images.Headbackground}
       >
         <View style={styles.to_category_header}>
@@ -239,11 +241,7 @@ const Profile = () => {
               <Text style={css.Name}>{first_name}</Text>
               <Text style={styles.Text}>Албан тушаал: {position}</Text>
             </View>
-            <TouchableOpacity
-              activeOpacity={0.9}
-              style={css.Profile}
-              onPress={() => choosePictureFromGallery()}
-            >
+            <TouchableOpacity activeOpacity={0.9} style={css.Profile}>
               {image == null ? (
                 <Image
                   style={css.logoStyle}
@@ -256,7 +254,7 @@ const Profile = () => {
                 />
               )}
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => choosePictureFromGallery()}
                 style={[
                   // styles.checkBoxSelectorStyle,
                   {

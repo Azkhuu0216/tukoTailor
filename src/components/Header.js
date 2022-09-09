@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  StatusBar,
+  Platform,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/styles";
@@ -59,9 +61,14 @@ const Header = ({ name, position1 }) => {
   return (
     <ImageBackground
       resizeMode="cover"
-      style={{ height: height / 4, width: width }}
+      style={{
+        height: Platform.OS === "android" ? height / 4 : height / 4 - 30,
+        width: width,
+      }}
       source={images.Headbackground}
     >
+      <StatusBar barStyle={"light-content"} />
+
       <View style={styles.to_category_header}>
         {/* <View style={{ width: "90%" }}>
        <Text style={styles.to_heaeding1_font}>
@@ -89,6 +96,7 @@ const Header = ({ name, position1 }) => {
               justifyContent: "center",
               borderRadius: 100 / 2,
               borderWidth: 6,
+              marginRight: 10,
             }}
           >
             {image == null ? (

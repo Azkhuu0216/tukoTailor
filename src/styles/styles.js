@@ -1,4 +1,9 @@
-import { Dimensions, StyleSheet, useWindowDimensions } from "react-native";
+import {
+  Dimensions,
+  Platform,
+  StyleSheet,
+  useWindowDimensions,
+} from "react-native";
 import * as Constant from "../styles/globalStyles";
 const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -256,7 +261,7 @@ const styles = StyleSheet.create({
   Divider: {
     borderBottomWidth: 2,
     borderBottomColor: Constant.GainsboroColor,
-    marginTop: 10,
+    marginTop: Platform.OS === "android" ? 10 : 5,
   },
 });
 

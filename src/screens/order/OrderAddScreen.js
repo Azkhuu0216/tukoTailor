@@ -9,6 +9,7 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   CheckBox,
+  Platform,
 } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { setNavigation } from "../../utils/utiils";
@@ -73,7 +74,14 @@ const OrderAdd = ({ navigation }) => {
     showPremirka: false,
     showTake: false,
   });
-
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+  const handleConfirm = (date) => {
+    console.warn("A date has been picked: ", date.dateString);
+    hideDatePicker();
+  };
   const hideGive = () => {
     setDatePicker({ ...datePicker, showGive: false });
   };
@@ -580,24 +588,28 @@ const OrderAdd = ({ navigation }) => {
               {date("Премирка")}
               {date("Авах")}
             </ScrollView>
-            <DateTimePicker
-              isVisible={datePicker.showGive}
-              mode="date"
-              onCancel={hideGive}
-              onConfirm={handleGive}
-            />
-            <DateTimePicker
-              isVisible={datePicker.showPremirka}
-              mode="date"
-              onCancel={hidePremirka}
-              onConfirm={handlePremirka}
-            />
-            <DateTimePicker
-              isVisible={datePicker.showTake}
-              mode="date"
-              onCancel={hideTake}
-              onConfirm={handleTake}
-            />
+            {Platform.OS === "android" && (
+              <>
+                <DateTimePicker
+                  isVisible={datePicker.showGive}
+                  mode="date"
+                  onCancel={hideGive}
+                  onConfirm={handleGive}
+                />
+                <DateTimePicker
+                  isVisible={datePicker.showPremirka}
+                  mode="date"
+                  onCancel={hidePremirka}
+                  onConfirm={handlePremirka}
+                />
+                <DateTimePicker
+                  isVisible={datePicker.showTake}
+                  mode="date"
+                  onCancel={hideTake}
+                  onConfirm={handleTake}
+                />
+              </>
+            )}
           </View>
 
           <Text style={styles.title}>Биеийн хэмжээ</Text>
