@@ -68,7 +68,7 @@ const Profile = () => {
               setRegister(documentSnapshot.data().register);
               setBirthDay(documentSnapshot.data().birthDay);
               setHomePhone(documentSnapshot.data().homePhone);
-              setDate(documentSnapshot.data().date);
+              setPosition(documentSnapshot.data().position);
               setFinalImage(documentSnapshot.data().profile_image);
             }
           });
@@ -111,7 +111,7 @@ const Profile = () => {
           register: register,
           birthDay: birthDay,
           homePhone: homePhone,
-          date: date,
+          position: position,
           profile_image: imageUrl == null ? finalImage : imageUrl,
         })
         .then((data) => {
