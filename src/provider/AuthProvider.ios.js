@@ -6,11 +6,13 @@ import auth from "@react-native-firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CONSTANT from "../styles/local";
 import firestore from "@react-native-firebase/firestore";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [spinner, setSpinner] = useState(false);
 
   return (
     <AuthContext.Provider
@@ -92,6 +94,7 @@ export const AuthProvider = ({ children }) => {
           imageUrl,
           position
         ) => {
+          setSpinner(true);
           try {
             await auth()
               .createUserWithEmailAndPassword(email, password)
@@ -109,11 +112,17 @@ export const AuthProvider = ({ children }) => {
                     profile_image: imageUrl,
                     role: "user",
                   })
-                  .then(() => {})
-                  .catch((error) => {});
+                  .then(() => {
+                    setSpinner(false);
+                  })
+                  .catch((error) => {
+                    setSpinner(false);
+                  });
               });
           } catch (e) {
-            console.log(e);
+            setSpinner(false);
+            Alert.alert(e, "The email address is already in use...");
+            console.log(e, "--");
           }
         },
         logout: async () => {

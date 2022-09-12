@@ -22,7 +22,13 @@ import ImagePicker from "react-native-image-crop-picker";
 import Spinner from "react-native-loading-spinner-overlay";
 import storage from "@react-native-firebase/storage";
 import images from "../../../assets/images";
-
+import DropDown from "../../components/DropDown";
+const pos = [
+  { label: "Захирал", value: "CEO" },
+  { label: "Оёдолчин", value: "Oydol" },
+  { label: "Эсгүүрчин", value: "Esguur" },
+  { label: "Дизайнер", value: "Design" },
+];
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [emailValid, setEmailValid] = useState(false);
@@ -54,8 +60,6 @@ const SignupScreen = ({ navigation }) => {
       password != "" &&
       confirmPassword != ""
     ) {
-      setSpinner(true);
-
       if (emailValid == true) {
         if (password === confirmPassword) {
           const imageUrl = await uploadImage();
@@ -73,11 +77,9 @@ const SignupScreen = ({ navigation }) => {
           setConfirmPassword("");
           setPassword("");
         } else {
-          setSpinner(false);
           Alert.alert(CONSTANT.Oops, "Password Not Match");
         }
       } else {
-        setSpinner(false);
         Alert.alert(CONSTANT.Oops, "Incorrect Email");
       }
     } else {
@@ -95,7 +97,6 @@ const SignupScreen = ({ navigation }) => {
     });
   };
   const validate = (userEmail) => {
-    console.log(userEmail);
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (reg.test(userEmail) === false) {
       setEmailValid(false);
@@ -120,7 +121,7 @@ const SignupScreen = ({ navigation }) => {
     setTransferred(0);
 
     const storageRef = storage().ref(`profile_image/${filename}`);
-    const task = storageRef.putFile(uploadUri);
+    const task = storageRef.putFile(uploadUri.replace("file://", ""));
 
     task.on("state_changed", (taskSnapshot) => {
       console.log(
@@ -274,13 +275,19 @@ const SignupScreen = ({ navigation }) => {
             autoCorrect={false}
           />
 
-          <FormInput
+          {/* <FormInput
             labelValue={position}
             onChangeText={(position) => setPosition(position)}
             placeholderText="Position"
             autoCorrect={false}
+          /> */}
+          <DropDown
+            data={pos}
+            name="Position"
+            value={position}
+            onChange={(t) => setPosition(t)}
+            width={windowWidth - 40}
           />
-
           <FormInput
             // labelValue={email}
             onChangeText={(userEmail) => validate(userEmail)}

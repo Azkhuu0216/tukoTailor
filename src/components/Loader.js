@@ -7,20 +7,13 @@ const Loader = (props) => {
   const { backgroundColor, isWhite } = props;
 
   return (
-    <View
-      style={{
-        // backgroundColor: backgroundColor || Constant.whiteColor,
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-        height: "100%",
-        zIndex: 1000,
-      }}
-    >
-      <Text style={{ marginBottom: 10 }}>Түр хүлээнэ үү...</Text>
+    <View style={styles.container}>
+      <Text style={{ marginBottom: 10, color: Constant.whiteColor }}>
+        Түр хүлээнэ үү...
+      </Text>
       <ActivityIndicator
         size="large"
-        color={isWhite ? "white" : Constant.primaryColor}
+        color={isWhite ? Constant.primaryColor : "white"}
       />
     </View>
   );
@@ -28,7 +21,7 @@ const Loader = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Constant.whiteColor,
+    backgroundColor: Constant.primaryColor,
     alignItems: "center",
     justifyContent: "center",
     width: "100%",

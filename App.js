@@ -10,6 +10,8 @@ LogBox.ignoreLogs([
   `new NativeEventEmitter()`,
   "Possible Unhandled Promise Rejection (id: 0):",
   `setBackgroundColor`,
+  "EventEmitter.removeListener('keyboardWillHide', ...):",
+  "WARN",
 ]);
 
 const App = () => {
