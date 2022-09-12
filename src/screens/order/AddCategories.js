@@ -41,15 +41,9 @@ const AddCategories = ({ navigation, route }) => {
   const [loader, setLoader] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
   const [image, setImage] = useState(null);
-  const [variables, setVariables] = useState({
-    avatar: undefined,
-  });
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
 
-  const [data, setData] = useState({
-    avatar: undefined,
-  });
   const [mainCategorymaleArray, setMainCategorymaleArray] = useState([]);
   const [mainCategoryfemaleArray, setMainCategoryfemaleArray] = useState([]);
   const [subCategorymaleArray, setSubCategorymaleArray] = useState([]);

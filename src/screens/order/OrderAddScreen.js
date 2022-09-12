@@ -588,28 +588,24 @@ const OrderAdd = ({ navigation }) => {
               {date("Премирка")}
               {date("Авах")}
             </ScrollView>
-            {Platform.OS === "android" && (
-              <>
-                <DateTimePicker
-                  isVisible={datePicker.showGive}
-                  mode="date"
-                  onCancel={hideGive}
-                  onConfirm={handleGive}
-                />
-                <DateTimePicker
-                  isVisible={datePicker.showPremirka}
-                  mode="date"
-                  onCancel={hidePremirka}
-                  onConfirm={handlePremirka}
-                />
-                <DateTimePicker
-                  isVisible={datePicker.showTake}
-                  mode="date"
-                  onCancel={hideTake}
-                  onConfirm={handleTake}
-                />
-              </>
-            )}
+            <DateTimePicker
+              isVisible={datePicker.showGive}
+              mode="date"
+              onCancel={hideGive}
+              onConfirm={handleGive}
+            />
+            <DateTimePicker
+              isVisible={datePicker.showPremirka}
+              mode="date"
+              onCancel={hidePremirka}
+              onConfirm={handlePremirka}
+            />
+            <DateTimePicker
+              isVisible={datePicker.showTake}
+              mode="date"
+              onCancel={hideTake}
+              onConfirm={handleTake}
+            />
           </View>
 
           <Text style={styles.title}>Биеийн хэмжээ</Text>
