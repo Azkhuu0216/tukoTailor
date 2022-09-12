@@ -45,7 +45,11 @@ const Contact = ({ navigation }) => {
             key={e.user_id}
           >
             <Image
-              source={images.pro}
+              source={
+                e.profile_image != null
+                  ? { uri: e.profile_image }
+                  : images.profile
+              }
               style={{ height: 55, width: 60, borderRadius: 100 }}
             />
             <View style={css.Order}>

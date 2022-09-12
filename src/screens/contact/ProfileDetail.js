@@ -36,7 +36,11 @@ const ProfileDetail = ({ navigation, route }) => {
         paddingBottom: 40,
       }}
     >
-      <Header name={item.first_name} position1={item.position} />
+      <Header
+        name={item.first_name}
+        position1={item.position}
+        image1={item.profile_image}
+      />
       <View
         style={{
           marginHorizontal: 20,

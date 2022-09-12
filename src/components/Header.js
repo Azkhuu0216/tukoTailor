@@ -19,7 +19,7 @@ import firestore from "@react-native-firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 
 const { height, width } = Dimensions.get("window");
-const Header = ({ name, position1 }) => {
+const Header = ({ name, position1, image1 }) => {
   const navigation = useNavigation();
   const [image, setImage] = useState(null); // nemsen
   const [finalImage, setFinalImage] = useState(null); // nemsen
@@ -58,6 +58,7 @@ const Header = ({ name, position1 }) => {
   };
   const pos = position1 === undefined ? position : position1;
   const fullname = name === undefined ? first_name : name;
+  const photo = image1 === undefined ? finalImage : image1;
   return (
     <ImageBackground
       resizeMode="cover"
@@ -102,9 +103,7 @@ const Header = ({ name, position1 }) => {
             {image == null ? (
               <Image
                 style={styles.logoStyle}
-                source={
-                  finalImage != null ? { uri: finalImage } : images.profile
-                }
+                source={photo != null ? { uri: photo } : images.profile}
               />
             ) : (
               <Image
