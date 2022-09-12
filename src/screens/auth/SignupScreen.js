@@ -24,10 +24,11 @@ import storage from "@react-native-firebase/storage";
 import images from "../../../assets/images";
 import DropDown from "../../components/DropDown";
 const pos = [
-  { label: "Захирал", value: "CEO" },
-  { label: "Оёдолчин", value: "Oydol" },
-  { label: "Эсгүүрчин", value: "Esguur" },
-  { label: "Дизайнер", value: "Design" },
+  { label: "Захирал", value: "Захирал" },
+  { label: "Ахлах", value: "Ахлах" },
+  { label: "Оёдолчин", value: "Оёдолчин" },
+  { label: "Эсгүүрчин", value: "Эсгүүрчин" },
+  { label: "Дизайнер", value: "Дизайнер" },
 ];
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
