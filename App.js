@@ -14,6 +14,7 @@ LogBox.ignoreLogs([
   "WARN",
   "EventEmitter.removeListener('keyboardWillShow', ...):",
   "EventEmitter.removeListener('change', ...):",
+  "EventEmitter.removeListener('keyboardDidHide', ...):",
 ]);
 
 const App = () => {

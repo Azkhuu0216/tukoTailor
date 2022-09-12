@@ -18,6 +18,7 @@ const DropDown = ({ data, name, onChange, value, width, style }) => {
       placeholderStyle={styles.placeholderStyle}
       selectedTextStyle={styles.selectedTextStyle}
       inputSearchStyle={styles.inputSearchStyle}
+      dropdownPosition="bottom"
       data={data}
       search
       maxHeight={300}
