@@ -37,7 +37,7 @@
     "react-native-datepicker": "^1.7.2",
     "react-native-gesture-handler": "^2.6.0",
     "react-native-image-base64": "^0.1.4",
-    "react-native-image-crop-picker": "0.36.0",
+    "react-native-image-crop-picker": "^0.38.0",
     "react-native-image-picker": "^4.10.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-loading-spinner-overlay": "^3.0.1",

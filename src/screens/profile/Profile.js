@@ -82,25 +82,11 @@ const Profile = () => {
       height: 1200,
       cropping: true,
     }).then((image) => {
-      console.log(image.path, "--------image");
       const imageUri = Platform.OS === "ios" ? image.sourceURL : image.path;
       setImage(imageUri);
     });
   };
-  const openGallery = () => {
-    launchImageLibrary({ maxWidth: 600, maxHeight: 600 }, (response) => {
-      if (response.didCancel) {
-      } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-      } else {
-        console.log(response.assets[0], "rsponse---");
-        const avatar = response.assets[0].uri;
-        temp = { ...variables, avatar };
-        setVariables(temp);
-      }
-    });
-  };
-  console.log(variables.avatar, "-------++++++++++");
+
   const submitProfileData = async () => {
     if (
       first_name != "" &&
@@ -109,7 +95,8 @@ const Profile = () => {
       address != ""
     ) {
       setSpinner(true);
-      // const imageUrl = await uploadImage();
+      const imageUrl = await uploadImage();
+      console.log(imageUrl, "shidej bga image----");
       firestore()
         .collection("users")
         .doc(user.uid)
@@ -124,7 +111,7 @@ const Profile = () => {
           birthDay: birthDay,
           homePhone: homePhone,
           date: date,
-          profile_image: variables.avatar,
+          profile_image: imageUrl == null ? finalImage : imageUrl,
         })
         .then((data) => {
           setSpinner(false);
@@ -148,6 +135,7 @@ const Profile = () => {
     if (image == null) {
       return null;
     }
+    console.log(image.replace("file://", ""));
     const uploadUri = image;
     let filename = uploadUri.substring(uploadUri.lastIndexOf("/") + 1);
     const extension = filename.split(".").pop();
@@ -158,8 +146,8 @@ const Profile = () => {
     setTransferred(0);
 
     const storageRef = storage().ref(`profile_image/${filename}`);
-    const task = storageRef.putFile(uploadUri);
-
+    const task = storageRef.putFile(uploadUri.replace("file://", ""));
+    console.log(task, "Task----");
     task.on("state_changed", (taskSnapshot) => {
       console.log(
         `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`
@@ -175,7 +163,7 @@ const Profile = () => {
       setUploading(false);
       return url;
     } catch (e) {
-      console.log(e);
+      console.log(e, "eroor-------");
       return null;
     }
   };
@@ -259,20 +247,21 @@ const Profile = () => {
               <Text style={styles.Text}>Албан тушаал: {position}</Text>
             </View>
             <TouchableOpacity activeOpacity={0.9} style={css.Profile}>
-              <Image
-                style={css.logoStyle}
-                source={
-                  finalImage != null
-                    ? variables.avatar === undefined
-                      ? { uri: finalImage }
-                      : { uri: variables.avatar }
-                    : variables.avatar === undefined
-                    ? images.profile
-                    : { uri: variables.avatar }
-                }
-              />
+              {image == null ? (
+                <Image
+                  style={css.logoStyle}
+                  source={
+                    finalImage != null ? { uri: finalImage } : images.profile
+                  }
+                />
+              ) : (
+                <Image
+                  style={css.logoStyle}
+                  source={image != null ? { uri: image } : images.profile}
+                />
+              )}
               <TouchableOpacity
-                onPress={() => openGallery()}
+                onPress={() => choosePictureFromGallery()}
                 style={[
                   // styles.checkBoxSelectorStyle,
                   {
