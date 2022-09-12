@@ -24,6 +24,7 @@ import CONSTANT from "../../styles/local";
 import images from "../../../assets/images";
 import styles from "../../styles/styles";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
+import Loader from "../../components/Loader";
 
 const { height, width } = Dimensions.get("window");
 
@@ -47,7 +48,7 @@ const Profile = () => {
   });
   const [spinner, setSpinner] = useState(false);
   const [transferred, setTransferred] = useState(0);
-
+  const [isLoader, setIsLoader] = useState(false);
   useEffect(() => {
     getProfileData();
   }, []);
@@ -94,7 +95,7 @@ const Profile = () => {
       phone_number != "" &&
       address != ""
     ) {
-      setSpinner(true);
+      setIsLoader(true);
       const imageUrl = await uploadImage();
       console.log(imageUrl, "shidej bga image----");
       firestore()
@@ -114,7 +115,7 @@ const Profile = () => {
           profile_image: imageUrl == null ? finalImage : imageUrl,
         })
         .then((data) => {
-          setSpinner(false);
+          setIsLoader(false);
           Alert.alert(
             CONSTANT.profileUpdated,
             CONSTANT.profilePublishedsuccessfully
@@ -230,6 +231,10 @@ const Profile = () => {
       </>
     );
   };
+
+  if (isLoader) {
+    return <Loader />;
+  }
   return (
     <View style={styles.to_bg_image}>
       <ImageBackground

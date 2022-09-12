@@ -16,10 +16,12 @@ import {
   Dimensions,
   SafeAreaView,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import * as Constant from "../../styles/globalStyles";
 import { windowHeight, windowWidth } from "../utils/Dimentions";
 import firestore from "@react-native-firebase/firestore";
+import storage from "@react-native-firebase/storage";
 import { AuthContext } from "../../provider/AuthProvider.ios";
 import CONSTANT from "../../styles/local";
 import images from "../../../assets/images";
@@ -27,19 +29,24 @@ import { setNavigation } from "../../utils/utiils";
 import { ScrollView } from "react-native-virtualized-view";
 import ImgToBase64 from "react-native-image-base64";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
+import ImagePicker from "react-native-image-crop-picker";
+import Loader from "../../components/Loader";
 
 const { width } = Dimensions.get("window");
 
 const AddCategories = ({ navigation, route }) => {
   const value = route.params?.value;
-  console.log(value.firstname, "value");
+  // console.log(value.firstname, "value");
   const { user, logout } = useContext(AuthContext);
   const [loader, setLoader] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
-  const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState(null);
+  const [image, setImage] = useState(null);
   const [variables, setVariables] = useState({
     avatar: undefined,
   });
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
+
   const [data, setData] = useState({
     avatar: undefined,
   });
@@ -54,7 +61,7 @@ const AddCategories = ({ navigation, route }) => {
   const [mainStepsCategoryfemaleArray, setMainStepsCategoryfemaleArray] =
     useState([]);
   const [currency, setCurrency] = useState("");
-
+  const [isLoader, setIsLoader] = useState(false);
   useEffect(() => {
     getAddedCategoriesData();
   }, []);
@@ -70,10 +77,6 @@ const AddCategories = ({ navigation, route }) => {
           .onSnapshot((querySnapshot) => {
             if (querySnapshot != null) {
               querySnapshot.forEach((documentSnapshot) => {
-                console.log(
-                  documentSnapshot.data().selected_apparels,
-                  "irj bga data----"
-                );
                 if (documentSnapshot.id == user.uid) {
                   setMainCategorymaleArray(
                     documentSnapshot.data().selected_apparels
@@ -105,6 +108,9 @@ const AddCategories = ({ navigation, route }) => {
   };
 
   const SubmiDataToServer = async () => {
+    setIsLoader(true);
+    const imageUrl = await uploadImage();
+    const imageUrl1 = await uploadImage1();
     mainCategorymaleArray.push({
       // id: user.uid,
       firstname: value.firstname,
@@ -137,8 +143,8 @@ const AddCategories = ({ navigation, route }) => {
       chimeglel: value.chimeglel,
       mur2: value.mur2,
       busad: value.busad,
-      imageUrl: variables.avatar,
-      imageUrl1: data.avatar,
+      imageUrl: imageUrl,
+      imageUrl1: imageUrl1,
       apparel_steps: [],
     });
 
@@ -149,7 +155,8 @@ const AddCategories = ({ navigation, route }) => {
         selected_apparels: mainCategorymaleArray,
       })
       .then(() => {
-        setSpinner(false);
+        setIsLoader(false);
+
         // setPrice("");
         Alert.alert(
           CONSTANT.categoriesCategoryadded,
@@ -279,34 +286,101 @@ const AddCategories = ({ navigation, route }) => {
       </View>
     );
   };
-  const openGallery = () => {
-    launchImageLibrary({ maxWidth: 600, maxHeight: 600 }, (response) => {
-      if (response.didCancel) {
-        navigation.goBack();
-      } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-      } else {
-        setImageUrl(response.assets[0]);
-        const avatar = response.assets[0].uri;
-        temp = { ...variables, avatar };
-        setVariables(temp);
-      }
+  const choosePictureFromGallery = async () => {
+    ImagePicker.openPicker({
+      width: 1200,
+      height: 1200,
+      cropping: true,
+    }).then((image) => {
+      const imageUri = Platform.OS === "ios" ? image.sourceURL : image.path;
+      setImage(imageUri);
     });
   };
-  const handleUpload = () => {
-    launchImageLibrary({ maxWidth: 600, maxHeight: 600 }, (response) => {
-      if (response.didCancel) {
-        navigation.goBack();
-      } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-      } else {
-        setImage(response.assets[0]);
-        const avatar = response.assets[0].uri;
-        variable = { ...data, avatar };
-        setData(variable);
-      }
+  const handleUpload = async () => {
+    ImagePicker.openPicker({
+      width: 1200,
+      height: 1200,
+      cropping: true,
+    }).then((image) => {
+      const imageUri = Platform.OS === "ios" ? image.sourceURL : image.path;
+      setImageUrl(imageUri);
     });
   };
+  const uploadImage = async () => {
+    if (image == null) {
+      return null;
+    }
+    console.log(image.replace("file://", ""));
+    const uploadUri = image;
+    let filename = uploadUri.substring(uploadUri.lastIndexOf("/") + 1);
+    const extension = filename.split(".").pop();
+    const name = filename.split(".").slice(0, -1).join(".");
+    filename = name + Date.now() + "." + extension;
+
+    setUploading(true);
+    setTransferred(0);
+
+    const storageRef = storage().ref(`profile_image/${filename}`);
+    const task = storageRef.putFile(uploadUri.replace("file://", ""));
+    console.log(task, "Task----");
+    task.on("state_changed", (taskSnapshot) => {
+      console.log(
+        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`
+      );
+      setTransferred(
+        Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
+          100
+      );
+    });
+    try {
+      await task;
+      const url = await storageRef.getDownloadURL();
+      setUploading(false);
+      return url;
+    } catch (e) {
+      console.log(e, "eroor-------");
+      return null;
+    }
+  };
+  const uploadImage1 = async () => {
+    if (image == null) {
+      return null;
+    }
+    console.log(image.replace("file://", ""));
+    const uploadUri = image;
+    let filename = uploadUri.substring(uploadUri.lastIndexOf("/") + 1);
+    const extension = filename.split(".").pop();
+    const name = filename.split(".").slice(0, -1).join(".");
+    filename = name + Date.now() + "." + extension;
+
+    setUploading(true);
+    setTransferred(0);
+
+    const storageRef = storage().ref(`profile_image/${filename}`);
+    const task = storageRef.putFile(uploadUri.replace("file://", ""));
+    console.log(task, "Task----");
+    task.on("state_changed", (taskSnapshot) => {
+      console.log(
+        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`
+      );
+      setTransferred(
+        Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
+          100
+      );
+    });
+    try {
+      await task;
+      const url = await storageRef.getDownloadURL();
+      setUploading(false);
+      return url;
+    } catch (e) {
+      console.log(e, "eroor-------");
+      return null;
+    }
+  };
+  if (isLoader) {
+    return <Loader />;
+  }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Constant.whiteColor }}>
       <ScrollView
@@ -333,31 +407,43 @@ const AddCategories = ({ navigation, route }) => {
           <View style={{ flexDirection: "row" }}>
             <View>
               <Text style={{ marginVertical: 10 }}>Загварын зураг</Text>
-              <TouchableOpacity onPress={() => openGallery()}>
-                <Image
-                  source={
-                    value.imageUrl === undefined
-                      ? variables.avatar === undefined
+              <TouchableOpacity onPress={() => choosePictureFromGallery()}>
+                {image == null ? (
+                  <Image
+                    style={{ height: 250, width: 140 }}
+                    source={
+                      value.imageUrl === undefined
                         ? images.clothes
-                        : { uri: variables.avatar }
-                      : { uri: value.imageUrl }
-                  }
-                  style={{ height: 250, width: 140 }}
-                />
+                        : { uri: value.imageUrl }
+                    }
+                  />
+                ) : (
+                  <Image
+                    style={{ height: 250, width: 140 }}
+                    source={image != null ? { uri: image } : images.clothes}
+                  />
+                )}
               </TouchableOpacity>
               <Text style={{ marginVertical: 10 }}>Материалын зураг</Text>
 
               <TouchableOpacity onPress={() => handleUpload()}>
-                <Image
-                  source={
-                    value.imageUrl1 === undefined
-                      ? data.avatar === undefined
+                {imageUrl == null ? (
+                  <Image
+                    style={{ height: 210, width: 118 }}
+                    source={
+                      value.imageUrl1 === undefined
                         ? images.clothes
-                        : { uri: data.avatar }
-                      : { uri: value.imageUrl1 }
-                  }
-                  style={{ height: 210, width: 118 }}
-                />
+                        : { uri: value.imageUrl1 }
+                    }
+                  />
+                ) : (
+                  <Image
+                    style={{ height: 210, width: 118 }}
+                    source={
+                      imageUrl != null ? { uri: imageUrl } : images.clothes
+                    }
+                  />
+                )}
               </TouchableOpacity>
             </View>
             <View>
