@@ -251,7 +251,7 @@ const Profile = () => {
               <Text style={css.Name}>{first_name}</Text>
               <Text style={styles.Text}>Албан тушаал: {position}</Text>
             </View>
-            <TouchableOpacity activeOpacity={0.9} style={css.Profile}>
+            <View activeOpacity={0.9} style={css.Profile}>
               {image == null ? (
                 <Image
                   style={css.logoStyle}
@@ -279,7 +279,7 @@ const Profile = () => {
               >
                 <AntIcon name="camera" size={20} color={Constant.whiteColor} />
               </TouchableOpacity>
-            </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ImageBackground>

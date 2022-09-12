@@ -85,7 +85,7 @@ const Header = ({ name, position1 }) => {
             width: width - 20,
           }}
         >
-          <TouchableOpacity
+          <View
             activeOpacity={0.9}
             style={{
               borderColor: Constant.buttonColorOpacity,
@@ -112,7 +112,7 @@ const Header = ({ name, position1 }) => {
                 source={image != null ? { uri: image } : images.profile}
               />
             )}
-          </TouchableOpacity>
+          </View>
           <View
             style={{
               justifyContent: "space-evenly",
