@@ -6,14 +6,11 @@ import auth from "@react-native-firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CONSTANT from "../styles/local";
 import firestore from "@react-native-firebase/firestore";
-import Spinner from "react-native-loading-spinner-overlay";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [spinner, setSpinner] = useState(false);
-
   return (
     <AuthContext.Provider
       value={{
@@ -92,9 +89,9 @@ export const AuthProvider = ({ children }) => {
           phone_number,
           address,
           imageUrl,
-          position
+          position,
+          workday
         ) => {
-          setSpinner(true);
           try {
             await auth()
               .createUserWithEmailAndPassword(email, password)
@@ -109,18 +106,14 @@ export const AuthProvider = ({ children }) => {
                     phone_number: phone_number,
                     address: address,
                     position: position,
+                    workday: workday,
                     profile_image: imageUrl,
                     role: "user",
                   })
-                  .then(() => {
-                    setSpinner(false);
-                  })
-                  .catch((error) => {
-                    setSpinner(false);
-                  });
+                  .then(() => {})
+                  .catch((error) => {});
               });
           } catch (e) {
-            setSpinner(false);
             Alert.alert(e, "The email address is already in use...");
             console.log(e, "--");
           }

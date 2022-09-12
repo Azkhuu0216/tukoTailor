@@ -128,7 +128,6 @@ const AppStack = () => {
       console.log(err);
     }
   };
-
   return (
     <>
       {isLoading && (

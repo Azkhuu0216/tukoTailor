@@ -23,6 +23,10 @@ import Spinner from "react-native-loading-spinner-overlay";
 import storage from "@react-native-firebase/storage";
 import images from "../../../assets/images";
 import DropDown from "../../components/DropDown";
+import DateTimePicker from "react-native-modal-datetime-picker";
+import moment from "moment";
+import Feather from "react-native-vector-icons/Feather";
+
 const pos = [
   { label: "Захирал", value: "Захирал" },
   { label: "Ахлах", value: "Ахлах" },
@@ -49,6 +53,19 @@ const SignupScreen = ({ navigation }) => {
   const { register } = useContext(AuthContext);
   const [transferred, setTransferred] = useState(0);
   const [spinner, setSpinner] = useState(false);
+  const [workday, setWorkDay] = useState("");
+  const [datePicker, setDatePicker] = useState({
+    showDate: false,
+  });
+
+  const hideDatePicker = () => {
+    setDatePicker({ ...datePicker, showDate: false });
+  };
+  const handleDatePicker = (date) => {
+    const work = moment(date).format("DD/MM/YYYY");
+    setWorkDay(work);
+    hideDatePicker();
+  };
 
   const signupData = async () => {
     if (
@@ -57,6 +74,7 @@ const SignupScreen = ({ navigation }) => {
       phone_number != "" &&
       address != "" &&
       position != "" &&
+      workday != "" &&
       email != "" &&
       password != "" &&
       confirmPassword != ""
@@ -72,7 +90,8 @@ const SignupScreen = ({ navigation }) => {
             phone_number,
             address,
             imageUrl,
-            position
+            position,
+            workday
           );
           setEmail("");
           setConfirmPassword("");
@@ -289,6 +308,36 @@ const SignupScreen = ({ navigation }) => {
             onChange={(t) => setPosition(t)}
             width={windowWidth - 40}
           />
+          <View style={styles.inputContainer}>
+            <TouchableOpacity
+              style={{ flexDirection: "row", alignItems: "center" }}
+              onPress={() => setDatePicker({ ...datePicker, showDate: true })}
+            >
+              <Text
+                style={{
+                  marginHorizontal: 10,
+                  fontSize: 16,
+                  color:
+                    workday != "" ? Constant.blackColor : Constant.gray90Color,
+                }}
+              >
+                {workday === "" ? "DD/MM/YYYY" : workday}
+              </Text>
+              <Feather
+                name="calendar"
+                size={24}
+                color={
+                  workday != "" ? Constant.blackColor : Constant.gray90Color
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <DateTimePicker
+            isVisible={datePicker.showDate}
+            mode="date"
+            onCancel={hideDatePicker}
+            onConfirm={handleDatePicker}
+          />
           <FormInput
             // labelValue={email}
             onChangeText={(userEmail) => validate(userEmail)}
@@ -460,5 +509,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignSelf: "center",
     marginTop: -10,
+  },
+  inputContainer: {
+    marginTop: 5,
+    marginBottom: 10,
+    width: "100%",
+    height: windowHeight / 15,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    borderWidth: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    justifyContent: "space-between",
   },
 });

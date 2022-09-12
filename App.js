@@ -12,6 +12,8 @@ LogBox.ignoreLogs([
   `setBackgroundColor`,
   "EventEmitter.removeListener('keyboardWillHide', ...):",
   "WARN",
+  "EventEmitter.removeListener('keyboardWillShow', ...):",
+  "EventEmitter.removeListener('change', ...):",
 ]);
 
 const App = () => {

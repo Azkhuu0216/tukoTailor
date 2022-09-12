@@ -25,6 +25,8 @@ import images from "../../../assets/images";
 import styles from "../../styles/styles";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import Loader from "../../components/Loader";
+import DateTimePicker from "react-native-modal-datetime-picker";
+import moment from "moment";
 
 const { height, width } = Dimensions.get("window");
 
@@ -49,6 +51,17 @@ const Profile = () => {
   const [spinner, setSpinner] = useState(false);
   const [transferred, setTransferred] = useState(0);
   const [isLoader, setIsLoader] = useState(false);
+  const [datePicker, setDatePicker] = useState({
+    showDate: false,
+  });
+  const hideDatePicker = () => {
+    setDatePicker({ ...datePicker, showDate: false });
+  };
+  const handleDatePicker = (date) => {
+    const birth = moment(date).format("DD/MM/YYYY");
+    setBirthDay(birth);
+    hideDatePicker();
+  };
   useEffect(() => {
     getProfileData();
   }, []);
@@ -69,6 +82,7 @@ const Profile = () => {
               setBirthDay(documentSnapshot.data().birthDay);
               setHomePhone(documentSnapshot.data().homePhone);
               setPosition(documentSnapshot.data().position);
+              setDate(documentSnapshot.data().workday);
               setFinalImage(documentSnapshot.data().profile_image);
             }
           });
@@ -112,6 +126,7 @@ const Profile = () => {
           birthDay: birthDay,
           homePhone: homePhone,
           position: position,
+          workday: date,
           profile_image: imageUrl == null ? finalImage : imageUrl,
         })
         .then((data) => {
@@ -175,55 +190,59 @@ const Profile = () => {
           <View style={styles.height}>
             <Text style={styles.name}>{label}</Text>
             {/* <Text style={styles.Value}>Азаа</Text> */}
-            <TextInput
-              autoCorrect={false}
-              keyboardType={
-                label === "Гар утас"
-                  ? "number-pad"
-                  : label === "Гэрийн утас"
-                  ? "number-pad"
-                  : "email-address"
-              }
-              value={
-                label === "Ургийн овог"
-                  ? ovog
-                  : label === "Овог"
-                  ? last_name
-                  : label === "Нэр"
-                  ? first_name
-                  : label === "Регистрийн дугаар"
-                  ? register
-                  : label === "Төрсөн өдөр"
-                  ? birthDay
-                  : label === "Гар утас"
-                  ? phone_number
-                  : label === "Гэрийн утас"
-                  ? homePhone
-                  : label === "Гэрийн хаяг"
-                  ? address
-                  : date
-              }
-              onChangeText={(t) => {
-                label === "Ургийн овог"
-                  ? setOvog(t)
-                  : label === "Овог"
-                  ? setlast_name(t)
-                  : label === "Нэр"
-                  ? setfirst_name(t)
-                  : label === "Регистрийн дугаар"
-                  ? setRegister(t)
-                  : label === "Төрсөн өдөр"
-                  ? setBirthDay(t)
-                  : label === "Гар утас"
-                  ? setphone_number(t)
-                  : label === "Гэрийн утас"
-                  ? setHomePhone(t)
-                  : label === "Гэрийн хаяг"
-                  ? setAddress(t)
-                  : setDate(t);
-              }}
-              style={{ width: width - 64 }}
-            />
+            {label !== "Төрсөн өдөр" ? (
+              <TextInput
+                autoCorrect={false}
+                keyboardType={
+                  label === "Гар утас"
+                    ? "number-pad"
+                    : label === "Гэрийн утас"
+                    ? "number-pad"
+                    : "email-address"
+                }
+                value={
+                  label === "Ургийн овог"
+                    ? ovog
+                    : label === "Овог"
+                    ? last_name
+                    : label === "Нэр"
+                    ? first_name
+                    : label === "Регистрийн дугаар"
+                    ? register
+                    : label === "Гар утас"
+                    ? phone_number
+                    : label === "Гэрийн утас"
+                    ? homePhone
+                    : address
+                }
+                onChangeText={(t) => {
+                  label === "Ургийн овог"
+                    ? setOvog(t)
+                    : label === "Овог"
+                    ? setlast_name(t)
+                    : label === "Нэр"
+                    ? setfirst_name(t)
+                    : label === "Регистрийн дугаар"
+                    ? setRegister(t)
+                    : label === "Гар утас"
+                    ? setphone_number(t)
+                    : label === "Гэрийн утас"
+                    ? setHomePhone(t)
+                    : setAddress(t);
+                }}
+                style={{ width: width - 64 }}
+              />
+            ) : (
+              <TouchableOpacity
+                style={{ flexDirection: "row", alignItems: "center" }}
+                onPress={() => setDatePicker({ ...datePicker, showDate: true })}
+              >
+                <Text style={{ marginRight: 10 }}>
+                  {birthDay === "" ? "DD/MM/YYYY" : birthDay}
+                </Text>
+                <Feather name="calendar" size={20} />
+              </TouchableOpacity>
+            )}
           </View>
           <Feather name="edit" color={Constant.primaryColor} size={24} />
         </View>
@@ -295,11 +314,24 @@ const Profile = () => {
           {edit("Овог")}
           {edit("Нэр")}
           {edit("Регистрийн дугаар")}
+          <DateTimePicker
+            isVisible={datePicker.showDate}
+            mode="date"
+            onCancel={hideDatePicker}
+            onConfirm={handleDatePicker}
+          />
           {edit("Төрсөн өдөр")}
           {edit("Гар утас")}
           {edit("Гэрийн утас")}
           {edit("Гэрийн хаяг")}
-          {edit("Ажилд орсон огноо")}
+          <View style={css.Edit}>
+            <View style={styles.height}>
+              <Text style={styles.name}>Ажилд орсон огноо</Text>
+              <Text>{date}</Text>
+            </View>
+          </View>
+          <View style={styles.Divider}></View>
+
           <TouchableOpacity
             style={{
               alignItems: "center",
