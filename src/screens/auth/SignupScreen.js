@@ -219,16 +219,17 @@ const SignupScreen = ({ navigation }) => {
               </TouchableOpacity>
             </TouchableOpacity>
           </View>
-          <FormInput
-            labelValue={first_name}
-            onChangeText={(Userfirst_name) => setfirst_name(Userfirst_name)}
-            placeholderText={CONSTANT.profilefirst_name}
-            autoCorrect={false}
-          />
+
           <FormInput
             labelValue={last_name}
             onChangeText={(Userlast_name) => setlast_name(Userlast_name)}
-            placeholderText={CONSTANT.profilelast_name}
+            placeholderText="Овог"
+            autoCorrect={false}
+          />
+          <FormInput
+            labelValue={first_name}
+            onChangeText={(Userfirst_name) => setfirst_name(Userfirst_name)}
+            placeholderText="Нэр"
             autoCorrect={false}
           />
           {/* <View style={styles.checkBoxWrapperStyle}>
@@ -284,14 +285,14 @@ const SignupScreen = ({ navigation }) => {
             onChangeText={(Userphone_number) =>
               setphone_number(Userphone_number)
             }
-            placeholderText={CONSTANT.profilePhone}
+            placeholderText="Утасны дугаар"
             autoCorrect={false}
             inputType={"phone-pad"}
           />
           <FormInput
             labelValue={address}
             onChangeText={(UserAddress) => setAddress(UserAddress)}
-            placeholderText={CONSTANT.profileAddress}
+            placeholderText="Гэрийн хаяг"
             autoCorrect={false}
           />
 
@@ -303,7 +304,7 @@ const SignupScreen = ({ navigation }) => {
           /> */}
           <DropDown
             data={pos}
-            name="Position"
+            name="Мэргэжил"
             value={position}
             onChange={(t) => setPosition(t)}
             width={windowWidth - 40}
@@ -321,7 +322,7 @@ const SignupScreen = ({ navigation }) => {
                     workday != "" ? Constant.blackColor : Constant.gray90Color,
                 }}
               >
-                {workday === "" ? "DD/MM/YYYY" : workday}
+                {workday === "" ? "Төрсөн өдөр" : workday}
               </Text>
               <Feather
                 name="calendar"
@@ -341,7 +342,7 @@ const SignupScreen = ({ navigation }) => {
           <FormInput
             // labelValue={email}
             onChangeText={(userEmail) => validate(userEmail)}
-            placeholderText={CONSTANT.signupEmail}
+            placeholderText="И-мэйл"
             iconType="user"
             keyboardType="email-address"
             autoCorrect={false}
@@ -350,7 +351,7 @@ const SignupScreen = ({ navigation }) => {
           <FormInput
             // labelValue={password}
             onChangeText={(userPassword) => setPassword(userPassword)}
-            placeholderText={CONSTANT.signupPassword}
+            placeholderText="Нууц үг"
             iconType="lock"
             iconclick={true}
             secure={true}
@@ -359,18 +360,15 @@ const SignupScreen = ({ navigation }) => {
           <FormInput
             // labelValue={confirmPassword}
             onChangeText={(userPassword) => setConfirmPassword(userPassword)}
-            placeholderText={CONSTANT.signupCpassword}
+            placeholderText="Нууц үг давтах"
             iconType="lock"
             iconclick={true}
             secure={true}
           />
 
-          <FormButton
-            buttonTitle={CONSTANT.signupSignup}
-            onPress={() => signupData()}
-          />
+          <FormButton buttonTitle="Бүртгүүлэх" onPress={() => signupData()} />
 
-          <View style={styles.textPrivate}>
+          {/* <View style={styles.textPrivate}>
             <Text style={styles.color_textPrivate}>
               {CONSTANT.signupByregisteringconfirm}{" "}
             </Text>
@@ -393,18 +391,16 @@ const SignupScreen = ({ navigation }) => {
             >
               {CONSTANT.signupPrivacyPolicy}
             </Text>
-          </View>
+          </View> */}
         </ScrollView>
 
         <View style={styles.login_footer}>
-          <Text style={styles.navButtonText}>
-            {CONSTANT.signupHaveaccountsignin}
-          </Text>
+          <Text style={styles.navButtonText}>Хэрэв та бүртгэлтэй бол?</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Text
               style={[styles.login_signUpText, { color: Constant.blueColor }]}
             >
-              {CONSTANT.signupSignin}
+              Нэвтрэх
             </Text>
           </TouchableOpacity>
         </View>
@@ -459,6 +455,9 @@ const styles = StyleSheet.create({
     backgroundColor: Constant.darkBlueClor,
     justifyContent: "center",
     alignItems: "center",
+  },
+  login_signUpText: {
+    fontSize: 16,
   },
   checkBoxWrapperStyle: {
     flexDirection: "row",

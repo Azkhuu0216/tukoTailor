@@ -42,7 +42,7 @@ const LoginScreen = ({ navigation }) => {
         <FormInput
           labelValue={email}
           onChangeText={(userEmail) => setEmail(userEmail)}
-          placeholderText={CONSTANT.loginEmail}
+          placeholderText="И-мэйл"
           iconType="mail"
           keyboardType="email-address"
           autoCorrect={false}
@@ -56,16 +56,14 @@ const LoginScreen = ({ navigation }) => {
           secure={true}
         />
         <FormButton
-          buttonTitle={CONSTANT.loginSignIn}
+          buttonTitle="Нэвтрэх"
           onPress={() => login(email, password)}
         />
         <TouchableOpacity
           style={styles.forgotButton}
           onPress={() => navigation.navigate("forgetPassword")}
         >
-          <Text style={styles.navButtonText}>
-            {CONSTANT.loginForgotpassword}
-          </Text>
+          <Text style={styles.navButtonText}>Нууц үг сэргээх</Text>
         </TouchableOpacity>
 
         {/* <View style={styles.login_SocialMedia}>
@@ -104,12 +102,12 @@ const LoginScreen = ({ navigation }) => {
         </View> */}
       </ScrollView>
       <View style={styles.login_footer}>
-        <Text style={styles.login_signUpText}>{CONSTANT.loginNotmember}</Text>
+        <Text style={styles.login_signUpText}>Хэрэв та бүртгэлгүй бол?</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
           <Text
             style={[styles.login_signUpText, { color: Constant.blueColor }]}
           >
-            {CONSTANT.loginRegister}
+            Бүртгүүлэх
           </Text>
         </TouchableOpacity>
       </View>
