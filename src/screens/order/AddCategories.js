@@ -106,7 +106,6 @@ const AddCategories = ({ navigation, route }) => {
       : value.notes === "2"
       ? value.note
       : value.Nonote;
-
   const SubmiDataToServer = async () => {
     setIsLoader(true);
     const imageUrl = await uploadImage();
@@ -516,7 +515,7 @@ const AddCategories = ({ navigation, route }) => {
             <Text style={{ marginRight: 45 }}>Нийт: </Text>
             <Text>
               {niit}{" "}
-              {value.niit === undefined
+              {niit === undefined
                 ? null
                 : value.notes === "1"
                 ? "/НӨАТ-гүй дүн/"

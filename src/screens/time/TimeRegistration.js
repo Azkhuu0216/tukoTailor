@@ -85,7 +85,12 @@ const TimeRegistration = () => {
       <View style={{ flex: 1, marginHorizontal: 20 }}>
         <View style={{ marginBottom: 20 }}>
           <Text
-            style={{ textAlign: "center", fontSize: 22, fontWeight: "bold" }}
+            style={{
+              textAlign: "center",
+              fontSize: 22,
+              fontWeight: "bold",
+              marginTop: 20,
+            }}
           >
             Цаг бүртгэл
           </Text>
