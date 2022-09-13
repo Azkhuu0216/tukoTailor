@@ -423,7 +423,7 @@ const OrderAdd = ({ navigation }) => {
                   ? setData({ ...data, uridchilgaa: t })
                   : setData({ ...data, belen: t })
               }
-              style={{ height: 40 }}
+              style={{ height: 40, width: "100%" }}
             ></TextInput>
           </View>
         </View>
@@ -509,7 +509,6 @@ const OrderAdd = ({ navigation }) => {
       </View>
     );
   };
-
   const date = (label) => {
     return (
       <View>

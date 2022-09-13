@@ -31,7 +31,9 @@ import Settings from "./settings/settings";
 import Notification from "./Notification";
 import ChatScreen from "./chat/ChatScreen";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import OrderList from "./order/OrderList";
+import TimeRegistration from "./time/TimeRegistration";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -77,6 +79,20 @@ const TabStack = ({ navigation }) => {
           tabBarIcon: (props) => (
             <FontAwesome
               name="wechat"
+              size={24}
+              color={Constant.primaryColor}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        // name={CONSTANT.AppStackCart}
+        name="Цаг бүртгэл"
+        component={TimeRegistration}
+        options={{
+          tabBarIcon: (props) => (
+            <Ionicons
+              name="time-outline"
               size={24}
               color={Constant.primaryColor}
             />

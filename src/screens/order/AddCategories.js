@@ -36,7 +36,7 @@ const { width } = Dimensions.get("window");
 
 const AddCategories = ({ navigation, route }) => {
   const value = route.params?.value;
-  console.log(value.buselhii, "value");
+  // console.log(value.notes, value.note, value.Nonote, "value");
   const { user, logout } = useContext(AuthContext);
   const [loader, setLoader] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
@@ -100,6 +100,12 @@ const AddCategories = ({ navigation, route }) => {
       }
     }
   };
+  const niit =
+    route.params?.ok === true
+      ? value.niit
+      : value.notes === "2"
+      ? value.note
+      : value.Nonote;
 
   const SubmiDataToServer = async () => {
     setIsLoader(true);
@@ -139,6 +145,9 @@ const AddCategories = ({ navigation, route }) => {
       busad: value.busad,
       imageUrl: imageUrl,
       imageUrl1: imageUrl1,
+      niit: niit,
+      uridchilgaa: value.uridchilgaa,
+      belen: value.belen,
       apparel_steps: [],
     });
 
@@ -250,6 +259,7 @@ const AddCategories = ({ navigation, route }) => {
       </View>
     );
   };
+
   const explain = (label) => {
     return (
       <View style={styles.View4}>
@@ -484,6 +494,62 @@ const AddCategories = ({ navigation, route }) => {
           {explain("мөр")}
           {explain("бусад")}
         </ScrollView>
+        <Text
+          style={{
+            textAlign: "center",
+            marginBottom: 10,
+            color: Constant.gray90Color,
+            marginTop: 10,
+          }}
+        >
+          Төлбөрийн мэдээлэл
+        </Text>
+        <View
+          style={{
+            backgroundColor: Constant.orderBackground,
+            height: 70,
+            justifyContent: "space-between",
+            padding: 5,
+          }}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginRight: 45 }}>Нийт: </Text>
+            <Text>
+              {niit}{" "}
+              {value.niit === undefined
+                ? null
+                : value.notes === "1"
+                ? "/НӨАТ-гүй дүн/"
+                : "/НӨАТ-тэй дүн/"}{" "}
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text>Урьдчилгаа: </Text>
+            <Text>
+              {value.uridchilgaa}{" "}
+              {value.uridchilgaa === undefined
+                ? null
+                : value.urid === "1"
+                ? "/Данс/"
+                : value.urid === "2"
+                ? "/Пос/"
+                : "/Бэлэн/"}{" "}
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginRight: 15 }}>Үлдэгдэл: </Text>
+            <Text>
+              {value.belen}{" "}
+              {value.belen === undefined
+                ? null
+                : value.ready === "1"
+                ? "/Данс/"
+                : value.ready === "2"
+                ? "/Пос/"
+                : "/Бэлэн/"}
+            </Text>
+          </View>
+        </View>
         {route.params?.ok === true ? null : (
           <TouchableOpacity
             style={{

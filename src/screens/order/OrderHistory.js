@@ -9,6 +9,8 @@ import {
   Image,
   Dimensions,
   TextInput,
+  ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import * as Constant from "../../styles/globalStyles";
 import firestore from "@react-native-firebase/firestore";
@@ -19,7 +21,9 @@ import styles from "../../styles/styles";
 
 import CONSTANT from "../../styles/local";
 import { ScrollView } from "react-native-virtualized-view";
+import { useStateWithCallbackLazy } from "use-state-with-callback";
 const window = Dimensions.get("window");
+const PERPAGE = 20;
 
 const OrderHistory = ({ navigation }) => {
   const { user, logout } = useContext(AuthContext);
@@ -33,6 +37,10 @@ const OrderHistory = ({ navigation }) => {
   const [showNoRecord, setShowNoRecord] = useState(true);
   const [currentIndex, setCurrentIndex] = React.useState(null);
   const [orderData, setOrderData] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
+  const [isFetchedAll, setFetchedAll] = useState(false);
+  const [perPage, setPerPage] = useStateWithCallbackLazy(PERPAGE);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // getAdminInfo();
@@ -64,8 +72,10 @@ const OrderHistory = ({ navigation }) => {
         .collection("orders")
         .onSnapshot((querySnapshot) => {
           querySnapshot.docs.map(
-            (documentSnapshot) =>
-              setOrderData(documentSnapshot.data().selected_apparels)
+            (documentSnapshot) => {
+              setOrderData(documentSnapshot.data().selected_apparels);
+              setLoading(true);
+            }
             // if (user.uid == documentSnapshot.id) {
             //   var sortedArray = documentSnapshot
             //     .data()
@@ -740,6 +750,48 @@ const OrderHistory = ({ navigation }) => {
   const renderItem = (item) => {
     return <Order item={item.item} />;
   };
+  const renderFooter = () => {
+    if (isFetchedAll) {
+      return null;
+    }
+    if (!loading) {
+      return null;
+    }
+    return <ActivityIndicator color={Constant.primaryColor} />;
+  };
+
+  const onRefresh = () => {
+    setPerPage(PERPAGE, () => {
+      setRefreshing(true);
+      refetch()
+        .then((res) => {
+          if (!res.error) {
+            setFetchedAll(false);
+          }
+          setRefreshing(false);
+        })
+        .catch((e) => {
+          setRefreshing(false);
+        });
+    });
+  };
+  const onEndReached = () => {
+    if (isFetchedAll) {
+      return;
+    }
+    setPerPage(perPage + PERPAGE, () => {
+      refetch()
+        .then((res) => {
+          if (orderData.length < perPage) {
+            setFetchedAll(true);
+          }
+          setPerPage(orderData.length);
+        })
+        .catch((e) => {
+          setPerPage(perPage - PERPAGE);
+        });
+    });
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Constant.whiteColor }}>
       {/* <MainHeader title={CONSTANT.orderhistoryHeader} /> */}
@@ -770,6 +822,16 @@ const OrderHistory = ({ navigation }) => {
             data={orderData}
             renderItem={renderItem}
             keyExtractor={(item, index) => index}
+            ListFooterComponent={renderFooter}
+            onEndReachedThreshold={0.4}
+            onEndReached={onEndReached}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={[Constant.primaryColor]}
+              />
+            }
           />
           {/* {order()} */}
         </ScrollView>
