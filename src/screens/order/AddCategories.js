@@ -36,7 +36,7 @@ const { width } = Dimensions.get("window");
 
 const AddCategories = ({ navigation, route }) => {
   const value = route.params?.value;
-  // console.log(value.firstname, "value");
+  console.log(value.buselhii, "value");
   const { user, logout } = useContext(AuthContext);
   const [loader, setLoader] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);

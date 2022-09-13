@@ -83,7 +83,7 @@ const Header = ({ name, position1, image1 }) => {
             flexDirection: "row",
             justifyContent: "space-between",
             // backgroundColor: "red",
-            width: width - 20,
+            // width: width - 20,
           }}
         >
           <View
@@ -114,9 +114,9 @@ const Header = ({ name, position1, image1 }) => {
           </View>
           <View
             style={{
+              flex: 1,
               justifyContent: "space-evenly",
               // backgroundColor: "red",
-              width: width / 2,
             }}
           >
             <View

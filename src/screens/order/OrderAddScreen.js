@@ -143,9 +143,7 @@ const OrderAdd = ({ navigation }) => {
                   ? data.arUr
                   : label === "Хh"
                   ? data.huhUn
-                  : label === "Аh"
-                  ? data.arUn
-                  : data.buselhii
+                  : data.arUn
               }
               onChangeText={(t) =>
                 label === "Нэр"
@@ -168,9 +166,7 @@ const OrderAdd = ({ navigation }) => {
                   ? setData({ ...data, arUr: t })
                   : label === "Хh"
                   ? setData({ ...data, huhUn: t })
-                  : label === "Аh"
-                  ? setData({ ...data, arUn: t })
-                  : setData({ ...data, buselhii: t })
+                  : setData({ ...data, arUn: t })
               }
               style={{ height: 40 }}
             ></TextInput>
@@ -202,7 +198,9 @@ const OrderAdd = ({ navigation }) => {
                     ? data.engerH
                     : label1 === "Зh"
                     ? data.zah
-                    : data.ed
+                    : label1 == "ЭУ"
+                    ? data.ed
+                    : data.buselhii
                 }
                 onChangeText={(t) =>
                   label1 === "Утас"
@@ -223,7 +221,9 @@ const OrderAdd = ({ navigation }) => {
                     ? setData({ ...data, engerH: t })
                     : label1 == "Зh"
                     ? setData({ ...data, zah: t })
-                    : setData({ ...data, ed: t })
+                    : label1 == "ЭУ"
+                    ? setData({ ...data, ed: t })
+                    : setData({ ...data, buselhii: t })
                 }
                 style={{ height: 40 }}
               ></TextInput>

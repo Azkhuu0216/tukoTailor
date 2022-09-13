@@ -49,7 +49,7 @@ const ProfileDetail = ({ navigation, route }) => {
       >
         {edit("Овог", item.last_name)}
         {edit("Нэр", item.first_name)}
-        {edit("Төрсөн өдөр", item.workday)}
+        {edit("Төрсөн өдөр", item.birthDay)}
         {edit("Гар утас", item.phone_number)}
         {edit("Гэрийн утас", item.homePhone)}
         {edit("Гэрийн хаяг", item.address)}

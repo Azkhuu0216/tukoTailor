@@ -144,7 +144,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 10,
-    width: "100%",
   },
   to_heaeding1_font: {
     fontSize: 24,
