@@ -9,6 +9,7 @@ import {
   Dimensions,
   SafeAreaView,
   Alert,
+  RefreshControl,
 } from "react-native";
 import MainHeader from "../../components/MainHeader";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -23,17 +24,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import CONSTANT from "../../styles/local";
 import moment from "moment";
+import { useStateWithCallbackLazy } from "use-state-with-callback";
 const ChatScreen = ({ route }) => {
   const { user, logout } = useContext(AuthContext);
   const [message, setMessage] = useState("");
   const [guestUid, setGuestUid] = useState("");
   const [currentUid, setCurrentUid] = useState("");
   const [allMessages, setAllMessages] = useState([]);
-  const [image, setImage] = useState("");
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     checkAdmin();
+    // getData();
   }, []);
 
   const checkAdmin = () => {
@@ -60,50 +62,54 @@ const ChatScreen = ({ route }) => {
     }
   };
 
-  const getData = async () => {
-    const currentUid = user.uid;
-    const guestUid = route.params.id;
-
+  const getData = () => {
+    const currentUid = user?.uid;
+    const guestUid = route?.params.id;
     setCurrentUid(currentUid);
     setGuestUid(guestUid);
-
-    try {
-      const IsAdmin = await AsyncStorage.getItem("IsAdmin");
-      firebase
-        .database()
-        .ref("messages")
-        .child(currentUid)
-        .child(IsAdmin == "true" ? guestUid : JSON.parse(guestUid))
-        .on("value", (dataSnapshot) => {
-          let message = [];
-          dataSnapshot.forEach((data) => {
-            message.push({
-              sendBy: data.val().messege.sender,
-              recieveBy: data.val().messege.reciever,
-              msg: data.val().messege.msg,
-              image: data.val().messege.image,
-              date: data.val().messege.date,
-              time: data.val().messege.time,
-            });
+    // console.log(currentUid, "curren00______");
+    // console.log(guestUid, "guest-----++++");
+    firebase
+      .database()
+      .ref("messages")
+      .child(currentUid)
+      .child(guestUid)
+      .on("value", (dataSnapshot) => {
+        let message = [];
+        dataSnapshot.forEach((data) => {
+          message.push({
+            sendBy: data.val().messege.sender,
+            recieveBy: data.val().messege.reciever,
+            msg: data.val().messege.msg,
+            image: data.val().messege.image,
+            date: data.val().messege.date,
+            time: data.val().messege.time,
           });
-          setAllMessages(message.reverse());
         });
-    } catch (error) {
-      alert(error);
-    }
+        setAllMessages(message.reverse());
+      });
   };
 
-  const openGallery = () => {
+  // console.log(allMessages, "allmessages------++++++");
+  // console.log(guestUid, "guest----");
+  // console.log(currentUid, "curren----");
+  const openGallery = async () => {
+    const IsAdmin = await AsyncStorage.getItem("IsAdmin");
     launchImageLibrary("photo", (response) => {
+      const res = Object.assign({}, ...response.assets);
+      console.log(res.uri, "redspomse---");
       setLoader(true);
-      ImgToBase64.getBase64String(response.uri)
+      ImgToBase64.getBase64String(res.uri)
         .then(async (base64String) => {
+          console.log(base64String, "base64-----");
           let source = "data:image/jpeg;base64," + base64String;
           SendMessage(currentUid, guestUid, "", source, IsAdmin)
             .then((res) => {
+              console.log(res, "res---");
               setLoader(false);
             })
             .catch((err) => {
+              console.log(res, "res.error-------");
               alert(err);
             });
 
@@ -115,7 +121,7 @@ const ChatScreen = ({ route }) => {
               alert(err);
             });
         })
-        .catch((err) => setLoader(false));
+        .catch((err) => console.log(err, "ERror-----"));
     });
   };
 
@@ -124,27 +130,28 @@ const ChatScreen = ({ route }) => {
       const IsAdmin = await AsyncStorage.getItem("IsAdmin");
       SendMessage(currentUid, guestUid, message, "", IsAdmin)
         .then((res) => {
-          console.log(res);
+          console.log(res, "Succes Sent");
           setMessage("");
         })
         .catch((err) => {
+          console.log(err, "Not sent");
           alert(err);
         });
 
       RecieveMessage(currentUid, guestUid, message, "", IsAdmin)
         .then((res) => {
-          console.log(res);
+          console.log(res, "Success receive");
           setMessage("");
         })
         .catch((err) => {
+          console.log(err, "not receive");
           alert(err);
         });
     }
   };
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Constant.primaryColor }}>
-      {/* <MainHeader title={CONSTANT.chatscreenHelpSupport} back={true} /> */}
+      <MainHeader title="Чат" back={true} />
       <FlatList
         showsVerticalScrollIndicator={false}
         inverted
@@ -202,7 +209,7 @@ const ChatScreen = ({ route }) => {
       />
       <View
         style={{
-          bottom: 0,
+          bottom: 30,
           height: 50,
           position: "absolute",
           flexDirection: "row",
@@ -212,6 +219,7 @@ const ChatScreen = ({ route }) => {
       >
         <View style={{ width: "80%", justifyContent: "center" }}>
           <TextInput
+            autoCorrect={false}
             value={message}
             onChangeText={(text) => setMessage(text)}
             placeholder={CONSTANT.chatscreenEntermessage}

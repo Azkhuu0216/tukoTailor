@@ -71,7 +71,7 @@ const TabStack = ({ navigation }) => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         // name={CONSTANT.AppStackCart}
         name="Чат"
         component={ChatScreen}
@@ -84,7 +84,7 @@ const TabStack = ({ navigation }) => {
             />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         // name={CONSTANT.AppStackCart}
         name="Цаг бүртгэл"
@@ -201,6 +201,13 @@ const AppStack = () => {
         <Stack.Screen
           name="ProfileDetail"
           component={ProfileDetail}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Chat"
+          component={ChatScreen}
           options={{
             headerShown: false,
           }}

@@ -15,6 +15,7 @@ LogBox.ignoreLogs([
   "EventEmitter.removeListener('keyboardWillShow', ...):",
   "EventEmitter.removeListener('change', ...):",
   "EventEmitter.removeListener('keyboardDidHide', ...):",
+  "AsyncStorage has been extracted from react-native core and will be removed in a future release.",
 ]);
 
 const App = () => {

@@ -9,17 +9,20 @@ export const SendMessage = async (
   imgSource,
   IsAdmin
 ) => {
+  // console.log(currentuser_id, "current------"),
+  // console.log(guestuser_id, "guest-------");
+  // console.log(IsAdmin, "admin----");
+  console.log(imgSource, "imgSourde----");
   var todayDate = moment();
   try {
-    console.log(IsAdmin);
     return await firebase
       .database()
       .ref("messages/" + currentuser_id)
-      .child(IsAdmin == "true" ? guestuser_id : JSON.parse(guestuser_id))
+      .child(guestuser_id)
       .push({
         messege: {
           sender: currentuser_id,
-          reciever: IsAdmin == "true" ? guestuser_id : JSON.parse(guestuser_id),
+          reciever: guestuser_id,
           msg: msgValue,
           image: imgSource,
           date: todayDate.format("YYYY-MM-DD"),
@@ -40,7 +43,7 @@ export const RecieveMessage = async (
 ) => {
   try {
     var todayDate = moment();
-    var id = IsAdmin == "true" ? guestuser_id : JSON.parse(guestuser_id);
+    var id = guestuser_id;
     return await firebase
       .database()
       .ref("messages/" + id)
@@ -48,7 +51,7 @@ export const RecieveMessage = async (
       .push({
         messege: {
           sender: currentuser_id,
-          reciever: IsAdmin == "true" ? guestuser_id : JSON.parse(guestuser_id),
+          reciever: guestuser_id,
           msg: msgValue,
           image: imgSource,
           date: todayDate.format("YYYY-MM-DD"),

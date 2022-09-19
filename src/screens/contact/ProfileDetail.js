@@ -28,6 +28,8 @@ const edit = (label, item) => {
 };
 const ProfileDetail = ({ navigation, route }) => {
   const item = route.params?.value;
+  console.log(item?.user_id);
+
   return (
     <View
       style={{

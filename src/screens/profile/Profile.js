@@ -42,6 +42,7 @@ const Profile = () => {
   const [homePhone, setHomePhone] = useState("");
   const [date, setDate] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
   const [image, setImage] = useState(null);
   const [finalImage, setFinalImage] = useState(null);
   const [position, setPosition] = useState(null);
@@ -49,7 +50,6 @@ const Profile = () => {
     avatar: undefined,
   });
   const [spinner, setSpinner] = useState(false);
-  const [transferred, setTransferred] = useState(0);
   const [isLoader, setIsLoader] = useState(false);
   const [datePicker, setDatePicker] = useState({
     showDate: false,
@@ -96,7 +96,9 @@ const Profile = () => {
       width: 1200,
       height: 1200,
       cropping: true,
+      // multiple: true,
     }).then((image) => {
+      console.log(image, "image------");
       const imageUri = Platform.OS === "ios" ? image.sourceURL : image.path;
       setImage(imageUri);
     });
