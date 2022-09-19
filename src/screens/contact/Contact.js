@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import styles from "../styles/styles";
 // import Header from "../components/Header";
 import * as Constant from "../../styles/globalStyles";
@@ -19,12 +19,13 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Modal } from "react-native-paper";
 import { windowWidth } from "../../utils/Dimentions";
+import { AuthContext } from "../../provider/AuthProvider.ios";
 const Contact = ({ navigation }) => {
-  const [user, setUser] = useState([]);
   const [visible, setVisible] = useState(false);
   const [check, setCheck] = useState(false);
   const [userId, setUserId] = useState("");
   const [userData, setuserData] = useState([]);
+  const { user } = useContext(AuthContext);
   useEffect(() => {
     getUserData();
     info();
@@ -127,49 +128,54 @@ const Contact = ({ navigation }) => {
           }}
         >
           {userData.map((e) => (
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: 10,
-              }}
-              key={e.user_id}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  userId && setCheck(true);
-                  setUserId(e.user_id);
-                  // console.log(e.user_id, "user_id----");
-                }}
-              >
-                <MaterialCommunityIcons
-                  name={
-                    userId === e.user_id && check
-                      ? "checkbox-marked"
-                      : "checkbox-blank-outline"
-                  }
-                  size={24}
-                />
-              </TouchableOpacity>
-              <View style={{ width: 60 }}>
-                <Image
-                  source={
-                    e.profile_image != null
-                      ? { uri: e.profile_image }
-                      : images.profile
-                  }
-                  style={{ height: 55, width: 60, borderRadius: 100 }}
-                />
-              </View>
-              <View style={css.Order}>
-                <Text style={css.Text}>Нэр</Text>
-                <Text style={css.Value}>{e.first_name}</Text>
-              </View>
-              <View style={css.Order}>
-                <Text style={css.Text}>Албан тушаал</Text>
-                <Text style={css.Value}>{e.position}</Text>
-              </View>
+            <View key={e.user_id}>
+              {e.user_id === user.uid ? (
+                ""
+              ) : (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: 10,
+                  }}
+                >
+                  <TouchableOpacity
+                    onPress={() => {
+                      userId && setCheck(true);
+                      setUserId(e.user_id);
+                      // console.log(e.user_id, "user_id----");
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name={
+                        userId === e.user_id && check
+                          ? "checkbox-marked"
+                          : "checkbox-blank-outline"
+                      }
+                      size={24}
+                    />
+                  </TouchableOpacity>
+                  <View style={{ width: 60 }}>
+                    <Image
+                      source={
+                        e.profile_image != null
+                          ? { uri: e.profile_image }
+                          : images.profile
+                      }
+                      style={{ height: 55, width: 60, borderRadius: 100 }}
+                    />
+                  </View>
+                  <View style={css.Order}>
+                    <Text style={css.Text}>Нэр</Text>
+                    <Text style={css.Value}>{e.first_name}</Text>
+                  </View>
+                  <View style={css.Order}>
+                    <Text style={css.Text}>Албан тушаал</Text>
+                    <Text style={css.Value}>{e.position}</Text>
+                  </View>
+                </View>
+              )}
             </View>
           ))}
         </ScrollView>
