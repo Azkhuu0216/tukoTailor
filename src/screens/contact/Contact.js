@@ -57,14 +57,16 @@ const Contact = ({ navigation }) => {
             }}
             key={e.user_id}
           >
-            <Image
-              source={
-                e.profile_image != null
-                  ? { uri: e.profile_image }
-                  : images.profile
-              }
-              style={{ height: 55, width: 60, borderRadius: 100 }}
-            />
+            <View>
+              <Image
+                source={
+                  e.profile_image != null
+                    ? { uri: e.profile_image }
+                    : images.profile
+                }
+                style={{ height: 55, width: 60, borderRadius: 100 }}
+              />
+            </View>
             <View style={css.Order}>
               <Text style={css.Text}>Нэр</Text>
               <Text style={css.Value}>{e.first_name}</Text>
@@ -150,14 +152,16 @@ const Contact = ({ navigation }) => {
                   size={24}
                 />
               </TouchableOpacity>
-              <Image
-                source={
-                  e.profile_image != null
-                    ? { uri: e.profile_image }
-                    : images.profile
-                }
-                style={{ height: 55, width: 60, borderRadius: 100 }}
-              />
+              <View style={{ width: 60 }}>
+                <Image
+                  source={
+                    e.profile_image != null
+                      ? { uri: e.profile_image }
+                      : images.profile
+                  }
+                  style={{ height: 55, width: 60, borderRadius: 100 }}
+                />
+              </View>
               <View style={css.Order}>
                 <Text style={css.Text}>Нэр</Text>
                 <Text style={css.Value}>{e.first_name}</Text>
@@ -231,6 +235,7 @@ const css = StyleSheet.create({
   Order: {
     justifyContent: "space-between",
     height: 40,
+    width: 100,
   },
   Text: { color: Constant.gray90Color },
   Value: { fontSize: 16, fontWeight: "400" },
