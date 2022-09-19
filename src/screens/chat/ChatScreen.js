@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Alert,
   RefreshControl,
+  Platform,
 } from "react-native";
 import MainHeader from "../../components/MainHeader";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -209,7 +210,7 @@ const ChatScreen = ({ route }) => {
       />
       <View
         style={{
-          bottom: 30,
+          bottom: Platform.OS === "ios" ? 30 : 0,
           height: 50,
           position: "absolute",
           flexDirection: "row",
