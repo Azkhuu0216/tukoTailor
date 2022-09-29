@@ -53,7 +53,7 @@ const SignupScreen = ({ navigation }) => {
   const { register } = useContext(AuthContext);
   const [transferred, setTransferred] = useState(0);
   const [spinner, setSpinner] = useState(false);
-  const [workday, setWorkDay] = useState("");
+  const [birthDay, setbirthDay] = useState("");
   const [datePicker, setDatePicker] = useState({
     showDate: false,
   });
@@ -62,8 +62,8 @@ const SignupScreen = ({ navigation }) => {
     setDatePicker({ ...datePicker, showDate: false });
   };
   const handleDatePicker = (date) => {
-    const work = moment(date).format("DD/MM/YYYY");
-    setWorkDay(work);
+    const day = moment(date).format("DD/MM/YYYY");
+    setbirthDay(day);
     hideDatePicker();
   };
 
@@ -74,7 +74,7 @@ const SignupScreen = ({ navigation }) => {
       phone_number != "" &&
       address != "" &&
       position != "" &&
-      workday != "" &&
+      birthDay != "" &&
       email != "" &&
       password != "" &&
       confirmPassword != ""
@@ -91,7 +91,7 @@ const SignupScreen = ({ navigation }) => {
             address,
             imageUrl,
             position,
-            workday
+            birthDay
           );
           setEmail("");
           setConfirmPassword("");
@@ -319,16 +319,16 @@ const SignupScreen = ({ navigation }) => {
                   marginHorizontal: 10,
                   fontSize: 16,
                   color:
-                    workday != "" ? Constant.blackColor : Constant.gray90Color,
+                    birthDay != "" ? Constant.blackColor : Constant.gray90Color,
                 }}
               >
-                {workday === "" ? "Төрсөн өдөр" : workday}
+                {birthDay === "" ? "Төрсөн өдөр" : birthDay}
               </Text>
               <Feather
                 name="calendar"
                 size={24}
                 color={
-                  workday != "" ? Constant.blackColor : Constant.gray90Color
+                  birthDay != "" ? Constant.blackColor : Constant.gray90Color
                 }
               />
             </TouchableOpacity>

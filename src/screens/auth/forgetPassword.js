@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
@@ -12,7 +13,6 @@ import { AuthContext } from "../../provider/AuthProvider.ios";
 import * as CONSTANT from "../../styles/local";
 import MainHeader from "../../components/MainHeader";
 import * as Constant from "../../styles/globalStyles";
-import { ScrollView } from "react-native-virtualized-view";
 
 const ForgetPassword = ({ navigation }) => {
   const [email, setEmail] = useState();
@@ -20,31 +20,26 @@ const ForgetPassword = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <MainHeader title={"Forget Password"} back={true} />
+      <MainHeader title={"Нууц үг сэргээх"} back={true} />
       <ScrollView style={styles.scrollViewStyle}>
         <FormInput
           labelValue={email}
           onChangeText={(userEmail) => setEmail(userEmail)}
-          placeholderText={CONSTANT.forgetpasswordEmail}
+          placeholderText="И-мэйлээ оруулна уу."
           iconType="user"
           keyboardType="email-address"
           autoCorrect={false}
         />
 
-        <FormButton
-          buttonTitle={CONSTANT.forgetpasswordresetnow}
-          onPress={() => resetPassword(email)}
-        />
+        <FormButton buttonTitle="Илгээх" onPress={() => resetPassword(email)} />
       </ScrollView>
       <View style={styles.login_footer}>
-        <Text style={styles.navButtonText}>
-          {CONSTANT.forgetpasswordHaveaccount}
-        </Text>
+        <Text style={styles.navButtonText}>Хэрэв та бүртгэлтэй бол?</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text
             style={[styles.login_signUpText, { color: Constant.blueColor }]}
           >
-            {CONSTANT.forgetpasswordSignin}
+            Нэвтрэх
           </Text>
         </TouchableOpacity>
       </View>
@@ -104,5 +99,9 @@ const styles = StyleSheet.create({
     backgroundColor: Constant.darkBlueClor,
     justifyContent: "center",
     alignItems: "center",
+  },
+  login_signUpText: {
+    fontSize: 18,
+    marginLeft: 8,
   },
 });

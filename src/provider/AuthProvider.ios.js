@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }) => {
                     position: position,
                     workday: workday,
                     profile_image: imageUrl,
-                    role: "admin",
+                    role: "user",
                   })
                   .then(() => {})
                   .catch((error) => {});

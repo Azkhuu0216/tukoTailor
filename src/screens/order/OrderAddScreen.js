@@ -74,14 +74,7 @@ const OrderAdd = ({ navigation }) => {
     showPremirka: false,
     showTake: false,
   });
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-  const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date.dateString);
-    hideDatePicker();
-  };
+
   const hideGive = () => {
     setDatePicker({ ...datePicker, showGive: false });
   };
