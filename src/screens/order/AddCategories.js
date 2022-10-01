@@ -56,13 +56,43 @@ const AddCategories = ({ navigation, route }) => {
     useState([]);
   const [currency, setCurrency] = useState("");
   const [isLoader, setIsLoader] = useState(false);
+  const [position, setPosition] = useState(false);
   useEffect(() => {
     getAddedCategoriesData();
+    getAddedUserAccess();
   }, []);
   useLayoutEffect(() => {
     setNavigation(navigation, "Захиалга харах хуудас", true);
   }, []);
 
+  const getAddedUserAccess = async () => {
+    try {
+      await firestore()
+        .collection("users")
+        .onSnapshot((querySnapshot) => {
+          if (querySnapshot != null) {
+            querySnapshot.forEach((documentSnapshot) => {
+              if (documentSnapshot.id == user.uid) {
+                // console.log(documentSnapshot.data().position, "----------");
+                documentSnapshot.data().position === "Захирал"
+                  ? setPosition(true)
+                  : documentSnapshot.data().position === "ҮАХЗахирал"
+                  ? setPosition(true)
+                  : documentSnapshot.data().position === "Ерөнхий менежер"
+                  ? setPosition(true)
+                  : documentSnapshot.data().position === "Дизайнер"
+                  ? setPosition(true)
+                  : documentSnapshot.data().position === "Гар чимэглэчин"
+                  ? setPosition(true)
+                  : setPosition(false);
+              }
+            });
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const getAddedCategoriesData = async () => {
     if (mainCategorymaleArray != null || mainCategoryfemaleArray != null) {
       try {
@@ -147,7 +177,7 @@ const AddCategories = ({ navigation, route }) => {
       niit: niit,
       uridchilgaa: value.uridchilgaa,
       belen: value.belen,
-      apparel_steps: [],
+      apparel_steps: Math.random(),
     });
 
     firestore()
@@ -220,7 +250,9 @@ const AddCategories = ({ navigation, route }) => {
         </View>
         <View style={styles.background2}>
           <Text>
-            {label === "БЖ"
+            {label === "БТ"
+              ? value.height
+              : label === "БЖ"
               ? value.weight
               : label === "ЦТ"
               ? value.tseej
@@ -450,6 +482,7 @@ const AddCategories = ({ navigation, route }) => {
               </TouchableOpacity>
             </View>
             <View>
+              {bodySize("Бh")}
               {bodySize("БЖ")}
               {bodySize("ЦТ")}
               {bodySize("БТ")}
@@ -458,10 +491,10 @@ const AddCategories = ({ navigation, route }) => {
               {bodySize("Эh")}
               {bodySize("АӨ")}
               {bodySize("Аh")}
-              {bodySize("Хh")}
               {bodySize("ХXЗ")}
-              {bodySize("МӨ")}
+              {bodySize("Хh")}
               {bodySize("МХЗ")}
+              {bodySize("МӨ")}
               {bodySize("ХУ")}
               {bodySize("БуглТ")}
               {bodySize("БугТ")}
@@ -493,62 +526,96 @@ const AddCategories = ({ navigation, route }) => {
           {explain("мөр")}
           {explain("бусад")}
         </ScrollView>
-        <Text
-          style={{
-            textAlign: "center",
-            marginBottom: 10,
-            color: Constant.gray90Color,
-            marginTop: 10,
-          }}
-        >
-          Төлбөрийн мэдээлэл
-        </Text>
-        <View
-          style={{
-            backgroundColor: Constant.orderBackground,
-            height: 70,
-            justifyContent: "space-between",
-            padding: 5,
-          }}
-        >
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 45 }}>Нийт: </Text>
-            <Text>
-              {niit}{" "}
-              {niit === undefined
-                ? null
-                : value.notes === "1"
-                ? "/НӨАТ-гүй дүн/"
-                : "/НӨАТ-тэй дүн/"}{" "}
+        {position ? (
+          <>
+            <Text
+              style={{
+                textAlign: "center",
+                marginBottom: 10,
+                color: Constant.gray90Color,
+                marginTop: 10,
+              }}
+            >
+              Төлбөрийн мэдээлэл
             </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text>Урьдчилгаа: </Text>
-            <Text>
-              {value.uridchilgaa}{" "}
-              {value.uridchilgaa === undefined
-                ? null
-                : value.urid === "1"
-                ? "/Данс/"
-                : value.urid === "2"
-                ? "/Пос/"
-                : "/Бэлэн/"}{" "}
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 15 }}>Үлдэгдэл: </Text>
-            <Text>
-              {value.belen}{" "}
-              {value.belen === undefined
-                ? null
-                : value.ready === "1"
-                ? "/Данс/"
-                : value.ready === "2"
-                ? "/Пос/"
-                : "/Бэлэн/"}
-            </Text>
-          </View>
-        </View>
+            <View
+              style={{
+                height: 70,
+                justifyContent: "space-between",
+                padding: 5,
+                marginBottom: 20,
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <View style={styles.TulburView}>
+                  <Text style={{ marginRight: 45 }}>Нийт: </Text>
+                </View>
+                <View style={styles.Mungundun}>
+                  <View style={styles.TulburView}>
+                    <Text style={{ marginRight: 45 }}> {niit} </Text>
+                  </View>
+                  <View style={styles.TulburView}>
+                    <Text>
+                      {niit === undefined
+                        ? null
+                        : value.notes === "1"
+                        ? "/НӨАТ-гүй дүн/"
+                        : "/НӨАТ-тэй дүн/"}{" "}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                <View style={styles.TulburView}>
+                  <Text>Урьдчилгаа: </Text>
+                </View>
+                <View style={styles.Mungundun}>
+                  <View style={styles.TulburView}>
+                    <Text style={{ marginRight: 45 }}>
+                      {value.uridchilgaa}{" "}
+                    </Text>
+                  </View>
+                  <View style={styles.TulburView}>
+                    <Text>
+                      {value.uridchilgaa === undefined
+                        ? null
+                        : value.urid === "1"
+                        ? "/Данс/"
+                        : value.urid === "2"
+                        ? "/Пос/"
+                        : "/Бэлэн/"}{" "}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                <View style={styles.TulburView}>
+                  <Text style={{ marginRight: 15 }}>Үлдэгдэл: </Text>
+                </View>
+                <View style={styles.Mungundun}>
+                  <View style={styles.TulburView}>
+                    <Text>{value.belen}</Text>
+                  </View>
+                  <View style={styles.TulburView}>
+                    <Text>
+                      {value.belen === undefined
+                        ? null
+                        : value.ready === "1"
+                        ? "/Данс/"
+                        : value.ready === "2"
+                        ? "/Пос/"
+                        : "/Бэлэн/"}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </>
+        ) : null}
         {route.params?.ok === true ? null : (
           <TouchableOpacity
             style={{
@@ -651,4 +718,12 @@ const styles = StyleSheet.create({
     width: width - 20,
     marginBottom: 3,
   },
+  TulburView: {
+    backgroundColor: Constant.orderBackground,
+    padding: 5,
+    marginRight: 3,
+    marginBottom: 3,
+    width: 100,
+  },
+  Mungundun: { flexDirection: "row", marginRighy: 3 },
 });

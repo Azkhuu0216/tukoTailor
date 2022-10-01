@@ -55,6 +55,7 @@ const OrderAdd = ({ navigation }) => {
     bus: "",
     hatgamal: "",
     chimeglel: "",
+    hantsui1: "",
     busad: "",
     note: "",
     Nonote: "",
@@ -297,6 +298,8 @@ const OrderAdd = ({ navigation }) => {
                   ? data.chimeglel
                   : label === "Мөр"
                   ? data.mur2
+                  : label === "Ханцуй"
+                  ? data.hantsui1
                   : data.busad
               }
               onChangeText={(t) =>
@@ -316,6 +319,8 @@ const OrderAdd = ({ navigation }) => {
                   ? setData({ ...data, chimeglel: t })
                   : label === "Мөр"
                   ? setData({ ...data, mur2: t })
+                  : label === "Ханцуй"
+                  ? setData({ ...data, hantsui1: t })
                   : setData({ ...data, busad: t })
               }
               style={{ height: 40 }}
@@ -557,7 +562,7 @@ const OrderAdd = ({ navigation }) => {
           >
             <Text style={styles.title}>Үндсэн мэдээлэл</Text>
             <View>
-              <Text style={{ marginBottom: 10 }}>Оёдолчны нэр</Text>
+              <Text style={{ marginBottom: 10 }}>Дизайнерийн нэр</Text>
               <View style={styles.infoBack}>
                 <TextInput
                   value={data.oydol}
@@ -620,6 +625,7 @@ const OrderAdd = ({ navigation }) => {
           {other("Хатгамал")}
           {other("Чимэглэл")}
           {other("Мөр")}
+          {other("Ханцуй")}
           {other("Бусад")}
           <Text style={styles.title}>Төлбөрийн мэдээлэл</Text>
           <View

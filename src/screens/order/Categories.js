@@ -183,6 +183,7 @@ const Categories = ({ navigation }) => {
       console.log(err);
     }
   };
+  let index = 0;
 
   const getAddedCategoriesData = async () => {
     try {
@@ -294,7 +295,8 @@ const Categories = ({ navigation }) => {
       <OrderItem item={item} index={index} />
     );
   };
-  const OrderItem = ({ item }) => {
+  const OrderItem = ({ item, index }) => {
+    // console.log(index, "ondex--------");
     return (
       <TouchableOpacity
         onPress={() =>
@@ -312,11 +314,19 @@ const Categories = ({ navigation }) => {
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <MaterialIcons
+            {/* <MaterialIcons
               name="keyboard-arrow-right"
               size={26}
               color={Constant.gray90Color}
-            />
+            /> */}
+            <Text
+              style={{
+                fontSize: 18,
+                marginRight: 5,
+              }}
+            >
+              {index + 1}.
+            </Text>
             <View
               style={{
                 height: 35,
@@ -380,7 +390,7 @@ const Categories = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
           data={newMainCategoryfemaleArray}
           renderItem={renderItem}
-          keyExtractor={(item, index) => item}
+          keyExtractor={(item, index) => item.apparel_steps}
         />
       </View>
     );

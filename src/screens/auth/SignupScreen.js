@@ -29,7 +29,9 @@ import Feather from "react-native-vector-icons/Feather";
 
 const pos = [
   { label: "Захирал", value: "Захирал" },
-  { label: "Ахлах", value: "Ахлах" },
+  { label: "ҮАХЗахирал", value: "ҮАХЗахирал" },
+  { label: "Ерөнхий менежер", value: "Ерөнхий менежер" },
+  { label: "Гар чимэглэлчин", value: "Гар чимэглэлчин" },
   { label: "Оёдолчин", value: "Оёдолчин" },
   { label: "Эсгүүрчин", value: "Эсгүүрчин" },
   { label: "Дизайнер", value: "Дизайнер" },

@@ -757,7 +757,8 @@ const OrderHistory = ({ navigation }) => {
     if (!loading) {
       return null;
     }
-    return <ActivityIndicator color={Constant.primaryColor} />;
+    // return <ActivityIndicator color={Constant.primaryColor} />;
+    return;
   };
 
   const onRefresh = () => {
