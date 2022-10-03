@@ -31,6 +31,8 @@ import ImgToBase64 from "react-native-image-base64";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import ImagePicker from "react-native-image-crop-picker";
 import Loader from "../../components/Loader";
+import Carousel from "react-native-snap-carousel-v4";
+import Feather from "react-native-vector-icons/Feather";
 
 const { width } = Dimensions.get("window");
 
@@ -315,6 +317,8 @@ const AddCategories = ({ navigation, route }) => {
               ? value.chimeglel
               : label === "мөр"
               ? value.mur2
+              : label === "ханцуй"
+              ? value.hantsui1
               : value.busad}
           </Text>
         </View>
@@ -326,9 +330,15 @@ const AddCategories = ({ navigation, route }) => {
       width: 1200,
       height: 1200,
       cropping: true,
-    }).then((image) => {
-      const imageUri = Platform.OS === "ios" ? image.sourceURL : image.path;
-      setImage(imageUri);
+      multiple: true,
+    }).then((res) => {
+      let imageList = [];
+      res.map((image) => {
+        imageList.push({
+          fileCopyUri: Platform.OS === "ios" ? image.sourceURL : image.path,
+        });
+      });
+      setImage(imageList);
     });
   };
   const handleUpload = async () => {
@@ -336,90 +346,155 @@ const AddCategories = ({ navigation, route }) => {
       width: 1200,
       height: 1200,
       cropping: true,
-    }).then((image) => {
-      const imageUri = Platform.OS === "ios" ? image.sourceURL : image.path;
-      setImageUrl(imageUri);
+      multiple: true,
+    }).then((res) => {
+      let List = [];
+      res.map((image) => {
+        List.push({
+          fileCopyUri: Platform.OS === "ios" ? image.sourceURL : image.path,
+        });
+      });
+      setImageUrl(List);
     });
   };
   const uploadImage = async () => {
     if (image == null) {
       return null;
     }
-    console.log(image.replace("file://", ""));
-    const uploadUri = image;
-    let filename = uploadUri.substring(uploadUri.lastIndexOf("/") + 1);
-    const extension = filename.split(".").pop();
-    const name = filename.split(".").slice(0, -1).join(".");
-    filename = name + Date.now() + "." + extension;
 
-    setUploading(true);
-    setTransferred(0);
+    const modifyArr = Promise.all(
+      image.map(async (element) => {
+        const uploadUri = element.fileCopyUri;
+        let filename = uploadUri.substring(uploadUri.lastIndexOf("/") + 1);
+        const extension = filename.split(".").pop();
+        const name = filename.split(".").slice(0, -1).join(".");
+        filename = name + Date.now() + "." + extension;
 
-    const storageRef = storage().ref(`profile_image/${filename}`);
-    const task = storageRef.putFile(uploadUri.replace("file://", ""));
-    console.log(task, "Task----");
-    task.on("state_changed", (taskSnapshot) => {
-      console.log(
-        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`
-      );
-      setTransferred(
-        Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
-          100
-      );
-    });
-    try {
-      await task;
-      const url = await storageRef.getDownloadURL();
-      setUploading(false);
-      return url;
-    } catch (e) {
-      console.log(e, "eroor-------");
-      return null;
-    }
+        setUploading(true);
+        setTransferred(0);
+
+        const storageRef = storage().ref(`myfiles/${filename}`);
+        const task = storageRef.putFile(uploadUri.replace("file://", ""));
+        task.on("state_changed", (taskSnapshot) => {
+          console.log(
+            `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`
+          );
+          setTransferred(
+            Math.round(
+              taskSnapshot.bytesTransferred / taskSnapshot.totalBytes
+            ) * 100
+          );
+        });
+        try {
+          await task;
+          const url = await storageRef.getDownloadURL();
+          setUploading(false);
+          return url;
+        } catch (e) {
+          console.log(e, "eroor-------");
+          return null;
+        }
+      })
+    );
+    return modifyArr;
   };
   const uploadImage1 = async () => {
-    if (image == null) {
+    if (imageUrl == null) {
       return null;
     }
-    console.log(image.replace("file://", ""));
-    const uploadUri = image;
-    let filename = uploadUri.substring(uploadUri.lastIndexOf("/") + 1);
-    const extension = filename.split(".").pop();
-    const name = filename.split(".").slice(0, -1).join(".");
-    filename = name + Date.now() + "." + extension;
 
-    setUploading(true);
-    setTransferred(0);
+    const modifyArr = Promise.all(
+      imageUrl.map(async (element) => {
+        const uploadUri = element.fileCopyUri;
+        let filename = uploadUri.substring(uploadUri.lastIndexOf("/") + 1);
+        const extension = filename.split(".").pop();
+        const name = filename.split(".").slice(0, -1).join(".");
+        filename = name + Date.now() + "." + extension;
 
-    const storageRef = storage().ref(`profile_image/${filename}`);
-    const task = storageRef.putFile(uploadUri.replace("file://", ""));
-    console.log(task, "Task----");
-    task.on("state_changed", (taskSnapshot) => {
-      console.log(
-        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`
-      );
-      setTransferred(
-        Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
-          100
-      );
-    });
-    try {
-      await task;
-      const url = await storageRef.getDownloadURL();
-      setUploading(false);
-      return url;
-    } catch (e) {
-      console.log(e, "eroor-------");
-      return null;
-    }
+        setUploading(true);
+        setTransferred(0);
+
+        const storageRef = storage().ref(`myfiles1/${filename}`);
+        const task = storageRef.putFile(uploadUri.replace("file://", ""));
+        task.on("state_changed", (taskSnapshot) => {
+          console.log(
+            `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`
+          );
+          setTransferred(
+            Math.round(
+              taskSnapshot.bytesTransferred / taskSnapshot.totalBytes
+            ) * 100
+          );
+        });
+        try {
+          await task;
+          const url = await storageRef.getDownloadURL();
+          setUploading(false);
+          return url;
+        } catch (e) {
+          console.log(e, "eroor-------");
+          return null;
+        }
+      })
+    );
+    return modifyArr;
   };
   if (isLoader) {
     return <Loader />;
   }
+
+  const _renderItem = ({ item, index }) => {
+    return (
+      <View style={styles.slide} key={index}>
+        <Image
+          source={{ uri: item.fileCopyUri }}
+          style={{ width: 140, height: 200 }}
+        />
+      </View>
+    );
+  };
+
+  function mapToObj(inputMap) {
+    let data = [];
+    let obj = {};
+
+    inputMap?.map(function (value, key) {
+      let fileCopyUri = (obj["fileCopyUri"] = value);
+      data.push({
+        fileCopyUri,
+      });
+    });
+    return data;
+  }
+  function mapToObj1(input) {
+    let data = [];
+    let obj = {};
+
+    input?.map(function (value, key) {
+      let fileCopyUri = (obj["fileCopyUri"] = value);
+      data.push({
+        fileCopyUri,
+      });
+    });
+    return data;
+  }
+
+  let ImageData = [];
+  let ImageData1 = [];
+
+  const Urls = mapToObj(value.imageUrl);
+  ImageData = Urls;
+  const Urls1 = mapToObj1(value.imageUrl1);
+  ImageData1 = Urls1;
+  // console.log(ImageData, "url-----");
+  // console.log(imageUrl, "url-----");
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Constant.whiteColor }}>
       <ScrollView
-        style={{ marginHorizontal: 20, marginTop: 20, marginBottom: 30 }}
+        style={{
+          marginHorizontal: 20,
+          marginTop: 20,
+        }}
         showsVerticalScrollIndicator={false}
       >
         {name("Нэр")}
@@ -438,72 +513,90 @@ const AddCategories = ({ navigation, route }) => {
             Биеийн хэмжээ
           </Text>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={{ flexDirection: "row" }}>
-            <View>
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ width: width / 2 - 20 }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
               <Text style={{ marginVertical: 10 }}>Загварын зураг</Text>
-              <TouchableOpacity onPress={() => choosePictureFromGallery()}>
-                {image == null ? (
-                  <Image
-                    style={{ height: 250, width: 140 }}
-                    source={
-                      value.imageUrl === undefined
-                        ? images.clothes
-                        : { uri: value.imageUrl }
-                    }
-                  />
-                ) : (
-                  <Image
-                    style={{ height: 250, width: 140 }}
-                    source={image != null ? { uri: image } : images.clothes}
-                  />
-                )}
-              </TouchableOpacity>
-              <Text style={{ marginVertical: 10 }}>Материалын зураг</Text>
+              <Feather
+                name="upload-cloud"
+                size={24}
+                onPress={() => choosePictureFromGallery()}
+              />
+            </View>
+            {image == null ? (
+              <Carousel
+                data={ImageData}
+                renderItem={_renderItem}
+                sliderWidth={160}
+                itemWidth={160}
+              />
+            ) : (
+              <Carousel
+                data={image}
+                renderItem={_renderItem}
+                sliderWidth={160}
+                itemWidth={160}
+              />
+            )}
 
-              <TouchableOpacity onPress={() => handleUpload()}>
-                {imageUrl == null ? (
-                  <Image
-                    style={{ height: 210, width: 118 }}
-                    source={
-                      value.imageUrl1 === undefined
-                        ? images.clothes
-                        : { uri: value.imageUrl1 }
-                    }
-                  />
-                ) : (
-                  <Image
-                    style={{ height: 210, width: 118 }}
-                    source={
-                      imageUrl != null ? { uri: imageUrl } : images.clothes
-                    }
-                  />
-                )}
-              </TouchableOpacity>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text style={{ marginVertical: 10 }}>Материалын зураг</Text>
+              <Feather
+                name="upload-cloud"
+                size={24}
+                onPress={() => handleUpload()}
+              />
             </View>
-            <View>
-              {bodySize("Бh")}
-              {bodySize("БЖ")}
-              {bodySize("ЦТ")}
-              {bodySize("БТ")}
-              {bodySize("ӨТ")}
-              {bodySize("ЭӨ")}
-              {bodySize("Эh")}
-              {bodySize("АӨ")}
-              {bodySize("Аh")}
-              {bodySize("ХXЗ")}
-              {bodySize("Хh")}
-              {bodySize("МХЗ")}
-              {bodySize("МӨ")}
-              {bodySize("ХУ")}
-              {bodySize("БуглТ")}
-              {bodySize("БугТ")}
-              {bodySize("ХТ")}
-              {bodySize("Захh")}
-              {bodySize("ЭУ")}
-            </View>
+            {imageUrl == null ? (
+              <Carousel
+                data={ImageData1}
+                renderItem={_renderItem}
+                sliderWidth={140}
+                itemWidth={140}
+              />
+            ) : (
+              <Carousel
+                data={imageUrl}
+                renderItem={_renderItem}
+                sliderWidth={160}
+                itemWidth={160}
+              />
+            )}
           </View>
-        </ScrollView>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {bodySize("Бh")}
+            {bodySize("БЖ")}
+            {bodySize("ЦТ")}
+            {bodySize("БТ")}
+            {bodySize("ӨТ")}
+            {bodySize("ЭӨ")}
+            {bodySize("Эh")}
+            {bodySize("АӨ")}
+            {bodySize("Аh")}
+            {bodySize("ХXЗ")}
+            {bodySize("Хh")}
+            {bodySize("МХЗ")}
+            {bodySize("МӨ")}
+            {bodySize("ХУ")}
+            {bodySize("БуглТ")}
+            {bodySize("БугТ")}
+            {bodySize("ХТ")}
+            {bodySize("Захh")}
+            {bodySize("ЭУ")}
+          </ScrollView>
+        </View>
         <View style={{ alignItems: "center", width: width - 40 }}>
           <Text
             style={{
@@ -524,6 +617,7 @@ const AddCategories = ({ navigation, route }) => {
           {explain("хатгамал")}
           {explain("чимэглэл")}
           {explain("мөр")}
+          {explain("ханцуй")}
           {explain("бусад")}
         </ScrollView>
         {position ? (
@@ -538,11 +632,10 @@ const AddCategories = ({ navigation, route }) => {
             >
               Төлбөрийн мэдээлэл
             </Text>
-            <View
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
               style={{
-                height: 70,
-                justifyContent: "space-between",
-                padding: 5,
                 marginBottom: 20,
               }}
             >
@@ -613,29 +706,28 @@ const AddCategories = ({ navigation, route }) => {
                   </View>
                 </View>
               </View>
-            </View>
+            </ScrollView>
           </>
         ) : null}
-        {route.params?.ok === true ? null : (
-          <TouchableOpacity
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              alignSelf: "center",
-              height: 50,
-              width: width - 40,
-              backgroundColor: Constant.primaryColor,
-              borderRadius: 10,
-              marginTop: 40,
-            }}
-            onPress={() => SubmiDataToServer()}
-          >
-            <Text style={{ color: Constant.whiteColor, fontSize: 20 }}>
-              Захиалах
-            </Text>
-          </TouchableOpacity>
-        )}
       </ScrollView>
+      {route.params?.ok === true ? null : (
+        <TouchableOpacity
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            alignSelf: "center",
+            height: 50,
+            width: width - 40,
+            backgroundColor: Constant.primaryColor,
+            borderRadius: 10,
+          }}
+          onPress={() => SubmiDataToServer()}
+        >
+          <Text style={{ color: Constant.whiteColor, fontSize: 20 }}>
+            Захиалах
+          </Text>
+        </TouchableOpacity>
+      )}
     </SafeAreaView>
   );
 };
@@ -720,10 +812,13 @@ const styles = StyleSheet.create({
   },
   TulburView: {
     backgroundColor: Constant.orderBackground,
-    padding: 5,
+    paddingVertical: 5,
     marginRight: 3,
     marginBottom: 3,
-    width: 100,
+    width: 120,
   },
   Mungundun: { flexDirection: "row", marginRighy: 3 },
+  slide: {
+    marginLeft: 10,
+  },
 });
