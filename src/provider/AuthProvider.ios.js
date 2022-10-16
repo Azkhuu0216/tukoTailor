@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
           } else {
             try {
               await auth().signInWithEmailAndPassword(email, password);
+              AsyncStorage.setItem("loggedUser", email);
             } catch (e) {
               Alert.alert(CONSTANT.Oops, CONSTANT.authNouserrecordmaydeleted);
               console.log(e);

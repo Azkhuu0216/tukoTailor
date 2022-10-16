@@ -14,13 +14,18 @@ import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
 import { AuthContext } from "../../provider/AuthProvider.ios";
 import * as Animatable from "react-native-animatable";
-import Icon from "react-native-vector-icons/FontAwesome5";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import * as Constant from "../../styles/globalStyles";
 import CONSTANT from "../../styles/local";
 import images from "../../../assets/images";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [isRememberMe, setIsRememberMe] = useState("");
+  const [check, setCheck] = useState(false);
   const { login, googleLogin, fbLogin } = useContext(AuthContext);
 
   useEffect(() => {
@@ -28,6 +33,33 @@ const LoginScreen = ({ navigation }) => {
     StatusBar.setBackgroundColor(Constant.primaryColor);
   }, []);
 
+  const handleRememberMe = () => {
+    setCheck(!check);
+
+    if (check) {
+      return AsyncStorage.removeItem("rememberMe");
+    }
+    AsyncStorage.setItem("rememberMe", "true");
+  };
+
+  const checkRemember = async () => {
+    AsyncStorage.getItem("rememberMe").then((e) => {
+      if (e === "true") {
+        setIsRememberMe(true);
+        AsyncStorage.getItem("loggedUser")
+          .then((j) => {
+            setEmail(j);
+          })
+          .catch((p) => {
+            console.log(p);
+          });
+      }
+    });
+  };
+
+  useEffect(() => {
+    checkRemember();
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{ padding: 15 }} showsVerticalScrollIndicator={false}>
@@ -55,6 +87,18 @@ const LoginScreen = ({ navigation }) => {
           iconclick={true}
           secure={true}
         />
+        <TouchableOpacity
+          style={styles.Secure}
+          onPress={() => handleRememberMe()}
+        >
+          <MaterialCommunityIcons
+            name={check ? "checkbox-marked" : "checkbox-blank-outline"}
+            size={23}
+            style={styles.checkIcon}
+          />
+
+          <Text style={styles.Seem}>Намайг сана</Text>
+        </TouchableOpacity>
         <FormButton
           buttonTitle="Нэвтрэх"
           onPress={() => login(email, password)}
@@ -181,5 +225,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "500",
     // fontFamily: "SourceSansPro-Regular",
+  },
+  Secure: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 8,
+  },
+  checkIcon: {
+    marginRight: 5,
+    color: Constant.whiteColor,
+  },
+  Seem: {
+    fontSize: 16,
+    color: Constant.whiteColor,
   },
 });

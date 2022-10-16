@@ -31,6 +31,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import OrderList from "./order/OrderList";
 import TimeRegistration from "./time/TimeRegistration";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -83,6 +84,7 @@ const TabStack = ({ navigation }) => {
         // name={CONSTANT.AppStackCart}
         name="Холбоо"
         component={Contact}
+        options={{ headerShown: false }}
       />
 
       <Tab.Screen
@@ -105,6 +107,9 @@ const AppStack = () => {
   const [showAdminSide, setShowAdminSide] = useState(false);
   const [adminID, setAdminID] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  console.log(user, "------");
+  AsyncStorage.setItem("loggedUser", user.email);
+
   useEffect(() => {
     getAddedUserAccess();
   }, []);
@@ -181,7 +186,7 @@ const AppStack = () => {
           name="Contact"
           component={Contact}
           options={{
-            headerShown: true,
+            headerShown: false,
           }}
         />
         <Stack.Screen

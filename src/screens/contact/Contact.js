@@ -20,12 +20,15 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Modal } from "react-native-paper";
 import { windowWidth } from "../../utils/Dimentions";
 import { AuthContext } from "../../provider/AuthProvider.ios";
-const Contact = ({ navigation }) => {
+import MainHeader from "../../components/MainHeader";
+const Contact = ({ navigation, route }) => {
   const [visible, setVisible] = useState(false);
   const [check, setCheck] = useState(false);
   const [userId, setUserId] = useState("");
   const [userData, setuserData] = useState([]);
+  const [admin, setAdmin] = useState(route?.params);
   const { user } = useContext(AuthContext);
+
   useEffect(() => {
     getUserData();
     info();
@@ -45,54 +48,66 @@ const Contact = ({ navigation }) => {
       console.log(err);
     }
   };
+  const onFoodDeleted = () => {
+    var newUserList = [...userData];
+    setuserData(newUserList);
+    navigation.popToTop();
+  };
+  // const deleteUser = () => {
+  //   firestore().collection("users").doc(userId).delete().then(() => delete);
+  // };
+
   const info = () => {
-    return (
+    return userData.length > 0 ? (
       <>
-        {userData.map((e) => (
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 10,
-            }}
-            key={e.user_id}
-          >
-            <Image
-              source={
-                e.profile_image != null
-                  ? { uri: e.profile_image }
-                  : images.profile
-              }
-              style={{ height: 55, width: 60, borderRadius: 100 }}
-            />
-            <View style={css.Order}>
-              <Text style={css.Text}>Нэр</Text>
-              <Text style={css.Value}>{e.first_name}</Text>
-            </View>
-            <View style={css.Order}>
-              <Text style={css.Text}>Албан тушаал</Text>
-              <Text style={css.Value}>{e.position}</Text>
-            </View>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("ProfileDetail", { value: e });
-              }}
-            >
-              <Text
-                style={{
-                  textDecorationLine: "underline",
-                  textDecorationColor: Constant.primaryColor,
-                  color: Constant.primaryColor,
-                }}
-              >
-                Дэлгэрэнгүй
-              </Text>
-            </TouchableOpacity>
-          </View>
-        ))}
+        {userData.map(
+          (e) =>
+            e.user_id !== user.uid && (
+              <View style={css.infoView} key={e.user_id}>
+                <Image
+                  source={
+                    e.profile_image != null
+                      ? { uri: e.profile_image }
+                      : images.profile
+                  }
+                  style={{ height: 55, width: 60, borderRadius: 100 }}
+                />
+                <View style={css.Order}>
+                  <Text style={css.Text}>Нэр</Text>
+                  <Text style={css.Value}>{e.first_name}</Text>
+                </View>
+                <View style={css.Order}>
+                  <Text style={css.Text}>Албан тушаал</Text>
+                  <Text style={css.Value}>{e.position}</Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("ProfileDetail", {
+                      value: e,
+                      params: admin,
+                      foodDeletedCallback: onFoodDeleted,
+                    });
+                  }}
+                >
+                  <Text
+                    style={{
+                      textDecorationLine: "underline",
+                      textDecorationColor: Constant.primaryColor,
+                      color: Constant.primaryColor,
+                    }}
+                  >
+                    Дэлгэрэнгүй
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )
+        )}
         <View style={styles.Divider}></View>
       </>
+    ) : (
+      <View style={css.Empty}>
+        <Text>Хэрэглэгч байхгүй байна.</Text>
+      </View>
     );
   };
   const users = () => {
@@ -100,36 +115,12 @@ const Contact = ({ navigation }) => {
       <Modal
         visible={visible}
         onDismiss={() => setVisible(false)}
-        contentContainerStyle={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 22,
-          marginHorizontal: 40,
-          borderRadius: 12,
-          backgroundColor: Constant.whiteColor,
-        }}
+        contentContainerStyle={css.Modal}
       >
-        <ScrollView
-          contentContainerStyle={{
-            width: windowWidth - 100,
-            backgroundColor: "white",
-            borderRadius: 12,
-            paddingVertical: 20,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
-            elevation: 5,
-          }}
-        >
+        <ScrollView contentContainerStyle={css.ScrollView}>
           {userData.map((e) => (
             <View key={e.user_id}>
-              {e.user_id === user.uid ? (
-                ""
-              ) : (
+              {e.user_id !== user.uid && (
                 <View
                   style={{
                     flexDirection: "row",
@@ -176,16 +167,7 @@ const Contact = ({ navigation }) => {
           ))}
         </ScrollView>
         <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            alignSelf: "center",
-            height: 50,
-            width: windowWidth / 2,
-            backgroundColor: Constant.primaryColor,
-            borderRadius: 10,
-            marginVertical: 40,
-          }}
+          style={css.ChatButton}
           onPress={() => navigation.navigate("Chat", { id: userId })}
         >
           <Text style={{ color: Constant.whiteColor, fontSize: 20 }}>
@@ -197,30 +179,18 @@ const Contact = ({ navigation }) => {
   };
   return (
     <View style={styles.to_bg_image}>
-      <Header />
+      {admin == admin ? (
+        <View style={{ marginTop: 50 }}>
+          <MainHeader title="Гишүүд" back={true} />
+        </View>
+      ) : (
+        <Header />
+      )}
 
-      <View
-        style={{
-          flex: 1,
-          marginHorizontal: 10,
-          marginTop: 10,
-        }}
-      >
+      <View style={css.View}>
         <ScrollView showsVerticalScrollIndicator={false}>{info()}</ScrollView>
         <TouchableOpacity //1281-1297 hurtel Button nemsen
-          style={{
-            borderWidth: 1,
-            borderColor: Constant.primaryColor,
-            backgroundColor: Constant.whiteColor,
-            height: 50,
-            width: 50,
-            borderRadius: 10,
-            alignItems: "center",
-            justifyContent: "center",
-            position: "absolute",
-            bottom: 35,
-            right: 20,
-          }}
+          style={css.floatActionButton}
           onPress={() => setVisible(true)}
         >
           <FontAwesome name="wechat" size={24} color={Constant.primaryColor} />
@@ -240,4 +210,64 @@ const css = StyleSheet.create({
   },
   Text: { color: Constant.gray90Color },
   Value: { fontSize: 16, fontWeight: "400" },
+  View: {
+    flex: 1,
+    marginHorizontal: 10,
+    marginTop: 10,
+  },
+  ChatButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    height: 50,
+    width: windowWidth / 2,
+    backgroundColor: Constant.primaryColor,
+    borderRadius: 10,
+    marginVertical: 40,
+  },
+  floatActionButton: {
+    borderWidth: 1,
+    borderColor: Constant.primaryColor,
+    backgroundColor: Constant.whiteColor,
+    height: 50,
+    width: 50,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 35,
+    right: 20,
+  },
+  Modal: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+    marginHorizontal: 40,
+    borderRadius: 12,
+    backgroundColor: Constant.whiteColor,
+  },
+  ScrollView: {
+    width: windowWidth - 100,
+    backgroundColor: "white",
+    borderRadius: 12,
+    paddingVertical: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  infoView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  Empty: {
+    flex: 1,
+    alignSelf: "center",
+  },
 });

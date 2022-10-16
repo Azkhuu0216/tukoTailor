@@ -1,4 +1,5 @@
 import {
+  Alert,
   Dimensions,
   StyleSheet,
   Text,
@@ -10,6 +11,7 @@ import Header from "../../components/Header";
 import Feather from "react-native-vector-icons/Feather";
 import styles from "../../styles/styles";
 import * as Constant from "../../styles/globalStyles";
+import firestore from "@react-native-firebase/firestore";
 
 const { width, height } = Dimensions.get("window");
 const edit = (label, item) => {
@@ -28,7 +30,19 @@ const edit = (label, item) => {
 };
 const ProfileDetail = ({ navigation, route }) => {
   const item = route.params?.value;
-  console.log(item?.user_id);
+  const admin = route.params?.params;
+  onFoodDeleted = route.params?.foodDeletedCallback;
+
+  function deleteFood(user, deleteComplete) {
+    console.log(user, "user-----");
+
+    firestore()
+      .collection("users")
+      .doc(user.user_id)
+      .delete()
+      .then(() => deleteComplete())
+      .catch((error) => console.log(error));
+  }
 
   return (
     <View
@@ -55,18 +69,35 @@ const ProfileDetail = ({ navigation, route }) => {
         {edit("Гар утас", item.phone_number)}
         {edit("Гэрийн утас", item.homePhone)}
         {edit("Гэрийн хаяг", item.address)}
+        {admin && edit("Ажилд орсон огноо", item.workday)}
         <View style={{ flex: 1, justifyContent: "flex-end" }}>
+          {admin && (
+            <TouchableOpacity
+              style={css.DeleteButton}
+              onPress={() =>
+                Alert.alert(
+                  "Delete?",
+                  "Cannot be undone",
+                  [
+                    { text: "Cancel" },
+                    {
+                      text: "OK",
+                      onPress: () => {
+                        deleteFood(item, onFoodDeleted);
+                      },
+                    },
+                  ],
+                  { cancelable: false }
+                )
+              }
+            >
+              <Text style={{ color: Constant.whiteColor, fontSize: 20 }}>
+                Устгах
+              </Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              alignSelf: "center",
-              height: 50,
-              width: width - 40,
-              backgroundColor: Constant.primaryColor,
-              borderRadius: 10,
-              marginTop: 40,
-            }}
+            style={css.ExitButton}
             onPress={() => navigation.goBack()}
           >
             <Text style={{ color: Constant.whiteColor, fontSize: 20 }}>
@@ -89,5 +120,25 @@ const css = StyleSheet.create({
     marginTop: 10,
     // backgroundColor: "red",
     height: 50,
+  },
+  ExitButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    height: 50,
+    width: width - 40,
+    backgroundColor: Constant.primaryColor,
+    borderRadius: 10,
+  },
+  DeleteButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    height: 50,
+    width: width - 40,
+    backgroundColor: Constant.googleColor,
+    borderRadius: 10,
+    marginTop: 40,
+    marginBottom: 10,
   },
 });

@@ -41,6 +41,7 @@ const Profile = () => {
   const [birthDay, setBirthDay] = useState("");
   const [homePhone, setHomePhone] = useState("");
   const [date, setDate] = useState("");
+  const [role, setRole] = useState("");
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
   const [image, setImage] = useState(null);
@@ -84,6 +85,7 @@ const Profile = () => {
               setPosition(documentSnapshot.data().position);
               setDate(documentSnapshot.data().workday);
               setFinalImage(documentSnapshot.data().profile_image);
+              setRole(documentSnapshot.data().role);
             }
           });
         });
@@ -129,6 +131,7 @@ const Profile = () => {
           homePhone: homePhone,
           position: position,
           workday: date,
+          role: role,
           profile_image: imageUrl == null ? finalImage : imageUrl,
         })
         .then((data) => {

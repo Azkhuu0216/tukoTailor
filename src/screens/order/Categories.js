@@ -22,6 +22,7 @@ import LinearGradient from "react-native-linear-gradient";
 import Header from "../../components/Header";
 import Tab from "../../components/Tab";
 import { ScrollView } from "react-native-virtualized-view";
+import images from "../../../assets/images";
 
 const { width, height } = Dimensions.get("window");
 
@@ -84,6 +85,7 @@ const Categories = ({ navigation }) => {
   useEffect(() => {
     getAddedUserAccess();
     getcurrencyData();
+    getAddedCategoriesData();
     // getordersData();
   }, [totalEarnings]);
 
@@ -158,10 +160,10 @@ const Categories = ({ navigation }) => {
                 if (documentSnapshot.data().role == "admin") {
                   setShowAdminSide(true);
                 } else if (documentSnapshot.data().position == "Дизайнер") {
+                  setShowuserside(true);
                   setShowDesigner(true);
                 } else {
                   setShowuserside(true);
-                  getAddedCategoriesData();
                 }
               }
             });
@@ -402,7 +404,7 @@ const Categories = ({ navigation }) => {
 
       {showAdminSide && (
         <View style={styles.firstBack}>
-          <View style={{ marginTop: 80 }}>
+          <View>
             <MainHeader
               title={CONSTANT.categoriesmainDashboard}
               logout={true}
@@ -418,38 +420,12 @@ const Categories = ({ navigation }) => {
               style={{ backgroundColor: Constant.primaryColor }}
             >
               <LinearGradient
-                style={{
-                  marginHorizontal: 10,
-                  paddingHorizontal: 5,
-                  borderRadius: 4,
-                  marginTop: 15,
-                }}
+                style={css.DateList}
                 colors={["#083164", Constant.primaryColor]}
               >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    marginHorizontal: 10,
-                    marginVertical: 10,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      fontWeight: "700",
-                      color: Constant.whiteColor,
-                    }}
-                  >
-                    {date}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      fontWeight: "700",
-                      color: Constant.buttonColor,
-                    }}
-                  >
+                <View style={css.DateView}>
+                  <Text style={css.DateText}>{date}</Text>
+                  <Text style={css.currency}>
                     {currency} {earning}
                   </Text>
                 </View>
@@ -464,16 +440,7 @@ const Categories = ({ navigation }) => {
                   renderItem={({ item, index }) => (
                     <TouchableOpacity
                       onPress={() => SelectedDate(index, item)}
-                      style={{
-                        height: 200,
-                        overflow: "hidden",
-                        backgroundColor: "#041832",
-                        borderRadius: 25,
-                        width: 40,
-                        alignItems: "center",
-                        justifyContent: "flex-end",
-                        marginHorizontal: 8,
-                      }}
+                      style={css.ColumnView}
                     >
                       <Text
                         style={{
@@ -508,79 +475,12 @@ const Categories = ({ navigation }) => {
                 />
               </LinearGradient>
 
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginVertical: 20,
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginHorizontal: 15,
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Image
-                    resizeMode={"cover"}
-                    style={{ height: 40, width: 40, marginRight: 15 }}
-                    source={require("../../../assets/images/8.png")}
-                  />
-                  <View>
-                    <Text
-                      style={{
-                        color: Constant.whiteColor,
-                        fontWeight: "700",
-                        fontSize: 17,
-                      }}
-                    >
-                      {totalorders.length == 1
-                        ? "0" + totalorders
-                        : totalorders}
-                    </Text>
-                    <Text style={{ color: Constant.whiteColor, fontSize: 12 }}>
-                      {CONSTANT.categoriesmainOrderCompleted}
-                    </Text>
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Image
-                    resizeMode={"cover"}
-                    style={{ height: 40, width: 40, marginRight: 15 }}
-                    source={require("../../../assets/images/7.png")}
-                  />
-                  <View>
-                    <Text
-                      style={{
-                        color: Constant.whiteColor,
-                        fontWeight: "700",
-                        fontSize: 17,
-                      }}
-                    >
-                      {currency} {totalEarnings}
-                    </Text>
-                    <Text style={{ color: Constant.whiteColor, fontSize: 12 }}>
-                      {CONSTANT.categoriesmainTotalEarnings}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-
               <LinearGradient
                 style={{ marginHorizontal: 10, borderRadius: 4 }}
                 colors={[Constant.primaryColor, Constant.primaryColor]}
               >
-                <View
-                  style={{
-                    height: 210,
-                    marginVertical: 5,
-                    padding: 5,
-                    borderRadius: 4,
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
+                <View style={css.mainStatus}>
+                  <View style={css.StatusView}>
                     <TouchableOpacity
                       activeOpacity={0.6}
                       onPress={() =>
@@ -588,15 +488,7 @@ const Categories = ({ navigation }) => {
                           selectedOrderType: "Pending",
                         })
                       }
-                      style={{
-                        width: "49%",
-                        padding: 5,
-                        height: 100,
-                        backgroundColor: Constant.darkBlueClor,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 5,
-                      }}
+                      style={css.Status}
                     >
                       <View
                         style={{ flexDirection: "row", alignItems: "center" }}
@@ -626,6 +518,7 @@ const Categories = ({ navigation }) => {
                         </View>
                       </View>
                     </TouchableOpacity>
+
                     <TouchableOpacity
                       activeOpacity={0.6}
                       onPress={() =>
@@ -633,15 +526,7 @@ const Categories = ({ navigation }) => {
                           selectedOrderType: "Processing",
                         })
                       }
-                      style={{
-                        width: "49%",
-                        padding: 5,
-                        height: 100,
-                        backgroundColor: Constant.darkBlueClor,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 5,
-                      }}
+                      style={css.Status}
                     >
                       <View
                         style={{ flexDirection: "row", alignItems: "center" }}
@@ -673,13 +558,7 @@ const Categories = ({ navigation }) => {
                       </View>
                     </TouchableOpacity>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      marginTop: 5,
-                    }}
-                  >
+                  <View style={css.StatusView}>
                     <TouchableOpacity
                       activeOpacity={0.6}
                       onPress={() =>
@@ -687,15 +566,7 @@ const Categories = ({ navigation }) => {
                           selectedOrderType: "Completed",
                         })
                       }
-                      style={{
-                        width: "49%",
-                        padding: 5,
-                        height: 100,
-                        backgroundColor: Constant.darkBlueClor,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 5,
-                      }}
+                      style={css.Status}
                     >
                       <View
                         style={{ flexDirection: "row", alignItems: "center" }}
@@ -732,15 +603,7 @@ const Categories = ({ navigation }) => {
                           selectedOrderType: "Cancelled",
                         })
                       }
-                      style={{
-                        width: "49%",
-                        padding: 5,
-                        height: 100,
-                        backgroundColor: Constant.darkBlueClor,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 5,
-                      }}
+                      style={css.Status}
                     >
                       <View
                         style={{ flexDirection: "row", alignItems: "center" }}
@@ -773,93 +636,6 @@ const Categories = ({ navigation }) => {
                   </View>
                 </View>
               </LinearGradient>
-              {/* <TouchableOpacity
-                onPress={() => navigation.navigate("AddCategories")}
-                style={{
-                  backgroundColor: Constant.whiteColor,
-                  marginHorizontal: 15,
-                  marginVertical: 5,
-                  alignItems: "center",
-                  padding: 10,
-                  borderRadius: 4,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Image
-                    resizeMode={"contain"}
-                    style={{ height: 40, width: 40, marginRight: 15 }}
-                    source={require("../assets/images/6.png")}
-                  />
-                  <Text
-                    style={{ color: Constant.primaryColor, fontWeight: "700" }}
-                  >
-                    {CONSTANT.categoriesmainAddcategories}
-                  </Text>
-                </View>
-                <View style={{}}>
-                  <View
-                    style={{
-                      backgroundColor: Constant.grayColor,
-                      borderRadius: 15,
-                      alignItems: "center",
-                      paddingVertical: 5,
-                      paddingHorizontal: 20,
-                    }}
-                  >
-                    <AntIcon
-                      name="plus"
-                      size={15}
-                      color={Constant.primaryColor}
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity> */}
-
-              {/* <TouchableOpacity
-                onPress={() => navigation.navigate("AddMeasurement")}
-                style={{
-                  backgroundColor: Constant.whiteColor,
-                  marginHorizontal: 15,
-                  marginVertical: 5,
-                  alignItems: "center",
-                  padding: 10,
-                  borderRadius: 4,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Image
-                    resizeMode={"cover"}
-                    style={{ height: 40, width: 40, marginRight: 15 }}
-                    source={require("../assets/images/5.png")}
-                  />
-                  <Text
-                    style={{ color: Constant.primaryColor, fontWeight: "700" }}
-                  >
-                    {CONSTANT.categoriesmainAddmeasurment}
-                  </Text>
-                </View>
-                <View style={{}}>
-                  <View
-                    style={{
-                      backgroundColor: Constant.grayColor,
-                      borderRadius: 15,
-                      alignItems: "center",
-                      paddingVertical: 5,
-                      paddingHorizontal: 20,
-                    }}
-                  >
-                    <AntIcon
-                      name="plus"
-                      size={15}
-                      color={Constant.primaryColor}
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity> */}
 
               <TouchableOpacity
                 onPress={() =>
@@ -867,22 +643,13 @@ const Categories = ({ navigation }) => {
                     selectedOrderType: "Pending",
                   })
                 }
-                style={{
-                  backgroundColor: Constant.whiteColor,
-                  marginHorizontal: 15,
-                  marginVertical: 5,
-                  alignItems: "center",
-                  padding: 10,
-                  borderRadius: 4,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
+                style={css.ViewOrder}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Image
                     resizeMode={"cover"}
-                    style={{ height: 40, width: 40, marginRight: 15 }}
-                    source={require("../../../assets/images/4.png")}
+                    style={{ height: 30, width: 30, marginRight: 15 }}
+                    source={images.tuko}
                   />
                   <Text
                     style={{ color: Constant.primaryColor, fontWeight: "700" }}
@@ -906,44 +673,54 @@ const Categories = ({ navigation }) => {
                 </View>
               </TouchableOpacity>
 
-              {/* <TouchableOpacity onPress={() => { }} style={{ backgroundColor: Constant.whiteColor, marginHorizontal: 15, marginVertical: 5, alignItems: 'center', padding: 10, borderRadius: 4, flexDirection: 'row', justifyContent: 'space-between' }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image
-                  resizeMode={'cover'}
-                  style={{ height: 40, width: 40, marginRight: 15 }}
-                  source={require('../assets/images/3.png')}
-                />
-                <Text style={{ color: Constant.primaryColor, fontWeight: '700' }}>{CONSTANT.categoriesmainOrderHistory}</Text>
-              </View>
-              <View style={{}}>
-                <View style={{ backgroundColor: Constant.grayColor, borderRadius: 15, alignItems: 'center', padding: 5 }}>
-                  <Text style={{ marginHorizontal: 20 }}>{CONSTANT.categoriesmainView}</Text>
-                </View>
-              </View>
-            </TouchableOpacity> */}
               <TouchableOpacity
                 onPress={() => navigation.navigate("settings")}
-                style={{
-                  backgroundColor: Constant.whiteColor,
-                  marginHorizontal: 15,
-                  marginVertical: 5,
-                  alignItems: "center",
-                  padding: 10,
-                  borderRadius: 4,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
+                style={css.ViewOrder}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Image
                     resizeMode={"cover"}
-                    style={{ height: 40, width: 40, marginRight: 15 }}
-                    source={require("../../../assets/images/9.png")}
+                    style={{ height: 30, width: 30, marginRight: 15 }}
+                    source={images.tuko}
                   />
                   <Text
                     style={{ color: Constant.primaryColor, fontWeight: "700" }}
                   >
                     {CONSTANT.categoriesmainSetting}
+                  </Text>
+                </View>
+                <View style={{}}>
+                  <View
+                    style={{
+                      backgroundColor: Constant.grayColor,
+                      borderRadius: 15,
+                      alignItems: "center",
+                      padding: 5,
+                    }}
+                  >
+                    <Text style={{ marginHorizontal: 20 }}>
+                      {CONSTANT.categoriesmainView}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Contact", { params: "admin" })
+                }
+                style={css.ViewOrder}
+              >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Image
+                    resizeMode={"cover"}
+                    style={{ height: 30, width: 30, marginRight: 15 }}
+                    source={images.tuko}
+                  />
+                  <Text
+                    style={{ color: Constant.primaryColor, fontWeight: "700" }}
+                  >
+                    Members
                   </Text>
                 </View>
                 <View style={{}}>
@@ -1007,5 +784,67 @@ const css = StyleSheet.create({
     position: "absolute",
     bottom: 35,
     right: 20,
+  },
+  DateList: {
+    marginHorizontal: 10,
+    paddingHorizontal: 5,
+    borderRadius: 4,
+    marginTop: 15,
+  },
+  DateView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 10,
+    marginVertical: 10,
+  },
+  DateText: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: Constant.whiteColor,
+  },
+  currency: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: Constant.buttonColor,
+  },
+  ColumnView: {
+    height: 200,
+    overflow: "hidden",
+    backgroundColor: "#041832",
+    borderRadius: 25,
+    width: 40,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    marginHorizontal: 8,
+  },
+  StatusView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 5,
+  },
+  Status: {
+    width: "49%",
+    padding: 5,
+    height: 100,
+    backgroundColor: Constant.darkBlueClor,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  mainStatus: {
+    height: 210,
+    marginVertical: 15,
+    padding: 5,
+    borderRadius: 4,
+  },
+  ViewOrder: {
+    backgroundColor: Constant.whiteColor,
+    marginHorizontal: 15,
+    marginVertical: 5,
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 4,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

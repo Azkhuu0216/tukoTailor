@@ -1,7 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import React, { useEffect } from "react";
-import { LogBox, SafeAreaView, StatusBar, StyleSheet } from "react-native";
+import {
+  LogBox,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  YellowBox,
+} from "react-native";
 import { Providers } from "./src/provider/Providers";
 import CONSTANT from "./src/styles/local";
 LogBox.ignoreLogs([
@@ -16,6 +22,7 @@ LogBox.ignoreLogs([
   "EventEmitter.removeListener('change', ...):",
   "EventEmitter.removeListener('keyboardDidHide', ...):",
   "AsyncStorage has been extracted from react-native core and will be removed in a future release.",
+  "Non-serializable values were found in the navigation state",
 ]);
 
 const App = () => {
