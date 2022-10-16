@@ -25,7 +25,7 @@ const OrderHistory = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
   const [value, setValue] = useState("");
-  const [check, setCheck] = useState(false);
+  const [check, setCheck] = useState(true);
 
   useEffect(() => {
     // getAdminInfo();

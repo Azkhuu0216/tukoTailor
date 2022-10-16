@@ -6,14 +6,11 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator, StackView } from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
 import firestore from "@react-native-firebase/firestore";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import CONSTANT from "../styles/local";
 import { AuthContext } from "../provider/AuthProvider.ios";
 import Profile from "./profile/Profile";
 import Contact from "./contact/Contact";
@@ -39,75 +36,64 @@ const Tab = createBottomTabNavigator();
 
 const TabStack = ({ navigation }) => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === "Захиалга") {
+            iconName = "home";
+          } else if (route.name === "Хайлт") {
+            iconName = "search";
+          } else if (route.name === "Холбоо") {
+            iconName = "users";
+          } else if (route.name === "Цаг бүртгэл") {
+            iconName = "clock";
+          } else {
+            if (route.name === "Профайл") {
+              iconName = "user";
+            }
+          }
+
+          // You can return any component that you like here!
+          return (
+            <Feather
+              name={iconName}
+              size={size}
+              color={focused ? color : Constant.primaryColor}
+            />
+          );
+        },
+      })}
+    >
       <Tab.Screen
         // name={CONSTANT.AppStackCategories}
         name="Захиалга" // Нэрийг сольсон.
         component={Categories}
-        options={{
-          tabBarIcon: (props) => (
-            <Feather name="home" size={24} color={Constant.primaryColor} />
-          ),
-        }}
+        // options={{
+        //   tabBarIcon: (props) => <Feather name="home" size={24} />,
+        // }}
       />
       <Tab.Screen
         // name={CONSTANT.AppStackProfile}
         name="Хайлт"
         component={OrderHistory}
-        options={{
-          tabBarIcon: (props) => (
-            <AntIcon name="search1" size={24} color={Constant.primaryColor} />
-          ),
-          tabBarLabel: "Хайлт",
-        }}
       />
       <Tab.Screen
         // name={CONSTANT.AppStackCart}
         name="Холбоо"
         component={Contact}
-        options={{
-          tabBarIcon: (props) => (
-            <Feather name="users" size={24} color={Constant.primaryColor} />
-          ),
-        }}
       />
-      {/* <Tab.Screen
-        // name={CONSTANT.AppStackCart}
-        name="Чат"
-        component={ChatScreen}
-        options={{
-          tabBarIcon: (props) => (
-            <FontAwesome
-              name="wechat"
-              size={24}
-              color={Constant.primaryColor}
-            />
-          ),
-        }}
-      /> */}
+
       <Tab.Screen
         // name={CONSTANT.AppStackCart}
         name="Цаг бүртгэл"
         component={TimeRegistration}
-        options={{
-          tabBarIcon: (props) => (
-            <Ionicons
-              name="time-outline"
-              size={24}
-              color={Constant.primaryColor}
-            />
-          ),
-        }}
       />
       <Tab.Screen
         // name={CONSTANT.AppStackHistory}
-        name="Пропайл"
+        name="Профайл"
         component={Profile}
-        options={{
-          tabBarIcon: (props) => (
-            <Feather name="user" size={24} color={Constant.primaryColor} />
-          ),
-        }}
       />
     </Tab.Navigator>
   );
