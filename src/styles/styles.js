@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
   // Global style
   to_row_view: {
     flexDirection: "row",
+    alignItems: "center",
   },
 
   to_container: {
@@ -175,12 +176,10 @@ const styles = StyleSheet.create({
     height: 45,
     backgroundColor: Constant.grayColor,
     borderRadius: 5,
-    marginTop: 10,
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    elevation: 3,
     marginBottom: 20,
+    width: width - 100,
 
     // shadowColor: "#000",
     // shadowOpacity: 0.8,

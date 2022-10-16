@@ -7,6 +7,7 @@ import {
   FlatList,
   RefreshControl,
   Dimensions,
+  StyleSheet,
 } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -22,6 +23,8 @@ import Header from "../../components/Header";
 import Tab from "../../components/Tab";
 import { ScrollView } from "react-native-virtualized-view";
 
+const { width, height } = Dimensions.get("window");
+
 const Categories = ({ navigation }) => {
   const { user, logout } = useContext(AuthContext);
   const [type, setType] = useState(true);
@@ -34,6 +37,7 @@ const Categories = ({ navigation }) => {
   const [dialoigeVisible, setDialoigeVisible] = useState(false);
   const [showuserside, setShowuserside] = useState(false);
   const [showAdminSide, setShowAdminSide] = useState(false);
+  const [showDesginer, setShowDesigner] = useState(false);
   const [adminID, setAdminID] = useState("");
   const [order_data, setorder_data] = useState([]);
   const [selectedValue, setSelectedValue] = useState("");
@@ -153,6 +157,8 @@ const Categories = ({ navigation }) => {
               if (documentSnapshot.id == user.uid) {
                 if (documentSnapshot.data().role == "admin") {
                   setShowAdminSide(true);
+                } else if (documentSnapshot.data().position == "Дизайнер") {
+                  setShowDesigner(true);
                 } else {
                   setShowuserside(true);
                   getAddedCategoriesData();
@@ -215,110 +221,18 @@ const Categories = ({ navigation }) => {
     }
   };
 
-  // const Item = ({ index, item, name, img, price, backgroundColorCode }) => {
-  //   return (
-  //     <TouchableOpacity
-  //       onPress={() =>
-  //         navigation.navigate("CategoryDetail", {
-  //           index: index,
-  //           data: JSON.stringify(item),
-  //           mainCatData:
-  //             item.apparel_steps != ""
-  //               ? JSON.stringify(item.apparel_steps[0])
-  //               : null,
-  //           subCategoryData:
-  //             item.apparel_steps != ""
-  //               ? item.apparel_steps[0].steps != ""
-  //                 ? JSON.stringify(item.apparel_steps[0].steps[0])
-  //                 : null
-  //               : null,
-  //           images:
-  //             item.apparel_steps != ""
-  //               ? item.apparel_steps[0].steps != ""
-  //                 ? JSON.stringify(item.apparel_steps[0].steps[0].images[0])
-  //                 : null
-  //               : null,
-  //         })
-  //       }
-  //       style={{
-  //         flex: 1,
-  //         marginVertical: 2,
-  //         marginHorizontal: 2,
-  //         width: "100%",
-  //         justifyContent: "space-between",
-  //       }}
-  //     >
-  //       <ImageBackground
-  //         imageStyle={{
-  //           borderRadius: 6,
-  //           backgroundColor: Constant.GainsboroColor,
-  //         }}
-  //         style={styles.to_category_card_img}
-  //         resizeMode="cover"
-  //         source={{ uri: img }}
-  //       ></ImageBackground>
-  //       <View
-  //         style={{
-  //           flexDirection: "row",
-  //           justifyContent: "space-between",
-  //           marginVertical: 5,
-  //           marginHorizontal: 5,
-  //           alignItems: "center",
-  //         }}
-  //       >
-  //         <Text
-  //           style={{
-  //             fontSize: 16,
-  //             fontWeight: "700",
-  //             color: Constant.primaryColor,
-  //           }}
-  //         >
-  //           {name}
-  //         </Text>
-  //         <Text style={{ fontSize: 14, color: "#546377" }}>
-  //           {currency} {price}
-  //         </Text>
-  //       </View>
-  //     </TouchableOpacity>
-  //   );
-  // };
   const renderItem = ({ item, index }) => {
-    return (
-      // <Item
-      //   index={index}
-      //   item={item}
-      //   name={item.name}
-      //   price={item.price}
-      //   img={item.thumbnail}
-      //   backgroundColorCode={item.backgroundColor}
-      // />
-      <OrderItem item={item} index={index} />
-    );
+    return <OrderItem item={item} index={index} />;
   };
   const OrderItem = ({ item, index }) => {
-    // console.log(index, "ondex--------");
     return (
       <TouchableOpacity
         onPress={() =>
           navigation.navigate("AddCategories", { value: item, ok: true })
         }
       >
-        <View
-          style={{
-            flexDirection: "row",
-            width: width - 20,
-            alignItems: "center",
-            justifyContent: "space-between",
-            paddingVertical: 6,
-            // backgroundColor: "red",
-          }}
-        >
+        <View style={css.orderView}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            {/* <MaterialIcons
-              name="keyboard-arrow-right"
-              size={26}
-              color={Constant.gray90Color}
-            /> */}
             <Text
               style={{
                 fontSize: 18,
@@ -327,25 +241,7 @@ const Categories = ({ navigation }) => {
             >
               {index + 1}.
             </Text>
-            <View
-              style={{
-                height: 35,
-                width: 100,
-                backgroundColor: Constant.bgBackground,
-                padding: 5,
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 10,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 3,
-                  height: 3,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 10,
-              }}
-            >
+            <View style={css.firstname}>
               <Text>{item.firstname}</Text>
             </View>
           </View>
@@ -480,7 +376,6 @@ const Categories = ({ navigation }) => {
   const handleLoadMore = () => {
     setCurrentDate(lastDate);
   };
-  const { width, height } = Dimensions.get("window");
   return (
     <View style={styles.to_bg_image}>
       {showuserside && (
@@ -494,24 +389,17 @@ const Categories = ({ navigation }) => {
               </View>
             </View>
           </ScrollView>
-          <TouchableOpacity //1281-1297 hurtel Button nemsen
-            style={{
-              backgroundColor: Constant.primaryColor,
-              height: 50,
-              width: 50,
-              borderRadius: 10,
-              alignItems: "center",
-              justifyContent: "center",
-              position: "absolute",
-              bottom: 35,
-              right: 20,
-            }}
-            onPress={() => navigation.navigate("OrderAdd")}
-          >
-            <Ionicons name="add" size={24} color={Constant.whiteColor} />
-          </TouchableOpacity>
+          {showDesginer && (
+            <TouchableOpacity //1281-1297 hurtel Button nemsen
+              style={css.ActionButton}
+              onPress={() => navigation.navigate("OrderAdd")}
+            >
+              <Ionicons name="add" size={24} color={Constant.whiteColor} />
+            </TouchableOpacity>
+          )}
         </View>
       )}
+
       {showAdminSide && (
         <View style={styles.firstBack}>
           <View style={{ marginTop: 80 }}>
@@ -1082,3 +970,42 @@ const Categories = ({ navigation }) => {
 };
 
 export default Categories;
+
+const css = StyleSheet.create({
+  orderView: {
+    flexDirection: "row",
+    width: width - 20,
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 6,
+    // backgroundColor: "red",
+  },
+  firstname: {
+    height: 35,
+    width: 100,
+    backgroundColor: Constant.bgBackground,
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 10,
+  },
+  ActionButton: {
+    backgroundColor: Constant.primaryColor,
+    height: 50,
+    width: 50,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 35,
+    right: 20,
+  },
+});
