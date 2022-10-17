@@ -103,7 +103,9 @@ const AddCategories = ({ navigation, route }) => {
           .onSnapshot((querySnapshot) => {
             if (querySnapshot != null) {
               querySnapshot.forEach((documentSnapshot) => {
-                if (documentSnapshot.id == user.uid) {
+                console.log(documentSnapshot.id, "od----");
+                if (documentSnapshot.id == "orders") {
+                  console.log(documentSnapshot.data(), "irj bgaa--");
                   setMainCategorymaleArray(
                     documentSnapshot.data().selected_apparels
                   );
@@ -143,7 +145,7 @@ const AddCategories = ({ navigation, route }) => {
     const imageUrl = await uploadImage();
     const imageUrl1 = await uploadImage1();
     mainCategorymaleArray.push({
-      // id: user.uid,
+      id: user.uid,
       firstname: value.firstname,
       phone: value.phone,
       weight: value.weight,
@@ -184,7 +186,7 @@ const AddCategories = ({ navigation, route }) => {
 
     firestore()
       .collection("orders")
-      .doc(user.uid)
+      .doc("orders")
       .set({
         selected_apparels: mainCategorymaleArray,
       })
@@ -202,7 +204,7 @@ const AddCategories = ({ navigation, route }) => {
         console.log(CONSTANT.categoriesSomethingwrongpostfirestore, error);
       });
   };
-
+  console.log(mainCategorymaleArray, "mailarea-----");
   const name = (label) => {
     return (
       <View style={styles.View}>

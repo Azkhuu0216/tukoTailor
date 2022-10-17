@@ -106,14 +106,14 @@ const AppStack = () => {
   const [showuserside, setShowuserside] = useState(false);
   const [showAdminSide, setShowAdminSide] = useState(false);
   const [adminID, setAdminID] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  console.log(user, "------");
+  const [isLoading, setIsLoading] = useState(false);
   AsyncStorage.setItem("loggedUser", user.email);
 
   useEffect(() => {
     getAddedUserAccess();
   }, []);
   const getAddedUserAccess = async () => {
+    setIsLoading(true);
     try {
       await firestore()
         .collection("users")
@@ -133,8 +133,10 @@ const AppStack = () => {
         });
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
     }
   };
+  console.log(isLoading, "loafing----");
   return (
     <>
       {isLoading && (

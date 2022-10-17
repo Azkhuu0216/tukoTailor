@@ -29,12 +29,10 @@ const { width, height } = Dimensions.get("window");
 const Categories = ({ navigation }) => {
   const { user, logout } = useContext(AuthContext);
   const [type, setType] = useState(true);
-  const [mainCategorymaleArray, setMainCategorymaleArray] = useState([]);
-  const [newMainCategorymaleArray, setNewMainCategorymaleArray] = useState([]);
-  const [mainCategoryfemaleArray, setMainCategoryfemaleArray] = useState([]);
-  const [newMainCategoryfemaleArray, setNewMainCategoryfemaleArray] = useState(
-    []
-  );
+  const [myOrder, setMyOrder] = useState([]);
+  const [allOrder, setAllOrder] = useState([]);
+  const [orderList, setOrderList] = useState([]);
+
   const [dialoigeVisible, setDialoigeVisible] = useState(false);
   const [showuserside, setShowuserside] = useState(false);
   const [showAdminSide, setShowAdminSide] = useState(false);
@@ -198,25 +196,9 @@ const Categories = ({ navigation }) => {
       await firestore()
         .collection("orders")
         .onSnapshot((querySnapshot) => {
-          if (querySnapshot != null) {
-            querySnapshot.docs.map((documentSnapshot) => {
-              if (documentSnapshot.id == user.uid) {
-                setMainCategorymaleArray(
-                  documentSnapshot.data().selected_apparels
-                );
-                setNewMainCategorymaleArray(
-                  documentSnapshot.data().selected_apparels
-                );
-              } else {
-                setMainCategoryfemaleArray(
-                  documentSnapshot.data().selected_apparels
-                );
-                setNewMainCategoryfemaleArray(
-                  documentSnapshot.data().selected_apparels
-                );
-              }
-            });
-          }
+          querySnapshot.docs.map((documentSnapshot) => {
+            setAllOrder(documentSnapshot.data().selected_apparels);
+          });
         });
     } catch (err) {
       console.log(err);
@@ -225,6 +207,9 @@ const Categories = ({ navigation }) => {
 
   const renderItem = ({ item, index }) => {
     return <OrderItem item={item} index={index} />;
+  };
+  const myrenderItem = ({ item, index }) => {
+    return <MyOrderItem item={item} index={index} />;
   };
   const OrderItem = ({ item, index }) => {
     return (
@@ -267,28 +252,70 @@ const Categories = ({ navigation }) => {
       </TouchableOpacity>
     );
   };
+  const MyOrderItem = ({ item, index }) => {
+    return (
+      item.id == user.uid && (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("AddCategories", { value: item, ok: true })
+          }
+        >
+          <View style={css.orderView}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={css.firstname}>
+                <Text>{item.firstname}</Text>
+              </View>
+            </View>
+            <View>
+              <Text style={styles.Give}>Өгсөн</Text>
+              <Text style={{ textAlign: "justify" }}>{item.date}</Text>
+            </View>
+            {/* <View>
+            <Text style={styles.Give}>Авах</Text>
+            <Text>{date2}</Text>
+          </View> */}
+            <Feather
+              name="check-circle"
+              size={24}
+              color={Constant.greenColor}
+            />
+            <Feather
+              name="phone-forwarded"
+              size={18}
+              color={Constant.grayIconColor}
+            />
+            <Feather
+              name="user-check"
+              size={18}
+              color={Constant.grayIconColor}
+            />
+          </View>
+          <View style={styles.Divider}></View>
+        </TouchableOpacity>
+      )
+    );
+  };
   // console.log(newMainCategorymaleArray, "NewData-----");
   function MyOrder() {
     return (
       <View style={{ marginTop: 10 }}>
         <FlatList
           showsHorizontalScrollIndicator={false}
-          data={newMainCategorymaleArray}
-          renderItem={renderItem}
+          data={allOrder}
+          renderItem={myrenderItem}
           keyExtractor={(item, index) => index}
         />
       </View>
     );
   }
-
   function AllOrder() {
     return (
       <View style={{ marginTop: 10 }}>
         <FlatList
           showsHorizontalScrollIndicator={false}
-          data={newMainCategoryfemaleArray}
+          data={allOrder}
           renderItem={renderItem}
-          keyExtractor={(item, index) => item.apparel_steps}
+          keyExtractor={(item, index) => index}
         />
       </View>
     );

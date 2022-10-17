@@ -55,7 +55,7 @@ const SignupScreen = ({ navigation }) => {
   const { register } = useContext(AuthContext);
   const [transferred, setTransferred] = useState(0);
   const [spinner, setSpinner] = useState(false);
-  const [birthDay, setbirthDay] = useState("");
+  const [workday, setWorkDay] = useState("");
   const [datePicker, setDatePicker] = useState({
     showDate: false,
   });
@@ -76,7 +76,7 @@ const SignupScreen = ({ navigation }) => {
       phone_number != "" &&
       address != "" &&
       position != "" &&
-      birthDay != "" &&
+      workday != "" &&
       email != "" &&
       password != "" &&
       confirmPassword != ""
@@ -93,7 +93,7 @@ const SignupScreen = ({ navigation }) => {
             address,
             imageUrl,
             position,
-            birthDay
+            workday
           );
           setEmail("");
           setConfirmPassword("");
@@ -321,16 +321,16 @@ const SignupScreen = ({ navigation }) => {
                   marginHorizontal: 10,
                   fontSize: 16,
                   color:
-                    birthDay != "" ? Constant.blackColor : Constant.gray90Color,
+                    workday != "" ? Constant.blackColor : Constant.gray90Color,
                 }}
               >
-                {birthDay === "" ? "Төрсөн өдөр" : birthDay}
+                {workday === "" ? "Ажилд орсон огноо" : workday}
               </Text>
               <Feather
                 name="calendar"
                 size={24}
                 color={
-                  birthDay != "" ? Constant.blackColor : Constant.gray90Color
+                  workday != "" ? Constant.blackColor : Constant.gray90Color
                 }
               />
             </TouchableOpacity>

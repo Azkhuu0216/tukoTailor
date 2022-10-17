@@ -41,6 +41,9 @@ const OrderHistory = ({ navigation }) => {
     try {
       await firestore()
         .collection("orders")
+
+        // .onSnapshot((data) => setOrderData(data.docs));
+
         .onSnapshot((querySnapshot) => {
           querySnapshot.docs.map((documentSnapshot) => {
             setOrderData(documentSnapshot.data().selected_apparels);
@@ -81,6 +84,8 @@ const OrderHistory = ({ navigation }) => {
   // };
 
   const Order = (item) => {
+    console.log(item, "item----");
+
     return (
       <View>
         <View style={css.OrderView}>
