@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 // import styles from "../styles/styles";
@@ -168,7 +169,11 @@ const Contact = ({ navigation, route }) => {
         </ScrollView>
         <TouchableOpacity
           style={css.ChatButton}
-          onPress={() => navigation.navigate("Chat", { id: userId })}
+          onPress={() =>
+            check
+              ? navigation.navigate("Chat", { id: userId })
+              : Alert.alert("Чатлах хүнээ сонгоно уу.")
+          }
         >
           <Text style={{ color: Constant.whiteColor, fontSize: 20 }}>
             Чат бичих
@@ -179,7 +184,7 @@ const Contact = ({ navigation, route }) => {
   };
   return (
     <View style={styles.to_bg_image}>
-      {admin == admin ? (
+      {admin ? (
         <View style={{ marginTop: 50 }}>
           <MainHeader title="Гишүүд" back={true} />
         </View>
